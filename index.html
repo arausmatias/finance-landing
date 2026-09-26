@@ -1,0 +1,939 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Finance: tu plata en segundos</title>
+<meta name="description" content="Anotá un gasto en segundos, dividí la cuenta con amigos y compartí lo que pagan todos los meses. Tus datos quedan en tu teléfono.">
+<meta name="theme-color" content="#0E4A34">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700;800&display=swap">
+<style>
+/* Tokens mirror src/shared/theme/tokens.ts (light) */
+:root, .scheme-day {
+  color-scheme: light;
+  --brand: #0E4A34; --brand-tint: #0E4A34; --brand-soft: #DCEBE3;
+  --hero: #0E4A34; --hero-deep: #093324; --on-hero-muted: #9FC2B1;
+  --accent: #B6EB7D; --on-accent: #0E4A34;
+  --bg: #F1F2EE; --surface: #FFFFFF; --surface-alt: #E8EAE4;
+  --border: #E3E5E0; --border-strong: #C9CDC6; --edge: #FFFFFF;
+  --text: #17201B; --muted: #66706A; --subtle: #A2A9A4;
+  --income-text: #1F7A44; --expense: #E05A4F; --expense-text: #B8433A;
+  --green: #2F9E5B; --green-soft: #DDF3E4; --green-ink: #1F7A44;
+  --blue: #2F7FC8; --blue-soft: #DCEAF7; --blue-ink: #1F5F9A;
+  --red: #E05A4F; --red-soft: #FBE1DD; --red-ink: #B8433A;
+  --orange: #E8893A; --orange-soft: #FCE8D6; --orange-ink: #9E561A;
+  --yellow: #E0B021; --yellow-soft: #FBF1D0; --yellow-ink: #85680A;
+  --purple: #8B5CD6; --purple-soft: #EBE2FA; --purple-ink: #6B42B0;
+  --pink: #D6517A; --pink-soft: #F9DFE8; --pink-ink: #B03B61;
+  --teal: #1FA396; --teal-soft: #D5F1EE; --teal-ink: #147369;
+  --whisper: 0 1px 3px rgba(16, 32, 24, 0.06);
+  --float: 0 6px 20px rgba(16, 32, 24, 0.12);
+}
+/* The Greenhouse at Night */
+:root[data-theme="dark"], .scheme-night {
+  color-scheme: dark;
+  --brand: #1F6E4D; --brand-tint: #86D6AB; --brand-soft: #1A3328;
+  --hero: #0F3D2B; --hero-deep: #0B2E21;
+  --bg: #0C1210; --surface: #151D19; --surface-alt: #1F2924;
+  --border: #25302A; --border-strong: #3A4740; --edge: #1F2924;
+  --text: #E8EFEA; --muted: #9AA69F; --subtle: #6E7A73;
+  --income-text: #74D69B; --expense: #EE6F63; --expense-text: #FF9A8F;
+  --green: #44B872; --green-soft: #193826; --green-ink: #7FD3A0;
+  --blue: #4C95DE; --blue-soft: #172D42; --blue-ink: #8DBDF0;
+  --red: #EC6A5F; --red-soft: #40201D; --red-ink: #FF9A8F;
+  --orange: #EE9A52; --orange-soft: #3D2A18; --orange-ink: #F5B77F;
+  --yellow: #E6BC3A; --yellow-soft: #3A3114; --yellow-ink: #F0CF6A;
+  --purple: #A07BE3; --purple-soft: #2C2340; --purple-ink: #C2A6F0;
+  --pink: #E06A8F; --pink-soft: #3D1F2A; --pink-ink: #F29BB6;
+  --teal: #2DBAAB; --teal-soft: #133733; --teal-ink: #6FD8CB;
+  --whisper: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --float: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --brand: #1F6E4D; --brand-tint: #86D6AB; --brand-soft: #1A3328;
+    --hero: #0F3D2B; --hero-deep: #0B2E21;
+    --bg: #0C1210; --surface: #151D19; --surface-alt: #1F2924;
+    --border: #25302A; --border-strong: #3A4740; --edge: #1F2924;
+    --text: #E8EFEA; --muted: #9AA69F; --subtle: #6E7A73;
+    --income-text: #74D69B; --expense: #EE6F63; --expense-text: #FF9A8F;
+    --green: #44B872; --green-soft: #193826; --green-ink: #7FD3A0;
+    --blue: #4C95DE; --blue-soft: #172D42; --blue-ink: #8DBDF0;
+    --red: #EC6A5F; --red-soft: #40201D; --red-ink: #FF9A8F;
+    --orange: #EE9A52; --orange-soft: #3D2A18; --orange-ink: #F5B77F;
+    --yellow: #E6BC3A; --yellow-soft: #3A3114; --yellow-ink: #F0CF6A;
+    --purple: #A07BE3; --purple-soft: #2C2340; --purple-ink: #C2A6F0;
+    --pink: #E06A8F; --pink-soft: #3D1F2A; --pink-ink: #F29BB6;
+    --teal: #2DBAAB; --teal-soft: #133733; --teal-ink: #6FD8CB;
+    --whisper: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --float: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+}
+/* Deep fills keep white text in both themes */
+:root {
+  --green-deep: #1F7A44; --blue-deep: #1F5F9A; --purple-deep: #6B42B0; --teal-deep: #147369;
+  --orange-deep: #9E561A; --pink-deep: #B03B61;
+  --font: "Figtree", ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+::selection { background: var(--accent); color: #0E4A34; }
+:focus-visible { outline: 3px solid var(--brand-tint); outline-offset: 2px; border-radius: 12px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+h1, h2, h3, p, ol, ul { margin: 0; }
+.num { font-variant-numeric: tabular-nums; }
+.i { width: 20px; height: 20px; fill: currentColor; flex: none; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.wrap {
+  width: 100%;
+  max-width: 1160px;
+  margin-inline: auto;
+  padding-inline: max(16px, env(safe-area-inset-left, 0px));
+}
+
+/* Pressables: scale, never a ripple */
+.press { transition: transform 160ms var(--ease-out), opacity 160ms var(--ease-out), background-color 160ms; }
+.press:active { transform: scale(0.97); opacity: 0.9; }
+
+/* ---------- Hero ---------- */
+.hero {
+  background: var(--hero);
+  color: #FFFFFF;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 12px);
+  padding-bottom: 112px;
+}
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; }
+.logo { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 800; letter-spacing: -0.3px; color: #FFFFFF; text-decoration: none; }
+.logo svg { width: 32px; height: 32px; }
+.toplink {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding-inline: 16px;
+  border-radius: 999px; border: 1.5px solid rgba(255, 255, 255, 0.35);
+  color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 15px;
+}
+.toplink:hover { background: rgba(255, 255, 255, 0.08); }
+.hero-body { display: grid; gap: 16px; padding-top: 20px; }
+.hero-side { display: grid; gap: 16px; }
+@media (max-width: 719px) { .hero-actions .btn-ghost { display: none; } }
+.hero h1 {
+  font-size: clamp(42px, 8.4vw, 92px);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  max-width: 11ch;
+  text-wrap: balance;
+}
+.hero h1 em { font-style: normal; color: var(--accent); }
+.lead { color: var(--on-hero-muted); font-size: 18px; line-height: 1.45; font-weight: 600; max-width: 34ch; }
+.lead strong { color: #FFFFFF; font-weight: 700; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding-top: 4px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 56px; padding-inline: 24px; border-radius: 999px; border: 1.5px solid transparent;
+  font-size: 17px; font-weight: 700; text-decoration: none; white-space: nowrap;
+}
+.btn-accent { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn-accent:hover { background: #C4F190; }
+.btn-primary { background: var(--brand); border-color: var(--brand); color: #FFFFFF; width: 100%; }
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-primary:disabled { background: var(--surface-alt); border-color: var(--surface-alt); color: var(--subtle); cursor: not-allowed; transform: none; opacity: 1; }
+.btn-ghost { color: #FFFFFF; min-height: 44px; padding-inline: 4px; text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1.5px; text-decoration-color: rgba(255, 255, 255, 0.4); font-size: 16px; }
+.btn-ghost:hover { text-decoration-color: #FFFFFF; }
+.soon { display: flex; align-items: center; gap: 8px; color: var(--on-hero-muted); font-size: 14px; font-weight: 600; }
+.soon .i { width: 18px; height: 18px; }
+
+/* ---------- Beds (the grid) ---------- */
+.beds {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  margin-top: -88px;
+  position: relative;
+}
+.bed {
+  background: var(--surface);
+  border: 1px solid var(--edge);
+  border-radius: 24px;
+  box-shadow: var(--whisper);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+.bed-head { display: flex; flex-direction: column; gap: 6px; }
+.bed-head-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.bed h2 { font-size: 23px; line-height: 1.15; font-weight: 800; letter-spacing: -0.4px; text-wrap: balance; }
+.cap { color: var(--muted); font-size: 15px; line-height: 1.4; font-weight: 500; max-width: 48ch; }
+.label { font-size: 12px; line-height: 16px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--muted); }
+
+/* Shared app atoms */
+.badge { width: 40px; height: 40px; border-radius: 999px; display: grid; place-items: center; flex: none; }
+.badge .i { width: 20px; height: 20px; }
+.row { display: flex; align-items: center; gap: 12px; min-height: 52px; }
+.row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.row-title { font-size: 16px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.row-meta { font-size: 13px; color: var(--muted); font-weight: 500; }
+.amt { font-weight: 800; font-size: 16px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.amt.out { color: var(--text); }
+.amt.in { color: var(--income-text); }
+.pill {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding-inline: 12px;
+  border-radius: 999px; background: var(--surface); border: 1px solid var(--border);
+  font-size: 14px; font-weight: 700; white-space: nowrap;
+}
+.pill .i { width: 18px; height: 18px; }
+.tag { display: inline-flex; align-items: center; min-height: 26px; padding-inline: 10px; border-radius: 999px; font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+.track { height: 8px; border-radius: 999px; background: var(--border); overflow: hidden; }
+.fill { height: 100%; border-radius: 999px; }
+#goalFill { width: 100%; transform-origin: left center; transition: transform 450ms var(--ease-out); }
+
+/* Segmented control */
+.seg { display: flex; padding: 4px; gap: 2px; border-radius: 999px; background: var(--surface-alt); }
+.seg button {
+  flex: 1; min-height: 38px; border: 0; border-radius: 999px; background: transparent;
+  font-size: 14.5px; font-weight: 700; color: var(--muted); padding-inline: 10px; white-space: nowrap;
+}
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--brand-tint); box-shadow: 0 1px 3px rgba(16, 32, 24, 0.1); }
+
+/* ---------- Keypad bed ---------- */
+.screen { background: var(--bg); border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.screen-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.streak-pill .i { color: var(--subtle); transition: color 200ms; }
+.streak-pill.lit .i { color: var(--orange); }
+.streak-pill.pop .i { animation: pop 520ms var(--ease-out); }
+@keyframes pop { 0% { transform: scale(1); } 35% { transform: scale(1.45) rotate(-8deg); } 100% { transform: scale(1); } }
+.goal { display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1; max-width: 190px; }
+.goal-text { font-size: 13px; font-weight: 700; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; }
+.goal .fill { background: var(--orange); }
+.goal.done .fill { background: var(--green); }
+.goal.done .goal-text b { color: var(--income-text); }
+.amount-display {
+  text-align: center; font-size: 48px; line-height: 58px; font-weight: 800; letter-spacing: -1px;
+  color: var(--expense); font-variant-numeric: tabular-nums; padding-block: 4px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.amount-display.zero { color: var(--subtle); }
+.chips { display: flex; gap: 8px; overflow-x: auto; margin-inline: -14px; padding-inline: 14px; padding-block: 3px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 38px; padding-inline: 12px;
+  border-radius: 999px; background: var(--surface); border: 1px solid var(--border);
+  font-size: 14px; font-weight: 600; color: var(--text); white-space: nowrap; flex: none;
+}
+.chip .i { width: 18px; height: 18px; }
+.chip[aria-pressed="true"] { background: var(--brand); border-color: var(--brand); color: #FFFFFF; }
+.chip[aria-pressed="true"] .i { color: #FFFFFF !important; }
+.keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.key {
+  min-height: 52px; border-radius: 16px; border: 0; background: var(--surface);
+  font-size: 24px; font-weight: 700; color: var(--text); display: grid; place-items: center;
+  font-variant-numeric: tabular-nums;
+}
+.key:active { background: var(--surface-alt); }
+.key .i { width: 26px; height: 26px; color: var(--muted); }
+.recent { display: flex; flex-direction: column; }
+.recent-head { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 2px; }
+.recent-list { list-style: none; padding: 0; display: flex; flex-direction: column; }
+.recent-list li + li { border-top: 1px solid var(--border); }
+.recent-list li.new { animation: land 520ms var(--ease-out); }
+@keyframes land { from { opacity: 0; transform: translateY(-10px) scale(0.98); } to { opacity: 1; transform: none; } }
+.toast {
+  position: absolute; left: 50%; top: 12px; transform: translate(-50%, -8px);
+  background: var(--brand); color: #FFFFFF; border-radius: 999px; min-height: 40px; padding-inline: 16px;
+  display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px;
+  box-shadow: var(--float); opacity: 0; pointer-events: none; white-space: nowrap;
+  transition: opacity 200ms, transform 300ms var(--ease-out);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast .i { width: 18px; height: 18px; color: var(--accent); }
+.demo-note { font-size: 13px; color: var(--muted); font-weight: 500; text-align: center; }
+#probar { position: relative; scroll-margin-top: 16px; }
+
+/* ---------- Wallets ---------- */
+.eye { min-height: 44px; border: 1px solid var(--border); background: var(--surface); color: var(--text); }
+.eye .i { color: var(--muted); }
+.wallets { display: flex; gap: 12px; overflow-x: auto; margin-inline: -20px; padding-inline: 20px; padding-bottom: 6px; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+.wallet {
+  flex: none; width: 168px; min-height: 112px; border-radius: 24px; padding: 12px; color: #FFFFFF;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 8px; scroll-snap-align: start;
+}
+.wallet-ico { width: 30px; height: 30px; border-radius: 999px; background: rgba(255, 255, 255, 0.2); display: grid; place-items: center; }
+.wallet-ico .i { width: 18px; height: 18px; }
+.wallet-name { font-size: 13px; font-weight: 600; color: rgba(255, 255, 255, 0.9); }
+.wallet-bal { font-size: 19px; font-weight: 800; letter-spacing: -0.3px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.wallet-new {
+  flex: none; width: 120px; min-height: 112px; border-radius: 24px; border: 1.5px dashed var(--border-strong);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  color: var(--muted); font-size: 14px; font-weight: 700; text-align: center; padding: 8px;
+}
+.wallet-new .i { width: 24px; height: 24px; }
+.hide-amounts .money { filter: blur(0); }
+.hide-amounts .money > span { display: none; }
+.money .dots { display: none; letter-spacing: 2px; }
+.hide-amounts .money .dots { display: inline; }
+
+/* ---------- Split ---------- */
+.expense-line { display: flex; align-items: center; gap: 12px; }
+.people { list-style: none; padding: 0; display: flex; flex-direction: column; }
+.people li { display: flex; align-items: center; gap: 12px; min-height: 52px; }
+.people li + li { border-top: 1px solid var(--border); }
+.avatar { width: 36px; height: 36px; border-radius: 999px; display: grid; place-items: center; font-size: 15px; font-weight: 800; flex: none; }
+.share-detail { font-size: 13px; color: var(--muted); font-weight: 500; }
+.settle { display: flex; flex-direction: column; gap: 8px; background: var(--bg); border-radius: 16px; padding: 12px 14px; }
+.settle-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.settle-row { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; }
+.settle-row .i { width: 18px; height: 18px; color: var(--muted); }
+.settle-row .amt { margin-left: auto; }
+
+/* ---------- Recurring ---------- */
+.canopy { background: var(--hero); color: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.canopy-top { display: flex; align-items: center; gap: 12px; }
+.canopy .badge { background: rgba(255, 255, 255, 0.14); color: #FFFFFF; }
+.canopy-title { font-size: 18px; font-weight: 700; }
+.canopy-sub { font-size: 13.5px; color: var(--on-hero-muted); font-weight: 500; }
+.canopy-amount { font-size: 34px; line-height: 1.1; font-weight: 800; letter-spacing: -0.6px; font-variant-numeric: tabular-nums; }
+.canopy-amount small { font-size: 16px; color: var(--on-hero-muted); font-weight: 600; letter-spacing: 0; }
+.canopy .track { background: var(--hero-deep); }
+.canopy .fill { background: #FFFFFF; }
+.canopy-meta { display: flex; justify-content: space-between; gap: 8px; font-size: 13.5px; color: var(--on-hero-muted); font-weight: 600; flex-wrap: wrap; }
+.canopy-meta b { color: #FFFFFF; }
+.invite { display: flex; align-items: center; justify-content: space-between; gap: 12px; border: 1.5px dashed var(--border-strong); border-radius: 16px; padding: 12px 14px; flex-wrap: wrap; }
+.code { font-size: 28px; font-weight: 800; letter-spacing: 5px; color: var(--brand-tint); font-variant-numeric: tabular-nums; }
+.btn-small {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding-inline: 14px; border-radius: 999px;
+  background: var(--surface); color: var(--brand-tint); border: 1.5px solid var(--border); font-size: 14px; font-weight: 700;
+}
+.btn-small .i { width: 18px; height: 18px; }
+.steps { list-style: none; padding: 0; display: grid; gap: 8px; counter-reset: step; }
+.steps li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--muted); font-weight: 500; line-height: 1.35; counter-increment: step; }
+.steps li::before {
+  content: counter(step); flex: none; width: 22px; height: 22px; border-radius: 999px; background: var(--brand-soft);
+  color: var(--brand-tint); font-size: 12px; font-weight: 800; display: grid; place-items: center; margin-top: -1px;
+}
+
+/* ---------- Streak ---------- */
+.habit-top { display: flex; align-items: center; gap: 16px; }
+.habit-top svg.moni { width: 76px; height: 76px; flex: none; }
+.habit-pills { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.habit-pills .pill { background: var(--bg); border-color: transparent; }
+.fire { color: var(--orange); }
+.star { color: var(--yellow); }
+.week-wrap { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; align-items: end; flex: 1; min-height: 120px; }
+.bar-col { display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; }
+.bar { width: 100%; max-width: 34px; border-radius: 10px; background: var(--brand-soft); }
+.bar.today { background: var(--brand); }
+.bar.future { background: var(--surface-alt); }
+.bar-day { font-size: 12px; font-weight: 700; color: var(--muted); }
+.bar-day.today { color: var(--brand-tint); }
+.level { display: flex; flex-direction: column; gap: 6px; }
+.level-text { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--muted); font-weight: 600; gap: 8px; }
+.level-text b { color: var(--text); font-weight: 800; }
+.level .fill { background: var(--yellow); }
+
+/* ---------- Night ---------- */
+.mini {
+  background: var(--bg); color: var(--text); border-radius: 20px; padding: 14px;
+  display: flex; flex-direction: column; gap: 12px; border: 1px solid var(--border);
+  transition: background-color 300ms, color 300ms, border-color 300ms;
+}
+.mini-card { background: var(--surface); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 12px; border: 1px solid var(--edge); transition: background-color 300ms; }
+.totals { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.totals div { display: flex; flex-direction: column; gap: 2px; }
+.totals span { font-size: 13px; color: var(--muted); font-weight: 600; }
+.totals b { font-size: 20px; font-weight: 800; letter-spacing: -0.3px; font-variant-numeric: tabular-nums; }
+.stack { display: flex; height: 12px; border-radius: 999px; overflow: hidden; gap: 2px; }
+.stack span { display: block; height: 100%; }
+.legend { list-style: none; padding: 0; display: flex; flex-direction: column; }
+.legend li { display: flex; align-items: center; gap: 10px; min-height: 44px; }
+.legend .badge { width: 34px; height: 34px; }
+.legend .badge .i { width: 17px; height: 17px; }
+.legend .pct { color: var(--muted); font-size: 13px; font-weight: 600; width: 38px; text-align: right; font-variant-numeric: tabular-nums; }
+.legend .row-title { flex: 1; font-size: 15px; }
+.langs { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.langs .pill { background: var(--bg); border-color: transparent; font-weight: 600; }
+
+/* ---------- Privacy ---------- */
+.privacy-big { display: flex; gap: 14px; align-items: flex-start; }
+.privacy-big .badge { width: 52px; height: 52px; background: var(--green-soft); color: var(--green); }
+.privacy-big .badge .i { width: 26px; height: 26px; }
+.sheet {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 28px 28px 20px 20px; padding: 8px 16px 16px;
+  display: flex; flex-direction: column; gap: 12px; box-shadow: var(--float);
+}
+.handle { width: 44px; height: 5px; border-radius: 999px; background: var(--border); align-self: center; }
+.sheet-title { font-size: 18px; font-weight: 700; text-align: center; }
+.sheet-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.fact { background: var(--bg); border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+.fact span { font-size: 12.5px; color: var(--muted); font-weight: 600; }
+.fact b { font-size: 16px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.note { display: flex; gap: 10px; align-items: flex-start; background: var(--green-soft); color: var(--text); border-radius: 14px; padding: 10px 12px; font-size: 14px; font-weight: 600; line-height: 1.35; }
+.note .i { color: var(--green-ink); width: 20px; height: 20px; margin-top: 1px; }
+.promises { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.promises li { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding-inline: 12px; border-radius: 999px; background: var(--bg); font-size: 14px; font-weight: 700; }
+.promises .i { width: 18px; height: 18px; color: var(--green); }
+
+/* ---------- Close ---------- */
+.close { padding-block: 72px 32px; display: grid; gap: 20px; justify-items: start; }
+.close svg.moni { width: 88px; height: 88px; }
+.close h2 { font-size: clamp(34px, 5.6vw, 60px); line-height: 1.02; font-weight: 800; letter-spacing: -0.03em; max-width: 14ch; text-wrap: balance; }
+.close p { color: var(--muted); font-size: 18px; font-weight: 500; max-width: 40ch; }
+.stores { display: flex; flex-wrap: wrap; gap: 10px; }
+.store { display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding-inline: 16px 20px; border-radius: 999px; border: 1.5px solid var(--border-strong); background: var(--surface); }
+.store .i { width: 24px; height: 24px; }
+.store span { display: flex; flex-direction: column; line-height: 1.15; }
+.store small { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; }
+.store b { font-size: 16px; font-weight: 800; }
+.again { color: var(--brand-tint); font-weight: 700; text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1.5px; min-height: 44px; display: inline-flex; align-items: center; }
+footer { border-top: 1px solid var(--border); padding-block: 20px calc(24px + env(safe-area-inset-bottom, 0px)); color: var(--muted); font-size: 13.5px; font-weight: 500; }
+
+/* ---------- Layout breakpoints ---------- */
+@media (min-width: 720px) {
+  .beds { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: dense; }
+  .bed-keypad { grid-row: span 2; }
+  .bed-recurring, .bed-privacy { grid-column: 1 / -1; }
+  .bed { padding: 24px; }
+  .wallets { margin-inline: -24px; padding-inline: 24px; }
+  .hero { padding-bottom: 120px; }
+  .beds { margin-top: -96px; }
+}
+@media (min-width: 1040px) {
+  .beds { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .bed-keypad { grid-column: span 5; grid-row: span 2; }
+  .bed-wallets, .bed-split { grid-column: span 7; }
+  .bed-recurring { grid-column: span 7; }
+  .bed-streak { grid-column: span 5; }
+  .bed-night { grid-column: span 5; }
+  .bed-privacy { grid-column: span 7; }
+  .hero-body { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); align-items: end; gap: 32px; padding-top: 48px; }
+  .hero-side { display: grid; gap: 20px; padding-bottom: 12px; }
+  .bed-recurring .recurring-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .bed-privacy .privacy-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: center; }
+}
+.recurring-body, .privacy-body { display: flex; flex-direction: column; gap: 16px; }
+.recurring-side { display: flex; flex-direction: column; gap: 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+  .press:active { transform: none; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-apple" viewBox="0 0 24 24"><path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/></symbol><symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></symbol><symbol id="i-backspace-outline" viewBox="0 0 24 24"><path d="M19,15.59L17.59,17L14,13.41L10.41,17L9,15.59L12.59,12L9,8.41L10.41,7L14,10.59L17.59,7L19,8.41L15.41,12L19,15.59M22,3A2,2 0 0,1 24,5V19A2,2 0 0,1 22,21H7C6.31,21 5.77,20.64 5.41,20.11L0,12L5.41,3.88C5.77,3.35 6.31,3 7,3H22M22,5H7L2.28,12L7,19H22V5Z"/></symbol><symbol id="i-bank" viewBox="0 0 24 24"><path d="M11.5,1L2,6V8H21V6M16,10V17H19V10M2,22H21V19H2M10,10V17H13V10M4,10V17H7V10H4Z"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M10,2H14A2,2 0 0,1 16,4V6H20A2,2 0 0,1 22,8V19A2,2 0 0,1 20,21H4C2.89,21 2,20.1 2,19V8C2,6.89 2.89,6 4,6H8V4C8,2.89 8.89,2 10,2M14,6V4H10V6H14Z"/></symbol><symbol id="i-bus" viewBox="0 0 24 24"><path d="M18,11H6V6H18M16.5,17A1.5,1.5 0 0,1 15,15.5A1.5,1.5 0 0,1 16.5,14A1.5,1.5 0 0,1 18,15.5A1.5,1.5 0 0,1 16.5,17M7.5,17A1.5,1.5 0 0,1 6,15.5A1.5,1.5 0 0,1 7.5,14A1.5,1.5 0 0,1 9,15.5A1.5,1.5 0 0,1 7.5,17M4,16C4,16.88 4.39,17.67 5,18.22V20A1,1 0 0,0 6,21H7A1,1 0 0,0 8,20V19H16V20A1,1 0 0,0 17,21H18A1,1 0 0,0 19,20V18.22C19.61,17.67 20,16.88 20,16V6C20,2.5 16.42,2 12,2C7.58,2 4,2.5 4,6V16Z"/></symbol><symbol id="i-cart" viewBox="0 0 24 24"><path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z"/></symbol><symbol id="i-cash" viewBox="0 0 24 24"><path d="M3,6H21V18H3V6M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M7,8A2,2 0 0,1 5,10V14A2,2 0 0,1 7,16H17A2,2 0 0,1 19,14V10A2,2 0 0,1 17,8H7Z"/></symbol><symbol id="i-cellphone-lock" viewBox="0 0 24 24"><path d="M17,1H7A2,2 0 0,0 5,3V6H7V4H17V20H7V18H5V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3A2,2 0 0,0 17,1M8.8,11V9.5C8.8,8.1 7.4,7 6,7C4.6,7 3.2,8.1 3.2,9.5V11C2.6,11 2,11.6 2,12.2V15.7C2,16.4 2.6,17 3.2,17H8.7C9.4,17 10,16.4 10,15.8V12.3C10,11.6 9.4,11 8.8,11M7.5,11H4.5V9.5C4.5,8.7 5.2,8.2 6,8.2C6.8,8.2 7.5,8.7 7.5,9.5V11Z"/></symbol><symbol id="i-check-bold" viewBox="0 0 24 24"><path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/></symbol><symbol id="i-check-circle" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"/></symbol><symbol id="i-coffee" viewBox="0 0 24 24"><path d="M2,21H20V19H2M20,8H18V5H20M20,3H4V13A4,4 0 0,0 8,17H14A4,4 0 0,0 18,13V10H20A2,2 0 0,0 22,8V5C22,3.89 21.1,3 20,3Z"/></symbol><symbol id="i-content-copy" viewBox="0 0 24 24"><path d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/></symbol><symbol id="i-credit-card" viewBox="0 0 24 24"><path d="M20 4H4A2 2 0 0 0 2 6V18A2 2 0 0 0 4 20H20A2 2 0 0 0 22 18V6A2 2 0 0 0 20 4M20 11H4V8H20Z"/></symbol><symbol id="i-eye-outline" viewBox="0 0 24 24"><path d="M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M12,4.5C17,4.5 21.27,7.61 23,12C21.27,16.39 17,19.5 12,19.5C7,19.5 2.73,16.39 1,12C2.73,7.61 7,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C15.76,17.5 19.17,15.36 20.82,12C19.17,8.64 15.76,6.5 12,6.5C8.24,6.5 4.83,8.64 3.18,12Z"/></symbol><symbol id="i-fire" viewBox="0 0 24 24"><path d="M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z"/></symbol><symbol id="i-google-play" viewBox="0 0 24 24"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></symbol><symbol id="i-lightning-bolt" viewBox="0 0 24 24"><path d="M11 15H6L13 1V9H18L11 23V15Z"/></symbol><symbol id="i-play-box-multiple" viewBox="0 0 24 24"><path d="M4,6H2V20A2,2 0 0,0 4,22H18V20H4V6M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M12,14.5V5.5L18,10L12,14.5Z"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/></symbol><symbol id="i-shield-check-outline" viewBox="0 0 24 24"><path d="M21,11C21,16.55 17.16,21.74 12,23C6.84,21.74 3,16.55 3,11V5L12,1L21,5V11M12,21C15.75,20 19,15.54 19,11.22V6.3L12,3.18L5,6.3V11.22C5,15.54 8.25,20 12,21M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9"/></symbol><symbol id="i-silverware-fork-knife" viewBox="0 0 24 24"><path d="M11,9H9V2H7V9H5V2H3V9C3,11.12 4.66,12.84 6.75,12.97V22H9.25V12.97C11.34,12.84 13,11.12 13,9V2H11V9M16,6V14H18.5V22H21V2C18.24,2 16,4.24 16,6Z"/></symbol><symbol id="i-star-four-points" viewBox="0 0 24 24"><path d="M12,1L9,9L1,12L9,15L12,23L15,15L23,12L15,9L12,1Z"/></symbol><symbol id="i-translate" viewBox="0 0 24 24"><path d="M12.87,15.07L10.33,12.56L10.36,12.53C12.1,10.59 13.34,8.36 14.07,6H17V4H10V2H8V4H1V6H12.17C11.5,7.92 10.44,9.75 9,11.35C8.07,10.32 7.3,9.19 6.69,8H4.69C5.42,9.63 6.42,11.17 7.67,12.56L2.58,17.58L4,19L9,14L12.11,17.11L12.87,15.07M18.5,10H16.5L12,22H14L15.12,19H19.87L21,22H23L18.5,10M15.88,17L17.5,12.67L19.12,17H15.88Z"/></symbol><symbol id="i-wallet" viewBox="0 0 24 24"><path d="M21,18V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H19A2,2 0 0,1 21,5V6H12C10.89,6 10,6.9 10,8V16A2,2 0 0,0 12,18M12,16H22V8H12M16,13.5A1.5,1.5 0 0,1 14.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,12A1.5,1.5 0 0,1 16,13.5Z"/></symbol><symbol id="i-weather-night" viewBox="0 0 24 24"><path d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95M17.33,17.97C14.5,17.81 11.7,16.64 9.53,14.5C7.36,12.31 6.2,9.5 6.04,6.68C3.23,9.82 3.34,14.64 6.35,17.66C9.37,20.67 14.19,20.78 17.33,17.97Z"/></symbol><symbol id="i-white-balance-sunny" viewBox="0 0 24 24"><path d="M3.55 19.09L4.96 20.5L6.76 18.71L5.34 17.29M12 6C8.69 6 6 8.69 6 12S8.69 18 12 18 18 15.31 18 12C18 8.68 15.31 6 12 6M20 13H23V11H20M17.24 18.71L19.04 20.5L20.45 19.09L18.66 17.29M20.45 5L19.04 3.6L17.24 5.39L18.66 6.81M13 1H11V4H13M6.76 5.39L4.96 3.6L3.55 5L5.34 6.81L6.76 5.39M1 13H4V11H1M13 20H11V23H13"/></symbol><symbol id="moni-happy" viewBox="0 0 120 120"><ellipse cx="60" cy="112" rx="34" ry="6" fill="#000" opacity="0.08"/><circle cx="60" cy="58" r="50" fill="#9C7A0E"/><circle cx="60" cy="54" r="50" fill="#E0B021"/><circle cx="60" cy="54" r="38" fill="#FFD84D"/><path d="M30 30 Q40 18 56 16" stroke="#FFF" stroke-width="6" stroke-linecap="round" opacity="0.6" fill="none"/><ellipse cx="46" cy="50" rx="6" ry="8" fill="#3C3C3C"/><ellipse cx="74" cy="50" rx="6" ry="8" fill="#3C3C3C"/><circle cx="48" cy="46" r="2.4" fill="#FFF"/><circle cx="76" cy="46" r="2.4" fill="#FFF"/><circle cx="36" cy="64" r="6" fill="#D6517A" opacity="0.55"/><circle cx="84" cy="64" r="6" fill="#D6517A" opacity="0.55"/><path d="M48 66 Q60 80 72 66" stroke="#3C3C3C" stroke-width="5" stroke-linecap="round" fill="none"/></symbol><symbol id="moni-wow" viewBox="0 0 120 120"><ellipse cx="60" cy="112" rx="34" ry="6" fill="#000" opacity="0.08"/><circle cx="60" cy="58" r="50" fill="#9C7A0E"/><circle cx="60" cy="54" r="50" fill="#E0B021"/><circle cx="60" cy="54" r="38" fill="#FFD84D"/><path d="M30 30 Q40 18 56 16" stroke="#FFF" stroke-width="6" stroke-linecap="round" opacity="0.6" fill="none"/><ellipse cx="46" cy="50" rx="6" ry="9" fill="#3C3C3C"/><ellipse cx="74" cy="50" rx="6" ry="9" fill="#3C3C3C"/><circle cx="48" cy="46" r="2.4" fill="#FFF"/><circle cx="76" cy="46" r="2.4" fill="#FFF"/><circle cx="36" cy="64" r="6" fill="#D6517A" opacity="0.55"/><circle cx="84" cy="64" r="6" fill="#D6517A" opacity="0.55"/><ellipse cx="60" cy="70" rx="7" ry="8" fill="#3C3C3C"/></symbol></svg>
+
+<header class="hero">
+  <div class="wrap">
+    <nav class="topbar" aria-label="Principal">
+      <a class="logo" href="#top" id="top">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-happy"/></svg>
+        Finance
+      </a>
+      <a class="toplink press" href="#funciones">Qué hace</a>
+    </nav>
+    <div class="hero-body">
+      <h1>Tu plata, anotada <em>en segundos.</em></h1>
+      <div class="hero-side">
+        <p class="lead">Cargá un gasto en tres toques, dividí la cuenta con quien quieras y armá el hábito. <strong>Todo queda en tu teléfono.</strong></p>
+        <div class="hero-actions">
+          <a class="btn btn-accent press" href="#probar">Probala acá abajo</a>
+          <a class="btn-ghost" href="#funciones">Ver todo lo que hace</a>
+        </div>
+        <p class="soon"><svg class="i" aria-hidden="true"><use href="#i-apple"/></svg><svg class="i" aria-hidden="true"><use href="#i-google-play"/></svg>Muy pronto en iPhone y Android</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="beds" id="funciones">
+
+    <!-- Keypad: the signature interaction -->
+    <section class="bed bed-keypad" id="probar" aria-labelledby="h-keypad">
+      <div class="bed-head">
+        <h2 id="h-keypad">Tres toques y listo.</h2>
+        <p class="cap">Tocá los números, elegí la categoría y guardá. Así se carga un gasto en la app.</p>
+      </div>
+      <div class="screen">
+        <div class="screen-top">
+          <span class="pill streak-pill" id="streakPill"><svg class="i" aria-hidden="true"><use href="#i-fire"/></svg><span class="num" data-streak>12</span><span class="sr-only"> días de racha</span></span>
+          <div class="goal" id="goal">
+            <div class="goal-text"><span>Meta de hoy</span><b class="num" id="goalText">1 de 2</b></div>
+            <div class="track"><div class="fill" id="goalFill" style="transform:scaleX(0.5)"></div></div>
+          </div>
+        </div>
+        <output class="amount-display num" id="amount" aria-live="polite">$ 4.500</output>
+        <div class="chips" role="group" aria-label="Categoría" id="chips">
+          <button class="chip press" aria-pressed="true" data-cat="coffee"><svg class="i" style="color:var(--yellow)" aria-hidden="true"><use href="#i-coffee"/></svg>Café</button>
+          <button class="chip press" aria-pressed="false" data-cat="supermarket"><svg class="i" style="color:var(--green)" aria-hidden="true"><use href="#i-cart"/></svg>Súper</button>
+          <button class="chip press" aria-pressed="false" data-cat="transport"><svg class="i" style="color:var(--blue)" aria-hidden="true"><use href="#i-bus"/></svg>Transporte</button>
+          <button class="chip press" aria-pressed="false" data-cat="restaurants"><svg class="i" style="color:var(--orange)" aria-hidden="true"><use href="#i-silverware-fork-knife"/></svg>Restaurantes</button>
+          <button class="chip press" aria-pressed="false" data-cat="services"><svg class="i" style="color:var(--yellow)" aria-hidden="true"><use href="#i-lightning-bolt"/></svg>Servicios</button>
+        </div>
+        <div class="keypad" id="keypad" aria-label="Teclado numérico">
+          <button class="key press" data-k="1">1</button><button class="key press" data-k="2">2</button><button class="key press" data-k="3">3</button>
+          <button class="key press" data-k="4">4</button><button class="key press" data-k="5">5</button><button class="key press" data-k="6">6</button>
+          <button class="key press" data-k="7">7</button><button class="key press" data-k="8">8</button><button class="key press" data-k="9">9</button>
+          <button class="key press" data-k="," aria-label="Separador decimal">,</button><button class="key press" data-k="0">0</button>
+          <button class="key press" data-k="back" aria-label="Borrar"><svg class="i" aria-hidden="true"><use href="#i-backspace-outline"/></svg></button>
+        </div>
+        <button class="btn btn-primary press" id="save">Guardar</button>
+      </div>
+      <div class="recent">
+        <div class="recent-head"><span class="label">Últimos movimientos</span></div>
+        <ul class="recent-list" id="recent">
+          <li class="row">
+            <span class="badge" style="background:var(--blue-soft);color:var(--blue)"><svg class="i" aria-hidden="true"><use href="#i-bus"/></svg></span>
+            <span class="row-main"><span class="row-title">Transporte</span><span class="row-meta">Débito · Hoy</span></span>
+            <span class="amt out">$ 1.070</span>
+          </li>
+          <li class="row">
+            <span class="badge" style="background:var(--green-soft);color:var(--green)"><svg class="i" aria-hidden="true"><use href="#i-briefcase"/></svg></span>
+            <span class="row-main"><span class="row-title">Sueldo</span><span class="row-meta">Banco · Ayer</span></span>
+            <span class="amt in">+ $ 1.250.000</span>
+          </li>
+        </ul>
+      </div>
+      <p class="demo-note">Es una demo: lo que cargues acá no se guarda.</p>
+      <div class="toast" id="toast" role="status"><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg><span id="toastText">¡Bien ahí!</span></div>
+    </section>
+
+    <!-- Wallets -->
+    <section class="bed bed-wallets" aria-labelledby="h-wallets" id="walletsBed">
+      <div class="bed-head">
+        <div class="bed-head-row">
+          <h2 id="h-wallets">Pesos y dólares, cada uno en su cuenta.</h2>
+          <button class="pill eye press" id="eye" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-eye-outline"/></svg><span id="eyeText">Ocultar</span></button>
+        </div>
+        <p class="cap">Efectivo, banco, tarjeta y billetera virtual, cada una con su moneda. Las monedas nunca se mezclan.</p>
+      </div>
+      <div class="wallets" tabindex="0" aria-label="Tus cuentas">
+        <div class="wallet" style="background:var(--green-deep)">
+          <span class="wallet-ico"><svg class="i" aria-hidden="true"><use href="#i-wallet"/></svg></span>
+          <span><span class="wallet-name">ARS · Efectivo</span><br><span class="wallet-bal money"><span>$ 38.200</span><i class="dots">••••••</i></span></span>
+        </div>
+        <div class="wallet" style="background:var(--blue-deep)">
+          <span class="wallet-ico"><svg class="i" aria-hidden="true"><use href="#i-bank"/></svg></span>
+          <span><span class="wallet-name">ARS · Banco</span><br><span class="wallet-bal money"><span>$ 412.650</span><i class="dots">••••••</i></span></span>
+        </div>
+        <div class="wallet" style="background:var(--purple-deep)">
+          <span class="wallet-ico"><svg class="i" aria-hidden="true"><use href="#i-credit-card"/></svg></span>
+          <span><span class="wallet-name">ARS · Tarjeta de crédito</span><br><span class="wallet-bal money"><span>−$ 112.400</span><i class="dots">••••••</i></span></span>
+        </div>
+        <div class="wallet" style="background:var(--teal-deep)">
+          <span class="wallet-ico"><svg class="i" aria-hidden="true"><use href="#i-cash"/></svg></span>
+          <span><span class="wallet-name">USD · Ahorro</span><br><span class="wallet-bal money"><span>US$ 1.250</span><i class="dots">••••••</i></span></span>
+        </div>
+        <div class="wallet-new"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Nueva cuenta</div>
+      </div>
+    </section>
+
+    <!-- Split -->
+    <section class="bed bed-split" aria-labelledby="h-split">
+      <div class="bed-head">
+        <h2 id="h-split">Dividí la cuenta sin hacer cuentas.</h2>
+        <p class="cap">Iguales, por partes, por porcentaje o por importe. La app te dice quién le paga a quién.</p>
+      </div>
+      <div class="expense-line">
+        <span class="badge" style="background:var(--orange-soft);color:var(--orange)"><svg class="i" aria-hidden="true"><use href="#i-silverware-fork-knife"/></svg></span>
+        <span class="row-main"><span class="row-title">Cena en lo de Sofi</span><span class="row-meta">Pagaste vos · 3 personas</span></span>
+        <span class="amt out">$ 48.300</span>
+      </div>
+      <div class="seg" role="group" aria-label="Dividir" id="splitSeg">
+        <button class="press" aria-pressed="true" data-mode="equal">Iguales</button>
+        <button class="press" aria-pressed="false" data-mode="shares">Partes</button>
+        <button class="press" aria-pressed="false" data-mode="percentage">%</button>
+        <button class="press" aria-pressed="false" data-mode="amount">Importe</button>
+      </div>
+      <ul class="people" id="people" aria-live="polite"></ul>
+      <div class="settle">
+        <div class="settle-head"><span class="label">Cómo saldar</span><span class="tag num" style="background:var(--green-soft);color:var(--green-ink)" id="owed">Te deben $ 32.200</span></div>
+        <div id="settleRows"></div>
+      </div>
+    </section>
+
+    <!-- Shared recurring -->
+    <section class="bed bed-recurring" aria-labelledby="h-rec">
+      <div class="bed-head">
+        <h2 id="h-rec">Lo que pagan todos los meses, compartido.</h2>
+        <p class="cap">Streaming, alquiler, expensas o la luz: cargalo una vez y cada uno sabe cuánto le toca y cuándo. Cada persona anota solo su parte.</p>
+      </div>
+      <div class="recurring-body">
+        <div class="recurring-side">
+          <div class="canopy">
+            <div class="canopy-top">
+              <span class="badge"><svg class="i" aria-hidden="true"><use href="#i-play-box-multiple"/></svg></span>
+              <span><span class="canopy-title">Streaming en familia</span><br><span class="canopy-sub">Vence el día 10 de cada mes · 4 personas</span></span>
+            </div>
+            <div class="canopy-amount">$ 9.600 <small>por mes</small></div>
+            <div class="track"><div class="fill" style="width:33.3%"></div></div>
+            <div class="canopy-meta"><span>Cobraste <b class="num">$ 2.400</b> de <b class="num">$ 7.200</b></span><span>1 de 3 pagaron</span></div>
+          </div>
+          <ul class="people">
+            <li><span class="avatar" style="background:var(--brand-soft);color:var(--brand-tint)">V</span><span class="row-main"><span class="row-title">Vos</span><span class="share-detail">$ 2.400</span></span><span class="tag" style="background:var(--brand-soft);color:var(--brand-tint)">Paga la cuenta</span></li>
+            <li><span class="avatar" style="background:var(--pink-soft);color:var(--pink-ink)">M</span><span class="row-main"><span class="row-title">Mamá</span><span class="share-detail">$ 2.400</span></span><span class="tag" style="background:var(--green-soft);color:var(--green-ink)">Pagó</span></li>
+            <li><span class="avatar" style="background:var(--purple-soft);color:var(--purple-ink)">J</span><span class="row-main"><span class="row-title">Juli</span><span class="share-detail">$ 2.400</span></span><span class="tag" style="background:var(--yellow-soft);color:var(--yellow-ink)">Avisó que pagó</span></li>
+            <li><span class="avatar" style="background:var(--surface-alt);color:var(--muted)">N</span><span class="row-main"><span class="row-title">Nico</span><span class="share-detail">$ 2.400</span></span><span class="tag" style="background:var(--surface-alt);color:var(--muted)">Todavía no se unió</span></li>
+          </ul>
+        </div>
+        <div class="recurring-side">
+          <div class="invite">
+            <div><span class="label">Código de invitación</span><div class="code" id="code">X7K2QP</div></div>
+            <button class="btn-small press" id="copy"><svg class="i" aria-hidden="true"><use href="#i-content-copy"/></svg><span id="copyText">Copiar</span></button>
+          </div>
+          <p class="cap">Mandalo por WhatsApp o donde quieras. No hace falta que tengan la app todavía.</p>
+          <ol class="steps">
+            <li>Se bajan la app y tocan “Tengo un código”.</li>
+            <li>Ingresan el código y eligen su nombre de la lista.</li>
+            <li>Ven su parte y te avisan cuando te pagan.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Habit -->
+    <section class="bed bed-streak" aria-labelledby="h-habit">
+      <div class="bed-head">
+        <h2 id="h-habit">Un hábito, no una culpa.</h2>
+        <p class="cap">Racha, meta diaria y niveles para que anotar se vuelva costumbre. Nadie te reta por lo que gastás.</p>
+      </div>
+      <div class="habit-top">
+        <svg class="moni" viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-happy"/></svg>
+        <div class="habit-pills">
+          <span class="pill"><svg class="i fire" aria-hidden="true"><use href="#i-fire"/></svg>Racha de <span class="num" data-streak>12</span> días</span>
+          <span class="pill"><svg class="i star" aria-hidden="true"><use href="#i-star-four-points"/></svg>Nivel 4</span>
+        </div>
+      </div>
+      <div>
+        <div class="recent-head"><span class="label">Esta semana</span></div>
+        <div class="week" aria-hidden="true">
+          <div class="bar-col"><div class="bar" style="height:46%"></div><span class="bar-day">L</span></div>
+          <div class="bar-col"><div class="bar" style="height:72%"></div><span class="bar-day">M</span></div>
+          <div class="bar-col"><div class="bar" style="height:30%"></div><span class="bar-day">M</span></div>
+          <div class="bar-col"><div class="bar" style="height:58%"></div><span class="bar-day">J</span></div>
+          <div class="bar-col"><div class="bar today" style="height:84%"></div><span class="bar-day today">V</span></div>
+          <div class="bar-col"><div class="bar future" style="height:10%"></div><span class="bar-day">S</span></div>
+          <div class="bar-col"><div class="bar future" style="height:10%"></div><span class="bar-day">D</span></div>
+        </div>
+      </div>
+      <div class="level">
+        <div class="level-text"><b>Nivel 4</b><span>80 XP para el nivel 5</span></div>
+        <div class="track"><div class="fill" style="width:62%"></div></div>
+      </div>
+    </section>
+
+    <!-- Night / month -->
+    <section class="bed bed-night" aria-labelledby="h-night">
+      <div class="bed-head">
+        <h2 id="h-night">De día o de noche.</h2>
+        <p class="cap">Tema claro y oscuro, cada uno pensado aparte. Mirá a dónde se fue el mes con cualquiera de los dos.</p>
+      </div>
+      <div class="seg" role="group" aria-label="Apariencia" id="themeSeg">
+        <button class="press" aria-pressed="false" data-scheme="day"><svg class="i sr-hide" aria-hidden="true" style="width:18px;height:18px;vertical-align:-3px;margin-right:4px"><use href="#i-white-balance-sunny"/></svg>Claro</button>
+        <button class="press" aria-pressed="true" data-scheme="night"><svg class="i" aria-hidden="true" style="width:18px;height:18px;vertical-align:-3px;margin-right:4px"><use href="#i-weather-night"/></svg>Oscuro</button>
+      </div>
+      <div class="mini scheme-night" id="mini">
+        <div class="mini-card">
+          <div class="recent-head"><span class="label">Balance del mes</span><span class="row-meta">Septiembre</span></div>
+          <div class="totals">
+            <div><span>Ingresos</span><b style="color:var(--income-text)">$ 1.250.000</b></div>
+            <div><span>Gastos</span><b style="color:var(--expense-text)">$ 812.300</b></div>
+          </div>
+          <div class="stack" aria-hidden="true">
+            <span style="width:32%;background:var(--green)"></span><span style="width:21%;background:var(--orange)"></span><span style="width:14%;background:var(--blue)"></span><span style="width:12%;background:var(--yellow)"></span><span style="width:21%;background:var(--teal)"></span>
+          </div>
+          <ul class="legend">
+            <li><span class="badge" style="background:var(--green-soft);color:var(--green)"><svg class="i" aria-hidden="true"><use href="#i-cart"/></svg></span><span class="row-title">Súper</span><span class="pct">32%</span><span class="amt">$ 259.940</span></li>
+            <li><span class="badge" style="background:var(--orange-soft);color:var(--orange)"><svg class="i" aria-hidden="true"><use href="#i-silverware-fork-knife"/></svg></span><span class="row-title">Restaurantes</span><span class="pct">21%</span><span class="amt">$ 170.580</span></li>
+            <li><span class="badge" style="background:var(--blue-soft);color:var(--blue)"><svg class="i" aria-hidden="true"><use href="#i-bus"/></svg></span><span class="row-title">Transporte</span><span class="pct">14%</span><span class="amt">$ 113.720</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="langs"><span class="label">Idiomas</span><span class="pill"><svg class="i" aria-hidden="true" style="color:var(--muted)"><use href="#i-translate"/></svg>Español</span><span class="pill">English</span></div>
+    </section>
+
+    <!-- Privacy -->
+    <section class="bed bed-privacy" aria-labelledby="h-privacy">
+      <div class="privacy-body">
+        <div class="bed-head" style="gap:14px">
+          <div class="privacy-big">
+            <span class="badge"><svg class="i" aria-hidden="true"><use href="#i-cellphone-lock"/></svg></span>
+            <h2 id="h-privacy">Tus datos quedan en tu teléfono.</h2>
+          </div>
+          <p class="cap">Para usarla no hace falta crear una cuenta ni conectar el banco. Solo sale del teléfono lo que decidís compartir, como un gasto recurrente con tu familia.</p>
+          <ul class="promises">
+            <li><svg class="i" aria-hidden="true"><use href="#i-check-bold"/></svg>Sin crear cuenta</li>
+            <li><svg class="i" aria-hidden="true"><use href="#i-check-bold"/></svg>Sin conectar el banco</li>
+            <li><svg class="i" aria-hidden="true"><use href="#i-check-bold"/></svg>Compartís solo lo que elegís</li>
+          </ul>
+        </div>
+        <div class="sheet" aria-label="Ejemplo: unirse a un gasto compartido">
+          <div class="handle"></div>
+          <div class="sheet-title">Juli te invitó</div>
+          <div class="expense-line">
+            <span class="badge" style="background:var(--blue-soft);color:var(--blue)"><svg class="i" aria-hidden="true"><use href="#i-play-box-multiple"/></svg></span>
+            <span class="row-main"><span class="row-title">Streaming en familia</span><span class="row-meta">Vence el día 10 de cada mes</span></span>
+          </div>
+          <div class="sheet-facts">
+            <div class="fact"><span>Por persona, por mes</span><b>$ 2.400</b></div>
+            <div class="fact"><span>Lo comparten</span><b>4 personas</b></div>
+          </div>
+          <p class="note"><svg class="i" aria-hidden="true"><use href="#i-shield-check-outline"/></svg>Solo se comparte este gasto. Tus otros movimientos quedan en tu teléfono.</p>
+          <button class="btn btn-primary press" type="button" tabindex="-1" aria-hidden="true">Unirme</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="close" aria-labelledby="h-close">
+    <svg class="moni" viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-wow"/></svg>
+    <h2 id="h-close">Anotá hoy. Mañana ya es costumbre.</h2>
+    <p>Finance llega pronto a iPhone y Android, en español y en inglés.</p>
+    <div class="stores">
+      <span class="store"><svg class="i" aria-hidden="true"><use href="#i-apple"/></svg><span><small>Próximamente</small><b>App Store</b></span></span>
+      <span class="store"><svg class="i" aria-hidden="true" style="color:var(--green)"><use href="#i-google-play"/></svg><span><small>Próximamente</small><b>Google Play</b></span></span>
+    </div>
+    <a class="again" href="#probar">Volver a probar la carga</a>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Los montos, nombres y cuentas de esta página son de ejemplo.</div>
+</footer>
+
+<script>
+(() => {
+  const fmt = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
+  const money = (v) => '$ ' + fmt.format(Math.round(v));
+
+  /* ---------- Keypad demo ---------- */
+  const categories = {
+    coffee: { name: 'Café', icon: 'coffee', tone: 'yellow' },
+    supermarket: { name: 'Súper', icon: 'cart', tone: 'green' },
+    transport: { name: 'Transporte', icon: 'bus', tone: 'blue' },
+    restaurants: { name: 'Restaurantes', icon: 'silverware-fork-knife', tone: 'orange' },
+    services: { name: 'Servicios', icon: 'lightning-bolt', tone: 'yellow' },
+  };
+  const celebrate = ['¡Bien ahí!', '¡Excelente!', '¡Seguí así!', '¡Genial!'];
+  const amountEl = document.getElementById('amount');
+  const saveBtn = document.getElementById('save');
+  const recent = document.getElementById('recent');
+  const toast = document.getElementById('toast');
+  const toastText = document.getElementById('toastText');
+  const streakPill = document.getElementById('streakPill');
+  const goal = document.getElementById('goal');
+  const goalText = document.getElementById('goalText');
+  const goalFill = document.getElementById('goalFill');
+
+  let input = '4500';
+  let category = 'coffee';
+  let logged = 1;
+  const goalTarget = 2;
+  let streak = 12;
+  let loggedToday = false;
+  let toastTimer;
+
+  const groupThousands = (digits) => digits.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const inputValue = () => parseFloat(input.replace(',', '.') || '0') || 0;
+
+  function renderAmount() {
+    const [intPart, dec] = input.split(',');
+    const text = '$ ' + groupThousands(intPart || '0') + (dec !== undefined ? ',' + dec : '');
+    amountEl.textContent = text;
+    const zero = inputValue() === 0;
+    amountEl.classList.toggle('zero', zero);
+    saveBtn.disabled = zero;
+  }
+
+  function press(key) {
+    if (key === 'back') { input = input.slice(0, -1); }
+    else if (key === ',') { if (!input.includes(',')) input = (input || '0') + ','; }
+    else {
+      const [intPart, dec] = input.split(',');
+      if (dec !== undefined && dec.length >= 2) return;
+      if (dec === undefined && intPart.length >= 9) return;
+      input = input === '0' ? key : input + key;
+    }
+    renderAmount();
+  }
+
+  document.getElementById('keypad').addEventListener('click', (e) => {
+    const key = e.target.closest('[data-k]');
+    if (key) press(key.dataset.k);
+  });
+
+  document.getElementById('chips').addEventListener('click', (e) => {
+    const chip = e.target.closest('[data-cat]');
+    if (!chip) return;
+    category = chip.dataset.cat;
+    document.querySelectorAll('#chips .chip').forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+  });
+
+  document.getElementById('probar').addEventListener('keydown', (e) => {
+    if (e.target.closest('.chips')) return;
+    if (/^[0-9]$/.test(e.key)) { press(e.key); e.preventDefault(); }
+    else if (e.key === ',' || e.key === '.') { press(','); e.preventDefault(); }
+    else if (e.key === 'Backspace') { press('back'); e.preventDefault(); }
+  });
+
+  saveBtn.addEventListener('click', () => {
+    const value = inputValue();
+    if (!value) return;
+    const cat = categories[category];
+    const li = document.createElement('li');
+    li.className = 'row new';
+    li.innerHTML =
+      '<span class="badge" style="background:var(--' + cat.tone + '-soft);color:var(--' + cat.tone + ')"><svg class="i" aria-hidden="true"><use href="#i-' + cat.icon + '"/></svg></span>' +
+      '<span class="row-main"><span class="row-title"></span><span class="row-meta">Efectivo · Hoy</span></span>' +
+      '<span class="amt out"></span>';
+    li.querySelector('.row-title').textContent = cat.name;
+    const [intPart, dec] = input.split(',');
+    li.querySelector('.amt').textContent = '$ ' + groupThousands(intPart || '0') + (dec ? ',' + dec.padEnd(2, '0') : '');
+    recent.prepend(li);
+    while (recent.children.length > 4) recent.lastElementChild.remove();
+
+    logged += 1;
+    const done = logged >= goalTarget;
+    goalText.textContent = done ? '¡Cumplida!' : logged + ' de ' + goalTarget;
+    goalFill.style.transform = 'scaleX(' + Math.min(1, logged / goalTarget) + ')';
+    goal.classList.toggle('done', done);
+
+    let message = celebrate[(logged - 2) % celebrate.length];
+    if (!loggedToday) {
+      loggedToday = true;
+      streak += 1;
+      document.querySelectorAll('[data-streak]').forEach((n) => { n.textContent = streak; });
+      streakPill.classList.add('lit', 'pop');
+      setTimeout(() => streakPill.classList.remove('pop'), 600);
+      message = '🔥 ' + streak + ' días de racha';
+    }
+    toastText.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+
+    input = '';
+    renderAmount();
+  });
+
+  renderAmount();
+
+  /* ---------- Hide amounts ---------- */
+  const eye = document.getElementById('eye');
+  eye.addEventListener('click', () => {
+    const hidden = eye.getAttribute('aria-pressed') !== 'true';
+    eye.setAttribute('aria-pressed', String(hidden));
+    document.getElementById('walletsBed').classList.toggle('hide-amounts', hidden);
+    document.getElementById('eyeText').textContent = hidden ? 'Mostrar' : 'Ocultar';
+  });
+
+  /* ---------- Split demo ---------- */
+  const total = 48300;
+  const members = [
+    { name: 'Vos', initial: 'V', tone: 'brand' },
+    { name: 'Sofi', initial: 'S', tone: 'orange' },
+    { name: 'Tomi', initial: 'T', tone: 'blue' },
+  ];
+  const modes = {
+    equal: { values: [1, 1, 1], detail: () => 'Un tercio' },
+    shares: { values: [2, 1, 1], detail: (v) => v + (v === 1 ? ' parte' : ' partes') },
+    percentage: { values: [40, 30, 30], detail: (v) => v + '%' },
+    amount: { values: [18300, 15000, 15000], detail: () => 'Importe fijo' },
+  };
+
+  function split(mode) {
+    const { values } = modes[mode];
+    if (mode === 'amount') return values.slice();
+    const sum = values.reduce((a, b) => a + b, 0);
+    return values.map((v) => (total * v) / sum);
+  }
+
+  function renderSplit(mode) {
+    const shares = split(mode);
+    const people = document.getElementById('people');
+    people.innerHTML = '';
+    members.forEach((m, i) => {
+      const li = document.createElement('li');
+      const bg = m.tone === 'brand' ? 'var(--brand-soft)' : 'var(--' + m.tone + '-soft)';
+      const fg = m.tone === 'brand' ? 'var(--brand-tint)' : 'var(--' + m.tone + '-ink)';
+      li.innerHTML = '<span class="avatar" style="background:' + bg + ';color:' + fg + '"></span>' +
+        '<span class="row-main"><span class="row-title"></span><span class="share-detail"></span></span><span class="amt"></span>';
+      li.querySelector('.avatar').textContent = m.initial;
+      li.querySelector('.row-title').textContent = m.name;
+      li.querySelector('.share-detail').textContent = modes[mode].detail(modes[mode].values[i]);
+      li.querySelector('.amt').textContent = money(shares[i]);
+      people.appendChild(li);
+    });
+    const owed = total - shares[0];
+    document.getElementById('owed').textContent = 'Te deben ' + money(owed);
+    const rows = document.getElementById('settleRows');
+    rows.innerHTML = '';
+    members.slice(1).forEach((m, i) => {
+      const row = document.createElement('div');
+      row.className = 'settle-row';
+      row.innerHTML = '<span></span><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg><span>Vos</span><span class="amt"></span>';
+      row.firstElementChild.textContent = m.name;
+      row.querySelector('.amt').textContent = money(shares[i + 1]);
+      rows.appendChild(row);
+    });
+  }
+
+  document.getElementById('splitSeg').addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-mode]');
+    if (!btn) return;
+    document.querySelectorAll('#splitSeg button').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+    renderSplit(btn.dataset.mode);
+  });
+  renderSplit('equal');
+
+  /* ---------- Theme sample ---------- */
+  const mini = document.getElementById('mini');
+  document.getElementById('themeSeg').addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-scheme]');
+    if (!btn) return;
+    document.querySelectorAll('#themeSeg button').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+    mini.classList.toggle('scheme-night', btn.dataset.scheme === 'night');
+    mini.classList.toggle('scheme-day', btn.dataset.scheme === 'day');
+  });
+
+  /* ---------- Copy invite code ---------- */
+  const copyBtn = document.getElementById('copy');
+  const copyText = document.getElementById('copyText');
+  copyBtn.addEventListener('click', async () => {
+    const code = document.getElementById('code').textContent;
+    try {
+      await navigator.clipboard.writeText(code);
+      copyText.textContent = 'Copiado';
+    } catch {
+      const range = document.createRange();
+      range.selectNodeContents(document.getElementById('code'));
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      copyText.textContent = 'Seleccionado';
+    }
+    setTimeout(() => { copyText.textContent = 'Copiar'; }, 1600);
+  });
+})();
+</script>
+</body>
+</html>
