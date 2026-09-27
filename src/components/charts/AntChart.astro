@@ -1,0 +1,139 @@
+---
+/**
+ * Cumulative small expenses over an example month, plus a coffee calculator.
+ * Works without JS: the SVG, caption and default results are static; JS adds hover and recalculation.
+ */
+const fmt = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
+const money = (v: number) => '$ ' + fmt.format(Math.round(v));
+
+// Example month starting on a Monday: coffee + bus on weekdays, kiosk on Tue/Thu, a Saturday snack run.
+const days = Array.from({ length: 30 }, (_, i) => {
+  const weekday = i % 7; // 0 = Monday
+  let spent = 0;
+  if (weekday <= 4) spent += 2500 + 2140;
+  if (weekday === 1 || weekday === 3) spent += 1800;
+  if (weekday === 5) spent += 5200;
+  return spent;
+});
+let running = 0;
+const cumulative = days.map((d) => (running += d));
+const total = cumulative[cumulative.length - 1];
+
+const W = 640, H = 240, L = 52, R = 20, T = 20, B = 30;
+const yMax = 150000;
+const x = (i: number) => L + (i / (days.length - 1)) * (W - L - R);
+const y = (v: number) => T + (1 - v / yMax) * (H - T - B);
+const line = cumulative.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join('');
+const area = `${line}L${x(days.length - 1).toFixed(1)},${y(0)}L${x(0).toFixed(1)},${y(0)}Z`;
+const yTicks = [0, 50000, 100000, 150000];
+const xTicks = [0, 9, 19, 29];
+const points = JSON.stringify(cumulative);
+
+const defaultCoffees = 5;
+const defaultPrice = 2500;
+const perMonth = (defaultCoffees * defaultPrice * 52) / 12;
+---
+<figure class="chart" data-ant-chart data-points={points}>
+  <div class="chart-head">
+    <div>
+      <p class="chart-title">Cómo se acumulan los gastos chicos en un mes</p>
+      <p class="chart-sub">Café, colectivo y kiosco, día por día</p>
+    </div>
+    <span class="example-tag">Ejemplo</span>
+  </div>
+  <div class="chart-plot">
+    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby="ant-title ant-desc">
+      <title id="ant-title">Gasto acumulado en gastos chicos durante 30 días</title>
+      <desc id="ant-desc">La línea sube de a poco cada día hábil y termina el mes en {money(total)}.</desc>
+      {yTicks.map((t) => (
+        <g>
+          <line class="grid-line" x1={L} x2={W - R} y1={y(t)} y2={y(t)} />
+          <text class="axis-label" x={L - 8} y={y(t) + 4} text-anchor="end">{t === 0 ? '$ 0' : `$ ${t / 1000} mil`}</text>
+        </g>
+      ))}
+      {xTicks.map((i) => (
+        <text class="axis-label" x={x(i)} y={H - 8} text-anchor={i === 0 ? 'start' : i === 29 ? 'end' : 'middle'}>día {i + 1}</text>
+      ))}
+      <path d={area} fill="var(--red-soft)" />
+      <path d={line} fill="none" stroke="var(--expense)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
+      <line data-cross x1="0" x2="0" y1={T} y2={H - B} stroke="var(--border-strong)" stroke-width="1" opacity="0" />
+      <circle data-dot r="5" fill="var(--expense)" stroke="var(--surface)" stroke-width="2" opacity="0" />
+      <circle cx={x(days.length - 1)} cy={y(total)} r="5" fill="var(--expense)" stroke="var(--surface)" stroke-width="2" />
+      <text class="value-label" x={x(days.length - 1) - 10} y={y(total) - 10} text-anchor="end">{money(total)}</text>
+      <rect data-hit x={L} y={T} width={W - L - R} height={H - T - B} fill="transparent" />
+    </svg>
+    <span class="tip" data-tip></span>
+  </div>
+  <figcaption>
+    En este mes de ejemplo nadie hizo una compra grande: un café y el colectivo cada día hábil, algo del kiosco dos veces por semana y una salida al súper chino los sábados. Suma <strong>{money(total)}</strong>.
+  </figcaption>
+  <div class="calc">
+    <div class="calc-row">
+      <label for="coffees">Cafés por semana <output for="coffees" data-coffees-out>{defaultCoffees}</output></label>
+      <input id="coffees" type="range" min="0" max="14" step="1" value={defaultCoffees} data-coffees>
+    </div>
+    <div class="calc-row">
+      <label for="price">Precio de un café (poné el tuyo)</label>
+      <input id="price" type="number" inputmode="numeric" min="0" step="100" value={defaultPrice} data-price>
+    </div>
+    <div class="calc-result" aria-live="polite">
+      <div><span>Por mes</span><b data-month>{money(perMonth)}</b></div>
+      <div><span>Por año</span><b data-year>{money(perMonth * 12)}</b></div>
+    </div>
+  </div>
+</figure>
+
+<script>
+  const fmt = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
+  const money = (v: number) => '$ ' + fmt.format(Math.round(v));
+
+  document.querySelectorAll<HTMLElement>('[data-ant-chart]').forEach((fig) => {
+    const points: number[] = JSON.parse(fig.dataset.points ?? '[]');
+    const svg = fig.querySelector('svg')!;
+    const hit = fig.querySelector<SVGRectElement>('[data-hit]')!;
+    const cross = fig.querySelector<SVGLineElement>('[data-cross]')!;
+    const dot = fig.querySelector<SVGCircleElement>('[data-dot]')!;
+    const tip = fig.querySelector<HTMLElement>('[data-tip]')!;
+    const box = { L: 52, R: 20, T: 20, B: 30, W: 640, H: 240, max: 150000 };
+
+    function show(clientX: number) {
+      const rect = svg.getBoundingClientRect();
+      const vx = ((clientX - rect.left) / rect.width) * box.W;
+      const i = Math.max(0, Math.min(points.length - 1, Math.round(((vx - box.L) / (box.W - box.L - box.R)) * (points.length - 1))));
+      const px = box.L + (i / (points.length - 1)) * (box.W - box.L - box.R);
+      const py = box.T + (1 - points[i] / box.max) * (box.H - box.T - box.B);
+      cross.setAttribute('x1', String(px));
+      cross.setAttribute('x2', String(px));
+      cross.setAttribute('opacity', '1');
+      dot.setAttribute('cx', String(px));
+      dot.setAttribute('cy', String(py));
+      dot.setAttribute('opacity', '1');
+      tip.textContent = `Día ${i + 1}: ${money(points[i])}`;
+      tip.style.left = `${(px / box.W) * rect.width}px`;
+      tip.style.top = `${(py / box.H) * rect.height}px`;
+      tip.classList.add('show');
+    }
+    function hide() {
+      cross.setAttribute('opacity', '0');
+      dot.setAttribute('opacity', '0');
+      tip.classList.remove('show');
+    }
+    hit.addEventListener('pointermove', (e) => show(e.clientX));
+    hit.addEventListener('pointerdown', (e) => show(e.clientX));
+    hit.addEventListener('pointerleave', hide);
+
+    const coffees = fig.querySelector<HTMLInputElement>('[data-coffees]')!;
+    const price = fig.querySelector<HTMLInputElement>('[data-price]')!;
+    const out = fig.querySelector<HTMLOutputElement>('[data-coffees-out]')!;
+    const month = fig.querySelector<HTMLElement>('[data-month]')!;
+    const year = fig.querySelector<HTMLElement>('[data-year]')!;
+    function recalc() {
+      const perWeek = Number(coffees.value) * Math.max(0, Number(price.value) || 0);
+      out.textContent = coffees.value;
+      month.textContent = money((perWeek * 52) / 12);
+      year.textContent = money(perWeek * 52);
+    }
+    coffees.addEventListener('input', recalc);
+    price.addEventListener('input', recalc);
+  });
+</script>

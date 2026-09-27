@@ -1,0 +1,608 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import PostList from '../components/PostList.astro';
+import { sortPosts, SITE, ORGANIZATION, absoluteUrl, withBase } from '../site';
+
+const posts = sortPosts(await getCollection('blog'));
+const title = `${SITE.name}: tu plata en segundos`;
+const description = 'Anotá cada ingreso y gasto en segundos, dividí la cuenta con amigos y compartí lo que pagan todos los meses. Tus datos quedan en tu teléfono.';
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: absoluteUrl(), inLanguage: SITE.locale, description: SITE.description },
+  { '@context': 'https://schema.org', ...ORGANIZATION },
+];
+---
+<Base title={title} description={description} path="" jsonLd={jsonLd}>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <nav class="topbar" aria-label="Principal">
+      <a class="logo" href="#top">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-happy"/></svg>
+        Finance
+      </a>
+      <span class="bar-links"><a class="bar-link" href={withBase('blog/')}>Blog</a><a class="toplink press" href="#bajar">Cuándo sale</a></span>
+    </nav>
+    <div class="hero-body">
+      <div class="hero-copy">
+        <h1>Tu plata, anotada <em>en segundos.</em></h1>
+        <p class="lead">Cada ingreso y cada gasto, cargado en tres toques. Dividí cuentas con quien quieras y armá el hábito. <strong>Todo queda en tu teléfono.</strong></p>
+        <div class="hero-actions">
+          <a class="btn btn-accent press" href="#funciones">Mirá lo que hace</a>
+        </div>
+        <p class="soon"><svg class="i" aria-hidden="true"><use href="#i-apple"/></svg><svg class="i" aria-hidden="true"><use href="#i-google-play"/></svg>Muy pronto en iPhone y Android</p>
+      </div>
+
+      <div class="pile">
+        <div class="pile-head">
+          <div class="balance">
+            <span class="pile-top"><span class="balance-label">Balance de <span id="month">septiembre</span></span><button class="pause press" id="pause" type="button" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-pause" id="pauseIcon"/></svg><span id="pauseText">Pausar</span></button></span>
+            <span class="balance-value" id="balance">$ 842.320</span>
+            <span class="balance-split"><span><i class="dot" style="background:#74D69B"></i>Ingresos <b id="incomeTotal">$ 1.250.000</b></span><span><i class="dot" style="background:#FF9A8F"></i>Gastos <b id="expenseTotal">$ 407.680</b></span></span>
+          </div>
+        </div>
+        <p class="sr-only">Animación de ejemplo: ingresos y gastos del mes se apilan uno encima del otro mientras el balance se actualiza.</p>
+        <div class="pile-area" id="pileArea" aria-hidden="true">
+          <div class="tile" style="transform:translateY(-12px)"><span class="badge" style="background:#DDF3E4;color:#2F9E5B"><svg class="i"><use href="#i-briefcase"/></svg></span><span class="row-main"><span class="row-title">Sueldo</span><span class="row-meta">Banco</span></span><span class="amt in">+ $ 1.250.000</span></div>
+          <div class="tile" style="transform:translateY(-84px) rotate(-1.2deg)"><span class="badge" style="background:#EBE2FA;color:#8B5CD6"><svg class="i"><use href="#i-home"/></svg></span><span class="row-main"><span class="row-title">Alquiler</span><span class="row-meta">Transferencia</span></span><span class="amt out">− $ 380.000</span></div>
+          <div class="tile" style="transform:translateY(-156px) rotate(1deg)"><span class="badge" style="background:#DDF3E4;color:#2F9E5B"><svg class="i"><use href="#i-cart"/></svg></span><span class="row-main"><span class="row-title">Súper</span><span class="row-meta">Débito</span></span><span class="amt out">− $ 23.180</span></div>
+          <div class="tile" style="transform:translateY(-228px)"><span class="badge" style="background:#FBF1D0;color:#E0B021"><svg class="i"><use href="#i-coffee"/></svg></span><span class="row-main"><span class="row-title">Café</span><span class="row-meta">Efectivo</span></span><span class="amt out">− $ 4.500</span></div>
+          <span class="delta" id="delta"></span>
+        </div>
+        <p class="pile-cap"><svg class="i" aria-hidden="true"><use href="#i-lightning-bolt"/></svg>Cada movimiento, anotado en segundos.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="beds" id="funciones">
+
+    <!-- Wallets -->
+    <section class="bed bed-wallets" aria-labelledby="h-wallets" id="walletsBed">
+      <div class="bed-head">
+        <div class="bed-head-row">
+          <h2 id="h-wallets">Pesos y dólares, cada uno en su cuenta.</h2>
+          <button class="pill eye press" id="eye" type="button" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-eye-outline"/></svg><span id="eyeText">Ocultar</span></button>
+        </div>
+        <p class="cap">Efectivo, banco, tarjeta y billetera virtual, cada una con su moneda. Las monedas nunca se mezclan.</p>
+      </div>
+      <div class="wallets" tabindex="0" aria-label="Tus cuentas" data-reveal="wallets">
+        <div class="wallet" style="background:var(--green-deep)">
+          <span class="wallet-ico"><svg class="i" aria-hidden="true"><use href="#i-wallet"/></svg></span>
+          <span><span class="wallet-name">ARS · Efectivo</span><br><span class="wallet-bal money"><span>$ 38.200</span><i class="dots">••••••</i></span></span>
+        </div>
+        <div class="wallet" style="background:var(--blue-deep)">
+          <span class="wallet-ico"><svg class="i" aria-hidden="true"><use href="#i-bank"/></svg></span>
+          <span><span class="wallet-name">ARS · Banco</span><br><span class="wallet-bal money"><span>$ 412.650</span><i class="dots">••••••</i></span></span>
+        </div>
+        <div class="wallet" style="background:var(--purple-deep)">
+          <span class="wallet-ico"><svg class="i" aria-hidden="true"><use href="#i-credit-card"/></svg></span>
+          <span><span class="wallet-name">ARS · Tarjeta de crédito</span><br><span class="wallet-bal money"><span>−$ 112.400</span><i class="dots">••••••</i></span></span>
+        </div>
+        <div class="wallet" style="background:var(--teal-deep)">
+          <span class="wallet-ico"><svg class="i" aria-hidden="true"><use href="#i-cash"/></svg></span>
+          <span><span class="wallet-name">USD · Ahorro</span><br><span class="wallet-bal money"><span>US$ 1.250</span><i class="dots">••••••</i></span></span>
+        </div>
+        <div class="wallet-new"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Nueva cuenta</div>
+      </div>
+    </section>
+
+    <!-- Habit -->
+    <section class="bed bed-streak" aria-labelledby="h-habit">
+      <div class="bed-head">
+        <h2 id="h-habit">Un hábito, no una culpa.</h2>
+        <p class="cap">Racha, meta diaria y niveles para que anotar se vuelva costumbre. Nadie te reta por lo que gastás.</p>
+      </div>
+      <div class="habit-top">
+        <svg class="moni" viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-happy"/></svg>
+        <div class="habit-pills">
+          <span class="pill"><svg class="i fire" aria-hidden="true"><use href="#i-fire"/></svg>Racha de 12 días</span>
+          <span class="pill"><svg class="i star" aria-hidden="true"><use href="#i-star-four-points"/></svg>Nivel 4</span>
+        </div>
+      </div>
+      <div class="week-wrap">
+        <div><span class="label">Esta semana</span></div>
+        <div class="week" aria-hidden="true" data-reveal="bars">
+          <div class="bar-col"><div class="bar" style="height:46%"></div><span class="bar-day">L</span></div>
+          <div class="bar-col"><div class="bar" style="height:72%"></div><span class="bar-day">M</span></div>
+          <div class="bar-col"><div class="bar" style="height:30%"></div><span class="bar-day">M</span></div>
+          <div class="bar-col"><div class="bar" style="height:58%"></div><span class="bar-day">J</span></div>
+          <div class="bar-col"><div class="bar today" style="height:84%"></div><span class="bar-day today">V</span></div>
+          <div class="bar-col"><div class="bar future" style="height:10%"></div><span class="bar-day">S</span></div>
+          <div class="bar-col"><div class="bar future" style="height:10%"></div><span class="bar-day">D</span></div>
+        </div>
+      </div>
+      <div class="level">
+        <div class="level-text"><b>Nivel 4</b><span>80 XP para el nivel 5</span></div>
+        <div class="track"><div class="fill" style="transform:scaleX(0.62)" data-reveal="fill" data-to="0.62"></div></div>
+      </div>
+    </section>
+
+    <!-- Split -->
+    <section class="bed bed-split" aria-labelledby="h-split">
+      <div class="bed-head">
+        <h2 id="h-split">Dividí la cuenta sin hacer cuentas.</h2>
+        <p class="cap">Iguales, por partes, por porcentaje o por importe. La app te dice quién le paga a quién.</p>
+      </div>
+      <div class="expense-line">
+        <span class="badge" style="background:var(--orange-soft);color:var(--orange)"><svg class="i" aria-hidden="true"><use href="#i-silverware-fork-knife"/></svg></span>
+        <span class="row-main"><span class="row-title">Cena en lo de Sofi</span><span class="row-meta">Pagaste vos · 3 personas</span></span>
+        <span class="amt">$ 48.300</span>
+      </div>
+      <div class="seg" role="group" aria-label="Dividir" id="splitSeg">
+        <button class="press" type="button" aria-pressed="true" data-mode="equal">Iguales</button>
+        <button class="press" type="button" aria-pressed="false" data-mode="shares">Partes</button>
+        <button class="press" type="button" aria-pressed="false" data-mode="percentage">%</button>
+        <button class="press" type="button" aria-pressed="false" data-mode="amount">Importe</button>
+      </div>
+      <ul class="people" id="people">
+        <li><span class="avatar" style="background:var(--brand-soft);color:var(--brand-tint)">V</span><span class="row-main"><span class="row-title">Vos</span><span class="share-detail">Un tercio</span></span><span class="amt" data-share="0">$ 16.100</span></li>
+        <li><span class="avatar" style="background:var(--orange-soft);color:var(--orange-ink)">S</span><span class="row-main"><span class="row-title">Sofi</span><span class="share-detail">Un tercio</span></span><span class="amt" data-share="1">$ 16.100</span></li>
+        <li><span class="avatar" style="background:var(--blue-soft);color:var(--blue-ink)">T</span><span class="row-main"><span class="row-title">Tomi</span><span class="share-detail">Un tercio</span></span><span class="amt" data-share="2">$ 16.100</span></li>
+      </ul>
+      <div class="settle">
+        <div class="settle-head"><span class="label">Cómo saldar</span><span class="tag num" style="background:var(--green-soft);color:var(--green-ink)" id="owed">Te deben $ 32.200</span></div>
+        <div class="settle-row"><span>Sofi</span><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg><span>Vos</span><span class="amt" data-share="1">$ 16.100</span></div>
+        <div class="settle-row"><span>Tomi</span><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg><span>Vos</span><span class="amt" data-share="2">$ 16.100</span></div>
+      </div>
+    </section>
+
+    <!-- Day / night -->
+    <section class="bed bed-night" aria-labelledby="h-night">
+      <div class="bed-head">
+        <h2 id="h-night">De día o de noche.</h2>
+        <p class="cap">Tema claro y oscuro, cada uno pensado aparte. Deslizá para comparar cómo se ve el mes en cada uno.</p>
+      </div>
+      <div class="compare" id="compare" data-reveal="compare">
+        <div class="mini scheme-night" aria-hidden="true">
+          <div class="mini-top"><span></span><span class="scheme-tag"><svg class="i" aria-hidden="true"><use href="#i-weather-night"/></svg>Oscuro</span></div>
+          <div class="mini-card">
+            <div class="mini-top"><span class="label">Balance del mes</span><span class="row-meta">Septiembre</span></div>
+            <div class="totals">
+              <div><span>Ingresos</span><b style="color:var(--income-text)">$ 1.250.000</b></div>
+              <div><span>Gastos</span><b style="color:var(--expense-text)">$ 812.300</b></div>
+            </div>
+            <div class="stack"><span style="width:32%;background:var(--green)"></span><span style="width:21%;background:var(--orange)"></span><span style="width:14%;background:var(--blue)"></span><span style="width:12%;background:var(--yellow)"></span><span style="width:21%;background:var(--teal)"></span></div>
+            <ul class="legend">
+              <li><span class="badge" style="background:var(--green-soft);color:var(--green)"><svg class="i"><use href="#i-cart"/></svg></span><span class="row-title">Súper</span><span class="pct">32%</span><span class="amt">$ 259.940</span></li>
+              <li><span class="badge" style="background:var(--orange-soft);color:var(--orange)"><svg class="i"><use href="#i-silverware-fork-knife"/></svg></span><span class="row-title">Restaurantes</span><span class="pct">21%</span><span class="amt">$ 170.580</span></li>
+              <li><span class="badge" style="background:var(--blue-soft);color:var(--blue)"><svg class="i"><use href="#i-bus"/></svg></span><span class="row-title">Transporte</span><span class="pct">14%</span><span class="amt">$ 113.720</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mini scheme-day">
+          <div class="mini-top"><span class="scheme-tag"><svg class="i" aria-hidden="true"><use href="#i-white-balance-sunny"/></svg>Claro</span><span></span></div>
+          <div class="mini-card">
+            <div class="mini-top"><span class="label">Balance del mes</span><span class="row-meta">Septiembre</span></div>
+            <div class="totals">
+              <div><span>Ingresos</span><b style="color:var(--income-text)">$ 1.250.000</b></div>
+              <div><span>Gastos</span><b style="color:var(--expense-text)">$ 812.300</b></div>
+            </div>
+            <div class="stack" aria-hidden="true"><span style="width:32%;background:var(--green)"></span><span style="width:21%;background:var(--orange)"></span><span style="width:14%;background:var(--blue)"></span><span style="width:12%;background:var(--yellow)"></span><span style="width:21%;background:var(--teal)"></span></div>
+            <ul class="legend">
+              <li><span class="badge" style="background:var(--green-soft);color:var(--green)"><svg class="i" aria-hidden="true"><use href="#i-cart"/></svg></span><span class="row-title">Súper</span><span class="pct">32%</span><span class="amt">$ 259.940</span></li>
+              <li><span class="badge" style="background:var(--orange-soft);color:var(--orange)"><svg class="i" aria-hidden="true"><use href="#i-silverware-fork-knife"/></svg></span><span class="row-title">Restaurantes</span><span class="pct">21%</span><span class="amt">$ 170.580</span></li>
+              <li><span class="badge" style="background:var(--blue-soft);color:var(--blue)"><svg class="i" aria-hidden="true"><use href="#i-bus"/></svg></span><span class="row-title">Transporte</span><span class="pct">14%</span><span class="amt">$ 113.720</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="divider" aria-hidden="true"><span class="knob"><svg class="i"><use href="#i-arrow-split-vertical"/></svg></span></div>
+        <input type="range" id="splitRange" min="0" max="100" value="50" aria-label="Comparar tema claro y oscuro" aria-valuetext="Mitad claro, mitad oscuro">
+      </div>
+      <div class="langs"><span class="label">Idiomas</span><span class="pill"><svg class="i" aria-hidden="true" style="color:var(--muted)"><use href="#i-translate"/></svg>Español</span><span class="pill">English</span></div>
+    </section>
+
+    <!-- Shared recurring -->
+    <section class="bed bed-recurring" aria-labelledby="h-rec">
+      <div class="bed-head">
+        <h2 id="h-rec">Lo que pagan todos los meses, compartido.</h2>
+        <p class="cap">Streaming, alquiler, expensas o la luz: cargalo una vez y cada uno sabe cuánto le toca y cuándo. Cada persona anota solo su parte.</p>
+      </div>
+      <div class="recurring-body">
+        <div class="recurring-side">
+          <div class="canopy">
+            <div class="canopy-top">
+              <span class="badge"><svg class="i" aria-hidden="true"><use href="#i-play-box-multiple"/></svg></span>
+              <span><span class="canopy-title">Streaming en familia</span><br><span class="canopy-sub">Vence el día 10 de cada mes · 4 personas</span></span>
+            </div>
+            <div class="canopy-amount">$ 9.600 <small>por mes</small></div>
+            <div class="track"><div class="fill" style="transform:scaleX(0.333)" data-reveal="fill" data-to="0.333"></div></div>
+            <div class="canopy-meta"><span>Cobraste <b class="num">$ 2.400</b> de <b class="num">$ 7.200</b></span><span>1 de 3 pagaron</span></div>
+          </div>
+          <ul class="people" data-reveal="tags">
+            <li><span class="avatar" style="background:var(--brand-soft);color:var(--brand-tint)">V</span><span class="row-main"><span class="row-title">Vos</span><span class="share-detail">$ 2.400</span></span><span class="tag" style="background:var(--brand-soft);color:var(--brand-tint)">Paga la cuenta</span></li>
+            <li><span class="avatar" style="background:var(--pink-soft);color:var(--pink-ink)">M</span><span class="row-main"><span class="row-title">Mamá</span><span class="share-detail">$ 2.400</span></span><span class="tag" style="background:var(--green-soft);color:var(--green-ink)">Pagó</span></li>
+            <li><span class="avatar" style="background:var(--purple-soft);color:var(--purple-ink)">J</span><span class="row-main"><span class="row-title">Juli</span><span class="share-detail">$ 2.400</span></span><span class="tag" style="background:var(--yellow-soft);color:var(--yellow-ink)">Avisó que pagó</span></li>
+            <li><span class="avatar" style="background:var(--surface-alt);color:var(--muted-strong)">N</span><span class="row-main"><span class="row-title">Nico</span><span class="share-detail">$ 2.400</span></span><span class="tag" style="background:var(--surface-alt);color:var(--muted-strong)">Todavía no se unió</span></li>
+          </ul>
+        </div>
+        <div class="recurring-side">
+          <div class="invite">
+            <div><span class="label">Código de invitación</span><div class="code" id="code">X7K2QP</div></div>
+            <button class="btn-small press" id="copy" type="button"><svg class="i" aria-hidden="true"><use href="#i-content-copy"/></svg><span id="copyText">Copiar</span></button>
+          </div>
+          <p class="cap">Mandalo por WhatsApp o donde quieras. No hace falta que tengan la app todavía.</p>
+          <ol class="steps">
+            <li>Se bajan la app y tocan “Tengo un código”.</li>
+            <li>Ingresan el código y eligen su nombre de la lista.</li>
+            <li>Ven su parte y te avisan cuando te pagan.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy -->
+    <section class="bed bed-privacy" aria-labelledby="h-privacy">
+      <div class="privacy-body">
+        <div class="bed-head" style="gap:14px">
+          <div class="privacy-big">
+            <span class="badge"><svg class="i" aria-hidden="true"><use href="#i-cellphone-lock"/></svg></span>
+            <h2 id="h-privacy">Tus datos quedan en tu teléfono.</h2>
+          </div>
+          <p class="cap">Para usarla no hace falta crear una cuenta ni conectar el banco. Solo sale del teléfono lo que decidís compartir, como un gasto recurrente con tu familia.</p>
+          <ul class="promises">
+            <li><svg class="i" aria-hidden="true"><use href="#i-check-bold"/></svg>Sin crear cuenta</li>
+            <li><svg class="i" aria-hidden="true"><use href="#i-check-bold"/></svg>Sin conectar el banco</li>
+            <li><svg class="i" aria-hidden="true"><use href="#i-check-bold"/></svg>Compartís solo lo que elegís</li>
+          </ul>
+        </div>
+        <div class="sheet" data-reveal="sheet" aria-label="Ejemplo: unirse a un gasto compartido" role="group">
+          <div class="handle"></div>
+          <div class="sheet-title">Juli te invitó</div>
+          <div class="expense-line">
+            <span class="badge" style="background:var(--blue-soft);color:var(--blue)"><svg class="i" aria-hidden="true"><use href="#i-play-box-multiple"/></svg></span>
+            <span class="row-main"><span class="row-title">Streaming en familia</span><span class="row-meta">Vence el día 10 de cada mes</span></span>
+          </div>
+          <div class="sheet-facts">
+            <div class="fact"><span>Por persona, por mes</span><b>$ 2.400</b></div>
+            <div class="fact"><span>Lo comparten</span><b>4 personas</b></div>
+          </div>
+          <p class="note"><svg class="i" aria-hidden="true"><use href="#i-shield-check-outline"/></svg>Solo se comparte este gasto. Tus otros movimientos quedan en tu teléfono.</p>
+          <span class="btn btn-primary" aria-hidden="true">Unirme</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="from-blog" aria-labelledby="h-blog">
+    <div class="from-blog-head">
+      <h2 id="h-blog">Del blog: plata de todos los días</h2>
+      <a class="again" href={withBase('blog/')}>Ver todos los artículos</a>
+    </div>
+    <PostList posts={posts} headingLevel={3} />
+  </section>
+
+  <section class="close" id="bajar" aria-labelledby="h-close">
+    <svg class="moni" viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-wow"/></svg>
+    <h2 id="h-close">Anotá hoy. Mañana ya es costumbre.</h2>
+    <p>Finance llega pronto a iPhone y Android, en español y en inglés.</p>
+    <div class="stores">
+      <span class="store"><svg class="i" aria-hidden="true"><use href="#i-apple"/></svg><span><small>Próximamente</small><b>App Store</b></span></span>
+      <span class="store"><svg class="i" aria-hidden="true" style="color:var(--green)"><use href="#i-google-play"/></svg><span><small>Próximamente</small><b>Google Play</b></span></span>
+    </div>
+    <a class="again" href="#top">Volver arriba</a>
+  </section>
+</main>
+
+<SiteFooter />
+
+<script is:inline>
+(() => {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const fmt = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
+  const money = (v) => (v < 0 ? '−$ ' : '$ ') + fmt.format(Math.abs(Math.round(v)));
+  const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+
+  /* Tween a number inside an element; jumps straight to the value under reduced motion. */
+  const tweens = new WeakMap();
+  function tweenNumber(el, from, to, format, duration = 650) {
+    cancelAnimationFrame(tweens.get(el));
+    if (reduceMotion.matches || from === to) { el.textContent = format(to); return; }
+    const start = performance.now();
+    const step = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 4);
+      el.textContent = format(from + (to - from) * eased);
+      if (t < 1) tweens.set(el, requestAnimationFrame(step));
+    };
+    tweens.set(el, requestAnimationFrame(step));
+  }
+
+  /* ---------- The pile ---------- */
+  const TONES = {
+    green: ['#DDF3E4', '#2F9E5B'], purple: ['#EBE2FA', '#8B5CD6'], yellow: ['#FBF1D0', '#E0B021'],
+    blue: ['#DCEAF7', '#2F7FC8'], orange: ['#FCE8D6', '#E8893A'], teal: ['#D5F1EE', '#1FA396'],
+    red: ['#FBE1DD', '#E05A4F'], pink: ['#F9DFE8', '#D6517A'],
+  };
+  const MONTH_ENTRIES = [
+    { title: 'Sueldo', meta: 'Banco', icon: 'briefcase', tone: 'green', value: 1250000 },
+    { title: 'Alquiler', meta: 'Transferencia', icon: 'home', tone: 'purple', value: -380000 },
+    { title: 'Súper', meta: 'Débito', icon: 'cart', tone: 'green', value: -23180 },
+    { title: 'Café', meta: 'Efectivo', icon: 'coffee', tone: 'yellow', value: -4500 },
+    { title: 'Freelance', meta: 'Billetera virtual', icon: 'laptop', tone: 'blue', value: 180000 },
+    { title: 'Colectivo', meta: 'Débito', icon: 'bus', tone: 'blue', value: -1070 },
+    { title: 'Luz y gas', meta: 'Tu parte · Compartido', icon: 'lightning-bolt', tone: 'yellow', value: -28400 },
+    { title: 'Cena con amigos', meta: 'Tu parte · Grupo', icon: 'silverware-fork-knife', tone: 'orange', value: -16100 },
+    { title: 'Reintegro', meta: 'Tarjeta de crédito', icon: 'cash-refund', tone: 'teal', value: 6300 },
+    { title: 'Nafta', meta: 'Crédito', icon: 'gas-station', tone: 'red', value: -42000 },
+    { title: 'Streaming', meta: 'Tu parte · Recurrente', icon: 'play-box-multiple', tone: 'blue', value: -2400 },
+    { title: 'Regalo', meta: 'Efectivo', icon: 'gift', tone: 'pink', value: -15000 },
+  ];
+  const MONTHS = ['septiembre', 'octubre', 'noviembre', 'diciembre', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto'];
+  const TILT = [0, -1.2, 1, -0.7, 1.3, -1, 0.6];
+  const DECK_GAP = 6;
+  const DECK_MAX = 6;
+  const INTERVAL = 1700;
+
+  const area = document.getElementById('pileArea');
+  const balanceEl = document.getElementById('balance');
+  const incomeEl = document.getElementById('incomeTotal');
+  const expenseEl = document.getElementById('expenseTotal');
+  const monthEl = document.getElementById('month');
+  const deltaEl = document.getElementById('delta');
+  const pauseBtn = document.getElementById('pause');
+
+  let tiles = []; // newest first: { el, tilt }
+  let cursor = 0;
+  let monthIndex = 0;
+  let totals = { income: 0, expense: 0 };
+  let timer = null;
+  let userPaused = false;
+  let onScreen = true;
+
+  function tileMarkup(entry) {
+    const [soft, base] = TONES[entry.tone];
+    const el = document.createElement('div');
+    el.className = 'tile';
+    el.innerHTML =
+      '<span class="badge" style="background:' + soft + ';color:' + base + '"><svg class="i"><use href="#i-' + entry.icon + '"/></svg></span>' +
+      '<span class="row-main"><span class="row-title"></span><span class="row-meta"></span></span>' +
+      '<span class="amt ' + (entry.value > 0 ? 'in' : 'out') + '"></span>';
+    el.querySelector('.row-title').textContent = entry.title;
+    el.querySelector('.row-meta').textContent = entry.meta;
+    el.querySelector('.amt').textContent = (entry.value > 0 ? '+ $ ' : '− $ ') + fmt.format(Math.abs(entry.value));
+    return el;
+  }
+
+  /* Recent tiles show their whole face; older ones compress into a deck at the base. */
+  function layout() {
+    const tileH = tiles[0] ? tiles[0].el.offsetHeight : 64;
+    const step = tileH + 8;
+    const visible = Math.max(2, Math.floor((area.clientHeight - tileH - DECK_MAX * DECK_GAP) / step) + 1);
+    const pos = new Array(tiles.length);
+    pos[tiles.length - 1] = 0;
+    for (let i = tiles.length - 2; i >= 0; i--) pos[i] = pos[i + 1] + (i + 1 < visible ? step : DECK_GAP);
+    tiles.forEach((t, i) => {
+      const deckDepth = Math.max(0, i - visible + 1);
+      const scale = 1 - deckDepth * 0.025;
+      const tilt = i < visible ? t.tilt : 0;
+      t.el.style.zIndex = String(100 - i);
+      t.el.style.transform = 'translateY(' + -pos[i] + 'px) rotate(' + tilt + 'deg) scale(' + scale + ')';
+      t.el.style.filter = deckDepth ? 'brightness(' + (1 - deckDepth * 0.07) + ')' : '';
+    });
+  }
+
+  function renderTotals(prev) {
+    const balance = totals.income - totals.expense;
+    tweenNumber(balanceEl, prev.income - prev.expense, balance, money);
+    tweenNumber(incomeEl, prev.income, totals.income, money);
+    tweenNumber(expenseEl, prev.expense, totals.expense, money);
+  }
+
+  function showDelta(value) {
+    deltaEl.textContent = (value > 0 ? '+ $ ' : '− $ ') + fmt.format(Math.abs(value));
+    deltaEl.className = 'delta ' + (value > 0 ? 'in' : 'out');
+    const lift = reduceMotion.matches ? [] : [{ transform: 'translateY(8px)' }, { transform: 'translateY(-4px)' }, { transform: 'translateY(-10px)' }];
+    deltaEl.animate(
+      [{ opacity: 0, ...lift[0] }, { opacity: 1, offset: 0.25, ...lift[1] }, { opacity: 0, ...lift[2] }],
+      { duration: 1300, easing: 'ease-out' }
+    );
+  }
+
+  function addEntry(entry, animate) {
+    const el = tileMarkup(entry);
+    const tilt = TILT[(cursor + monthIndex) % TILT.length];
+    tiles.unshift({ el, tilt });
+    area.insertBefore(el, deltaEl);
+    const prev = { ...totals };
+    if (entry.value > 0) totals.income += entry.value; else totals.expense += -entry.value;
+
+    if (animate && !reduceMotion.matches) {
+      // Drop from above the pile, then settle into the new layout with everything below shifting.
+      el.style.transition = 'none';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(-' + (area.clientHeight + 40) + 'px) rotate(-6deg) scale(1.04)';
+      el.getBoundingClientRect();
+      el.style.transition = '';
+      el.style.opacity = '1';
+    } else if (animate) {
+      el.style.opacity = '0';
+      el.getBoundingClientRect();
+      el.style.opacity = '1';
+    }
+    layout();
+
+    // Trim the deck: the oldest tiles sink and leave.
+    while (tiles.length > visibleCount() + DECK_MAX) {
+      const gone = tiles.pop();
+      gone.el.style.opacity = '0';
+      setTimeout(() => gone.el.remove(), 500);
+    }
+    if (animate) { renderTotals(prev); showDelta(entry.value); }
+    else { balanceEl.textContent = money(totals.income - totals.expense); incomeEl.textContent = money(totals.income); expenseEl.textContent = money(totals.expense); }
+  }
+
+  function visibleCount() {
+    const tileH = tiles[0] ? tiles[0].el.offsetHeight : 64;
+    return Math.max(2, Math.floor((area.clientHeight - tileH - DECK_MAX * DECK_GAP) / (tileH + 8)) + 1);
+  }
+
+  /* Month closes: the pile clears downward and a new month starts from zero. */
+  function closeMonth() {
+    const leaving = tiles;
+    tiles = [];
+    leaving.forEach((t, i) => {
+      t.el.style.transitionDelay = (reduceMotion.matches ? 0 : i * 35) + 'ms';
+      t.el.style.opacity = '0';
+      if (!reduceMotion.matches) t.el.style.transform += ' translateY(40px)';
+      setTimeout(() => t.el.remove(), 900);
+    });
+    const prev = { ...totals };
+    totals = { income: 0, expense: 0 };
+    renderTotals(prev);
+    monthIndex = (monthIndex + 1) % MONTHS.length;
+    monthEl.textContent = MONTHS[monthIndex];
+    cursor = 0;
+  }
+
+  function tick() {
+    if (cursor >= MONTH_ENTRIES.length) { closeMonth(); schedule(1400); return; }
+    addEntry(MONTH_ENTRIES[cursor], true);
+    cursor += 1;
+    schedule(cursor >= MONTH_ENTRIES.length ? 2600 : INTERVAL);
+  }
+
+  function schedule(delay) {
+    clearTimeout(timer);
+    timer = null;
+    if (userPaused || !onScreen || document.hidden) return;
+    timer = setTimeout(tick, delay);
+  }
+
+  function resume() { if (!timer) schedule(INTERVAL); }
+
+  // Take over the static markup with the same first four entries.
+  area.querySelectorAll('.tile').forEach((t) => t.remove());
+  for (; cursor < 4; cursor++) addEntry(MONTH_ENTRIES[cursor], false);
+
+  pauseBtn.addEventListener('click', () => {
+    userPaused = !userPaused;
+    pauseBtn.setAttribute('aria-pressed', String(userPaused));
+    document.getElementById('pauseText').textContent = userPaused ? 'Reanudar' : 'Pausar';
+    document.getElementById('pauseIcon').setAttribute('href', userPaused ? '#i-play' : '#i-pause');
+    if (userPaused) { clearTimeout(timer); timer = null; } else { resume(); }
+  });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) { clearTimeout(timer); timer = null; } else resume(); });
+  new IntersectionObserver((entries) => {
+    onScreen = entries[0].isIntersecting;
+    if (onScreen) resume(); else { clearTimeout(timer); timer = null; }
+  }).observe(area);
+  window.addEventListener('resize', () => layout());
+  schedule(900);
+
+  /* ---------- Section reveals: each sample shows what it does, once, when it enters ---------- */
+  const revealers = {
+    wallets: (el) => [...el.children].forEach((c, i) => c.animate(
+      [{ transform: 'translateX(48px)', opacity: 0 }, { transform: 'none', opacity: 1 }],
+      { duration: 600, delay: i * 70, easing: EASE, fill: 'backwards' })),
+    bars: (el) => el.querySelectorAll('.bar').forEach((b, i) => b.animate(
+      [{ transform: 'scaleY(0)' }, { transform: 'scaleY(1)' }],
+      { duration: 700, delay: i * 60, easing: EASE, fill: 'backwards' })),
+    fill: (el) => el.animate(
+      [{ transform: 'scaleX(0)' }, { transform: 'scaleX(' + el.dataset.to + ')' }],
+      { duration: 900, delay: 150, easing: EASE, fill: 'backwards' }),
+    tags: (el) => el.querySelectorAll('.tag').forEach((t, i) => t.animate(
+      [{ transform: 'scale(0.6)', opacity: 0 }, { transform: 'none', opacity: 1 }],
+      { duration: 420, delay: 250 + i * 140, easing: EASE, fill: 'backwards' })),
+    compare: () => sweepCompare(),
+    sheet: (el) => el.animate(
+      [{ transform: 'translateY(40px)', opacity: 0.2 }, { transform: 'none', opacity: 1 }],
+      { duration: 700, easing: EASE, fill: 'backwards' }),
+  };
+  if (!reduceMotion.matches && 'IntersectionObserver' in window) {
+    const seen = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      seen.unobserve(e.target);
+      revealers[e.target.dataset.reveal](e.target);
+    }), { threshold: 0.35 });
+    document.querySelectorAll('[data-reveal]').forEach((el) => {
+      // Only elements that start below the fold get a reveal; what is on screen at load stays put.
+      if (el.getBoundingClientRect().top > window.innerHeight) seen.observe(el);
+    });
+  }
+
+  /* ---------- Day / night comparison ---------- */
+  const compare = document.getElementById('compare');
+  const range = document.getElementById('splitRange');
+  function setSplit(v) {
+    compare.style.setProperty('--split', v + '%');
+    range.setAttribute('aria-valuetext', v <= 5 ? 'Todo oscuro' : v >= 95 ? 'Todo claro' : v + '% claro');
+  }
+  range.addEventListener('input', () => setSplit(range.value));
+  function sweepCompare() {
+    const start = performance.now();
+    const from = 92, to = 50, duration = 1100;
+    const step = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 4);
+      const v = Math.round(from + (to - from) * eased);
+      range.value = v;
+      setSplit(v);
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  /* ---------- Hide amounts ---------- */
+  const eye = document.getElementById('eye');
+  eye.addEventListener('click', () => {
+    const hidden = eye.getAttribute('aria-pressed') !== 'true';
+    eye.setAttribute('aria-pressed', String(hidden));
+    document.getElementById('walletsBed').classList.toggle('hide-amounts', hidden);
+    document.getElementById('eyeText').textContent = hidden ? 'Mostrar' : 'Ocultar';
+  });
+
+  /* ---------- Split demo ---------- */
+  const total = 48300;
+  const modes = {
+    equal: { values: [1, 1, 1], detail: () => 'Un tercio' },
+    shares: { values: [2, 1, 1], detail: (v) => v + (v === 1 ? ' parte' : ' partes') },
+    percentage: { values: [40, 30, 30], detail: (v) => v + '%' },
+    amount: { values: [18300, 15000, 15000], detail: () => 'Importe fijo' },
+  };
+  function split(mode) {
+    const { values } = modes[mode];
+    if (mode === 'amount') return values.slice();
+    const sum = values.reduce((a, b) => a + b, 0);
+    return values.map((v) => (total * v) / sum);
+  }
+  let currentShares = split('equal');
+  const owedEl = document.getElementById('owed');
+  document.getElementById('splitSeg').addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-mode]');
+    if (!btn) return;
+    const mode = btn.dataset.mode;
+    document.querySelectorAll('#splitSeg button').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+    const next = split(mode);
+    document.querySelectorAll('#people .share-detail').forEach((d, i) => { d.textContent = modes[mode].detail(modes[mode].values[i]); });
+    document.querySelectorAll('.bed-split [data-share]').forEach((el) => {
+      const i = Number(el.dataset.share);
+      tweenNumber(el, currentShares[i], next[i], money, 450);
+    });
+    tweenNumber(owedEl, total - currentShares[0], total - next[0], (v) => 'Te deben ' + money(v), 450);
+    currentShares = next;
+  });
+
+  /* ---------- Copy invite code ---------- */
+  const copyText = document.getElementById('copyText');
+  document.getElementById('copy').addEventListener('click', async () => {
+    const codeEl = document.getElementById('code');
+    try {
+      await navigator.clipboard.writeText(codeEl.textContent);
+      copyText.textContent = 'Copiado';
+    } catch {
+      const r = document.createRange();
+      r.selectNodeContents(codeEl);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(r);
+      copyText.textContent = 'Seleccionado';
+    }
+    setTimeout(() => { copyText.textContent = 'Copiar'; }, 1600);
+  });
+})();
+</script>
+</Base>

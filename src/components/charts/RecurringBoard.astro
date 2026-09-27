@@ -1,0 +1,84 @@
+---
+/**
+ * A variable shared bill (power and gas) over six months: the amount each month and who paid their share.
+ * Rendered as a real table so the data is readable without the visuals.
+ */
+const fmt = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
+const money = (v: number) => '$ ' + fmt.format(Math.round(v));
+
+const months = ['Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep'];
+const monthNames = ['abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre'];
+const amounts = [42300, 48900, 61200, 66800, 58400, 51600];
+const max = Math.max(...amounts);
+
+type Status = 'paid' | 'reported' | 'pending';
+const people: { name: string; statuses: Status[] }[] = [
+  { name: 'Sofi', statuses: ['paid', 'paid', 'paid', 'paid', 'paid', 'reported'] },
+  { name: 'Tomi', statuses: ['paid', 'paid', 'paid', 'paid', 'paid', 'pending'] },
+];
+const STATUS: Record<Status | 'payer', { label: string; icon: string; cls: string }> = {
+  payer: { label: 'Paga la cuenta', icon: 'account-star', cls: 'st-payer' },
+  paid: { label: 'Pagó', icon: 'check-bold', cls: 'st-paid' },
+  reported: { label: 'Avisó que pagó', icon: 'clock-outline', cls: 'st-reported' },
+  pending: { label: 'Pendiente', icon: 'circle-outline', cls: 'st-pending' },
+};
+---
+<figure class="chart">
+  <div class="chart-head">
+    <div>
+      <p class="chart-title">Luz y gas del depto, entre tres</p>
+      <p class="chart-sub">Monto de cada factura (en miles de pesos) y quién pagó su tercio</p>
+    </div>
+    <span class="example-tag">Ejemplo</span>
+  </div>
+  <table class="bill-table">
+    <caption class="sr-only">Factura mensual de luz y gas entre Vos, Sofi y Tomi, de abril a septiembre, con el estado de pago de cada persona.</caption>
+    <thead>
+      <tr>
+        <td></td>
+        {months.map((m, i) => <th scope="col"><abbr title={monthNames[i]}>{m}</abbr></th>)}
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bill-bars">
+        <th scope="row">Factura</th>
+        {amounts.map((a) => (
+          <td>
+            <span class="bill-bar">
+              <small>{(a / 1000).toLocaleString('es-AR', { maximumFractionDigits: 1 })}</small>
+              <i style={`height:${Math.round((a / max) * 78)}px`} aria-hidden="true"></i>
+              <span class="sr-only">{money(a)}</span>
+            </span>
+          </td>
+        ))}
+      </tr>
+      <tr>
+        <th scope="row">Vos</th>
+        {amounts.map(() => (
+          <td><span class={`status-cell ${STATUS.payer.cls}`}><svg class="i" aria-hidden="true"><use href={`#i-${STATUS.payer.icon}`} /></svg><span class="sr-only">{STATUS.payer.label}</span></span></td>
+        ))}
+      </tr>
+      {people.map((p) => (
+        <tr>
+          <th scope="row">{p.name}</th>
+          {p.statuses.map((s, i) => (
+            <td>
+              <span class={`status-cell ${STATUS[s].cls}`} title={`${STATUS[s].label}: ${money(amounts[i] / 3)}`}>
+                <svg class="i" aria-hidden="true"><use href={`#i-${STATUS[s].icon}`} /></svg>
+                <span class="sr-only">{STATUS[s].label}, {money(amounts[i] / 3)}</span>
+              </span>
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <ul class="status-legend">
+    {(['payer', 'paid', 'reported', 'pending'] as const).map((k) => (
+      <li><span class={`status-cell ${STATUS[k].cls}`}><svg class="i" aria-hidden="true"><use href={`#i-${STATUS[k].icon}`} /></svg></span>{STATUS[k].label}</li>
+    ))}
+  </ul>
+  <figcaption>
+    La factura va de <strong>{money(Math.min(...amounts))}</strong> a <strong>{money(max)}</strong> según el mes, así que cada tercio también cambia. En septiembre (<strong>{money(amounts[5])}</strong>, {money(amounts[5] / 3)} por persona) Sofi avisó que pagó y falta que Vos lo confirme, y Tomi todavía no pagó.
+  </figcaption>
+</figure>

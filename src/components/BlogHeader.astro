@@ -1,0 +1,15 @@
+---
+import { SITE, withBase } from '../site';
+---
+<header class="blog-bar">
+  <div class="wrap topbar">
+    <a class="logo" href={withBase('')}>
+      <svg viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-happy"/></svg>
+      {SITE.name}
+    </a>
+    <nav class="bar-links" aria-label="Principal">
+      <a class="bar-link" href={withBase('blog/')} aria-current={Astro.url.pathname === withBase('blog/') ? 'page' : undefined}>Blog</a>
+      <a class="toplink press" href={withBase('')}>Conocé la app</a>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,130 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import BlogHeader from '../../components/BlogHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import PostList from '../../components/PostList.astro';
+import { sortPosts, SITE, ORGANIZATION, absoluteUrl, formatDate, readingMinutes, withBase } from '../../site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: CollectionEntry<'blog'> };
+const { Content } = await render(post);
+const { data } = post;
+const path = `blog/${post.id}/`;
+const published = data.pubDate.toISOString().slice(0, 10);
+const modified = (data.updatedDate ?? data.pubDate).toISOString().slice(0, 10);
+const minutes = readingMinutes(post.body ?? '');
+const others = sortPosts(await getCollection('blog')).filter((p) => p.id !== post.id);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: data.title,
+    description: data.description,
+    abstract: data.summary.join(' '),
+    datePublished: published,
+    dateModified: modified,
+    inLanguage: SITE.locale,
+    keywords: data.keywords.join(', '),
+    image: absoluteUrl('og.png'),
+    url: absoluteUrl(path),
+    mainEntityOfPage: { '@type': 'WebPage', '@id': absoluteUrl(path) },
+    author: ORGANIZATION,
+    publisher: ORGANIZATION,
+    timeRequired: `PT${minutes}M`,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: SITE.name, item: absoluteUrl() },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: absoluteUrl('blog/') },
+      { '@type': 'ListItem', position: 3, name: data.shortTitle, item: absoluteUrl(path) },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: data.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+<Base
+  title={`${data.title} | ${SITE.name}`}
+  description={data.description}
+  path={path}
+  type="article"
+  jsonLd={jsonLd}
+  publishedTime={published}
+  modifiedTime={modified}
+>
+  <BlogHeader />
+  <main class="wrap">
+    <article class="article">
+      <nav class="crumbs" aria-label="Migas de pan">
+        <ol>
+          <li><a href={withBase('')}>{SITE.name}</a></li>
+          <li aria-hidden="true"><svg class="i"><use href="#i-chevron-right" /></svg></li>
+          <li><a href={withBase('blog/')}>Blog</a></li>
+          <li aria-hidden="true"><svg class="i"><use href="#i-chevron-right" /></svg></li>
+          <li><span aria-current="page">{data.shortTitle}</span></li>
+        </ol>
+      </nav>
+
+      <header class="article-head">
+        <h1>{data.title}</h1>
+        <p class="dek">{data.description}</p>
+        <p class="article-meta">
+          <span class="pill"><svg class="i" aria-hidden="true"><use href="#i-calendar-blank" /></svg><time datetime={published}>{formatDate(data.pubDate)}</time></span>
+          <span class="pill"><svg class="i" aria-hidden="true"><use href="#i-clock-outline" /></svg>{minutes} min de lectura</span>
+          <span class="pill">Por el equipo de {SITE.name}</span>
+        </p>
+      </header>
+
+      <section class="summary" aria-labelledby="en-resumen">
+        <h2 id="en-resumen">En resumen</h2>
+        <ul>
+          {data.summary.map((item) => (
+            <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>{item}</span></li>
+          ))}
+        </ul>
+      </section>
+
+      <div class="prose">
+        <Content />
+      </div>
+
+      <section class="faq" aria-labelledby="preguntas">
+        <h2 id="preguntas">Preguntas frecuentes</h2>
+        {data.faq.map((f) => (
+          <div class="faq-item">
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </div>
+        ))}
+      </section>
+
+      <aside class="cta" aria-labelledby="cta-title">
+        <h2 id="cta-title">{SITE.tagline}</h2>
+        <p>Gastos, grupos y cuentas compartidas en una sola app, con tus datos en tu teléfono. Llega muy pronto a iPhone y Android.</p>
+        <a class="btn btn-accent press" href={withBase('')}>Conocé {SITE.name}</a>
+        <svg class="moni" viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-happy" /></svg>
+      </aside>
+
+      <section class="more" aria-labelledby="seguir">
+        <h2 id="seguir">Seguí leyendo</h2>
+        <PostList posts={others} headingLevel={3} />
+      </section>
+    </article>
+  </main>
+  <SiteFooter />
+</Base>

@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, readingMinutes, withBase } from '../site';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  headingLevel?: 2 | 3;
+}
+
+const { posts, headingLevel = 2 } = Astro.props;
+const Heading = headingLevel === 2 ? 'h2' : 'h3';
+---
+<ul class="post-list">
+  {posts.map((post) => (
+    <li>
+      <article class="post-item">
+        <span class="badge post-badge" style={`background:var(--${post.data.tone}-soft);color:var(--${post.data.tone})`}>
+          <svg class="i" aria-hidden="true"><use href={`#i-${post.data.icon}`} /></svg>
+        </span>
+        <div class="post-body">
+          <Heading class="post-title"><a href={withBase(`blog/${post.id}/`)}>{post.data.title}</a></Heading>
+          <p class="post-desc">{post.data.description}</p>
+          <p class="post-meta">
+            <time datetime={post.data.pubDate.toISOString().slice(0, 10)}>{formatDate(post.data.pubDate)}</time>
+            <span aria-hidden="true">·</span>
+            <span>{readingMinutes(post.body ?? '')} min de lectura</span>
+          </p>
+        </div>
+      </article>
+    </li>
+  ))}
+</ul>

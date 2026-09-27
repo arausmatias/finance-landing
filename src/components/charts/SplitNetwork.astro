@@ -1,0 +1,105 @@
+---
+/**
+ * Who owes whom after a 4-person trip: every pairwise debt vs the simplified transfers.
+ * Example: Vos paid the cabin (240.000), Sofi the fuel (60.000), Tomi the groceries (80.000), Juli a dinner (20.000).
+ */
+const fmt = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
+const money = (v: number) => '$ ' + fmt.format(v);
+
+type Id = 'V' | 'S' | 'T' | 'J';
+const nodes: Record<Id, { name: string; x: number; y: number; labelBelow: boolean }> = {
+  V: { name: 'Vos', x: 64, y: 58, labelBelow: false },
+  S: { name: 'Sofi', x: 256, y: 58, labelBelow: false },
+  T: { name: 'Tomi', x: 256, y: 186, labelBelow: true },
+  J: { name: 'Juli', x: 64, y: 186, labelBelow: true },
+};
+const paid: Record<Id, number> = { V: 240000, S: 60000, T: 80000, J: 20000 };
+const ids = Object.keys(nodes) as Id[];
+
+// Before: everyone pays each payer a quarter of what that payer spent.
+const before = ids.flatMap((from) => ids.filter((to) => to !== from).map((to) => ({ from, to, amount: paid[to] / 4 })));
+// After: net balances, settled toward the only creditor.
+const share = Object.values(paid).reduce((a, b) => a + b, 0) / ids.length;
+const after = ids
+  .filter((id) => paid[id] < share)
+  .map((from) => ({ from, to: 'V' as Id, amount: share - paid[from] }))
+  .sort((a, b) => b.amount - a.amount);
+
+const R = 22;
+function curve(from: Id, to: Id, bend: number) {
+  const a = nodes[from], b = nodes[to];
+  const dx = b.x - a.x, dy = b.y - a.y;
+  const len = Math.hypot(dx, dy);
+  const ux = dx / len, uy = dy / len;
+  const sx = a.x + ux * (R + 3), sy = a.y + uy * (R + 3);
+  const ex = b.x - ux * (R + 9), ey = b.y - uy * (R + 9);
+  const mx = (sx + ex) / 2 - uy * bend, my = (sy + ey) / 2 + ux * bend;
+  return { d: `M${sx.toFixed(1)},${sy.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${ex.toFixed(1)},${ey.toFixed(1)}`, lx: (sx + 2 * mx + ex) / 4, ly: (sy + 2 * my + ey) / 4 };
+}
+const W = 320, H = 250;
+---
+<figure class="chart">
+  <div class="chart-head">
+    <div>
+      <p class="chart-title">Un viaje entre cuatro: quién le paga a quién</p>
+      <p class="chart-sub">Gastaron {money(400000)} en total, {money(share)} por persona</p>
+    </div>
+    <span class="example-tag">Ejemplo</span>
+  </div>
+  <div class="split-panels">
+    <div class="split-panel">
+      <h4>Cada uno le paga a cada uno <span>{before.length} transferencias</span></h4>
+      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby="sn-before-t">
+        <title id="sn-before-t">{before.length} transferencias cruzadas entre las cuatro personas</title>
+        <defs>
+          <marker id="arrow-muted" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 Z" fill="var(--border-strong)" />
+          </marker>
+        </defs>
+        {before.map((e) => <path class="edge" d={curve(e.from, e.to, 16).d} marker-end="url(#arrow-muted)" />)}
+        {ids.map((id) => (
+          <g>
+            <circle class="node-circle" cx={nodes[id].x} cy={nodes[id].y} r={R} />
+            <text class="node-text" x={nodes[id].x} y={nodes[id].y + 5} text-anchor="middle">{id}</text>
+            <text class="node-name" x={nodes[id].x} y={nodes[id].labelBelow ? nodes[id].y + R + 18 : nodes[id].y - R - 9} text-anchor="middle">{nodes[id].name} puso {money(paid[id])}</text>
+          </g>
+        ))}
+      </svg>
+    </div>
+    <div class="split-panel">
+      <h4>Simplificado <span>{after.length} transferencias</span></h4>
+      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby="sn-after-t">
+        <title id="sn-after-t">Tres transferencias, todas hacia Vos</title>
+        <defs>
+          <marker id="arrow-strong" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 Z" fill="var(--brand-tint)" />
+          </marker>
+        </defs>
+        {after.map((e) => {
+          const c = curve(e.from, e.to, 0);
+          return (
+            <g>
+              <path class="edge-strong" d={c.d} marker-end="url(#arrow-strong)" />
+              <text class="edge-label" x={c.lx} y={c.ly + 4} text-anchor="middle">{money(e.amount)}</text>
+            </g>
+          );
+        })}
+        {ids.map((id) => (
+          <g>
+            <circle class="node-circle" cx={nodes[id].x} cy={nodes[id].y} r={R} />
+            <text class="node-text" x={nodes[id].x} y={nodes[id].y + 5} text-anchor="middle">{id}</text>
+            <text class="node-name" x={nodes[id].x} y={nodes[id].labelBelow ? nodes[id].y + R + 18 : nodes[id].y - R - 9} text-anchor="middle">{nodes[id].name}</text>
+          </g>
+        ))}
+      </svg>
+      <ul class="transfer-list">
+        {after.map((e) => (
+          <li>{nodes[e.from].name}<svg class="i" aria-hidden="true"><use href="#i-arrow-right" /></svg>{nodes[e.to].name}<b>{money(e.amount)}</b></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+  <figcaption>
+    Si cada uno le devuelve a cada uno su parte, son <strong>{before.length} transferencias</strong>. Compensando lo que cada uno puso contra lo que le tocaba, alcanzan <strong>{after.length}</strong>: Juli, Sofi y Tomi le pagan a Vos, y todos quedan a mano con {money(share)} gastados cada uno.
+  </figcaption>
+</figure>

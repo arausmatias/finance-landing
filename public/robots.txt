@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://arausmatias.github.io/finance-landing/sitemap-index.xml
