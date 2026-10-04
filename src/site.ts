@@ -1,7 +1,7 @@
-/** Site-wide facts. "Finance" is a placeholder product name: rename it here. */
+/** Site-wide facts. */
 export const SITE = {
-  name: 'Finance',
-  origin: 'https://arausmatias.github.io',
+  name: 'Loneto',
+  origin: 'https://loneto.app',
   locale: 'es-AR',
   ogLocale: 'es_AR',
   tagline: 'Tu plata, anotada en segundos.',
@@ -12,7 +12,7 @@ export const SITE = {
     'Plata de todos los días: gastos hormiga, cuentas compartidas y gastos fijos, contados sin vueltas y con ejemplos.',
 };
 
-/** Prefixes a site path with the deploy base, e.g. "blog/" -> "/finance-landing/blog/". */
+/** Prefixes a site path with the deploy base, e.g. "blog/" -> "/blog/". */
 export function withBase(path = ''): string {
   const base = import.meta.env.BASE_URL.replace(/\/+$/, '');
   return `${base}/${path.replace(/^\/+/, '')}`;

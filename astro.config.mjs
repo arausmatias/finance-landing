@@ -3,11 +3,9 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
-// Project site on GitHub Pages: https://arausmatias.github.io/finance-landing/
-// With a custom domain, set `site` to it and drop `base`.
+// GitHub Pages with the custom domain loneto.app (DNS on Cloudflare).
 export default defineConfig({
-  site: 'https://arausmatias.github.io',
-  base: '/finance-landing',
+  site: 'https://loneto.app',
   trailingSlash: 'always',
   integrations: [mdx(), sitemap()],
 });
