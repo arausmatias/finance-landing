@@ -1,0 +1,75 @@
+---
+import Legal from '../layouts/Legal.astro';
+import Email from '../components/Email.astro';
+import { SITE, LEGAL_PATHS, withBase } from '../site';
+---
+<Legal
+  page="support"
+  lang="es"
+  title={`Ayuda de ${SITE.name}`}
+  shortTitle="Ayuda"
+  description={`Respuestas rápidas sobre ${SITE.name} y cómo contactarnos si algo no funciona.`}
+>
+  <h2 id="contacto">Contacto</h2>
+  <p>
+    Escribinos a <Email />. Contanos qué pasó, qué teléfono usás y la versión de la app. Respondemos en días hábiles.
+  </p>
+
+  <h2 id="preguntas">Preguntas frecuentes</h2>
+
+  <h3>¿Necesito una cuenta?</h3>
+  <p>
+    No. Podés usar la app como invitado y todo queda en tu teléfono. La cuenta solo hace falta para compartir grupos o gastos
+    recurrentes con otras personas.
+  </p>
+
+  <h3>¿Dónde están mis datos?</h3>
+  <p>
+    Tus movimientos, cuentas y categorías están solo en tu teléfono. Lo que compartís se guarda en nuestros servidores para
+    sincronizarlo con los demás integrantes. Los detalles están en la <a href={withBase(LEGAL_PATHS.privacy.es)}>Política de privacidad</a>.
+  </p>
+
+  <h3>Cambié de teléfono, ¿cómo recupero mis datos?</h3>
+  <p>
+    Lo que compartiste vuelve a aparecer al iniciar sesión con la misma cuenta. Lo que no compartiste solo se puede
+    recuperar si estaba en una copia de seguridad de tu teléfono (iCloud o Google) y la restaurás en el nuevo. Las compras se
+    recuperan con la opción de restaurar compras y la misma cuenta de la tienda.
+  </p>
+
+  <h3>¿Cómo me sumo a un grupo o a un gasto recurrente?</h3>
+  <p>
+    Pedile a quien lo creó el código de invitación. En la app, elegí unirte con un código, iniciá sesión y escribilo. Los
+    códigos vencen, así que si no funciona pedí uno nuevo.
+  </p>
+
+  <h3>Quien administraba mi grupo eliminó su cuenta, ¿qué hago?</h3>
+  <p>
+    El grupo sigue funcionando. Entrá al grupo y tocá “Tomar la administración”: el primero que lo haga pasa a administrarlo.
+    Si era un gasto recurrente compartido, se dio de baja y quedó archivado; para seguir repartiéndolo, creá uno nuevo.
+  </p>
+
+  <h3>¿La app mueve plata o se conecta con mi banco?</h3>
+  <p>No. Solo registra lo que vos cargás. Los pagos entre personas se hacen por fuera de la app.</p>
+
+  <h3>¿Cómo pido un reembolso?</h3>
+  <p>
+    Las compras las cobran Apple o Google, así que el reembolso se pide desde la tienda donde compraste. Si tenés un
+    problema con lo que compraste, escribinos igual y te ayudamos.
+  </p>
+
+  <h3>No me llegan los recordatorios</h3>
+  <p>
+    Revisá que las notificaciones de {SITE.name} estén permitidas en los ajustes del teléfono. En Android, revisá también que
+    el ahorro de batería no esté frenando la app.
+  </p>
+
+  <h3>¿Cómo elimino mi cuenta?</h3>
+  <p>Desde la app, en Perfil › Cuenta › Eliminar cuenta. Más detalles en <a href={withBase(LEGAL_PATHS.deleteAccount.es)}>Eliminar tu cuenta</a>.</p>
+
+  <h2 id="legales">Legales</h2>
+  <ul>
+    <li><a href={withBase(LEGAL_PATHS.privacy.es)}>Política de privacidad</a></li>
+    <li><a href={withBase(LEGAL_PATHS.terms.es)}>Términos y condiciones de uso</a></li>
+    <li><a href={withBase(LEGAL_PATHS.deleteAccount.es)}>Eliminar tu cuenta</a></li>
+  </ul>
+</Legal>

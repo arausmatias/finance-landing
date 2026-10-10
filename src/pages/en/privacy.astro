@@ -1,0 +1,250 @@
+---
+import Legal from '../../layouts/Legal.astro';
+import Callout from '../../components/Callout.astro';
+import Email from '../../components/Email.astro';
+import { SITE, LEGAL, LEGAL_PATHS, withBase } from '../../site';
+
+const domain = SITE.origin.replace('https://', '');
+---
+<Legal
+  page="privacy"
+  lang="en"
+  title="Privacy policy"
+  shortTitle="Privacy"
+  description={`What data ${SITE.name} uses, where it lives and what you can do about it. Most of it never leaves your phone.`}
+>
+  <section slot="summary" class="summary" aria-labelledby="summary">
+    <h2 id="summary">In short</h2>
+    <ul>
+      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>Your transactions, accounts, categories and tags stay on your phone. We never see or store them.</span></li>
+      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>If you sign in, we store your basic account details. If you also share a group or a recurring expense, what you share is stored on our servers to sync it with the other people.</span></li>
+      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>We don't sell data, show ads, or use analytics or tracking tools.</span></li>
+      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>You can ask for a copy of your data, or delete your account from the app, at any time.</span></li>
+    </ul>
+  </section>
+
+  <h2 id="controller">1. Who is responsible for your data</h2>
+  <p>
+    {SITE.name} (“the app”) is provided by {LEGAL.ownerName}, Argentine tax ID (CUIT) {LEGAL.ownerTaxId}, located at
+    {' '}{LEGAL.ownerAddress} (“we” or “us”). We are the controller of the data described in this policy.
+  </p>
+  <p>For any privacy question, email us at <Email lang="en" />.</p>
+  <p>This policy covers the iPhone and Android app and the website <a href={withBase('')}>{domain}</a>.</p>
+
+  <h2 id="on-your-phone">2. What stays on your phone</h2>
+  <p>The app works without an account. Everything you enter is saved in a database on your device and is not sent to our servers:</p>
+  <ul>
+    <li>Income, expenses, transfers, notes, dates and amounts.</li>
+    <li>Your accounts, payment methods, balances, categories and tags.</li>
+    <li>Your groups and recurring expenses, as long as you don't share them.</li>
+    <li>The name the app greets you with, your main currency, language, theme and reminder time.</li>
+    <li>Your progress: level, points and streaks.</li>
+  </ul>
+  <p>
+    We have no access to that information. If you uninstall the app, it is erased from the phone. If your device backups
+    (iCloud or Google) are on, this data may be included in them: those backups are run by Apple or Google under your
+    account and their own privacy policy, not by us.
+  </p>
+
+  <h2 id="when-sharing">3. What we process if you sign in or share</h2>
+  <p>
+    You only need an account to share expenses with other people. Signing in stores your account details (the first row).
+    Everything else is stored only when you share a group or a recurring expense:
+  </p>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th scope="col">Data</th><th scope="col">Where it comes from</th><th scope="col">What for</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Name, email, profile photo and identifier of your Google account</td>
+          <td>Google, as soon as you sign in with “Continue with Google”</td>
+          <td>Create your account, identify you and show your name and photo to the people you share with</td>
+        </tr>
+        <tr>
+          <td>Shared groups: name, icon, color, currency and members</td>
+          <td>Entered by you or by whoever invited you</td>
+          <td>Sync the group among its members</td>
+        </tr>
+        <tr>
+          <td>Group expenses and payments: amount, currency, note, date, category, who paid, how it was split and who entered it</td>
+          <td>Entered by the members</td>
+          <td>Work out balances and show who owes whom</td>
+        </tr>
+        <tr>
+          <td>Change history: who edited or deleted a group expense and how it ended up</td>
+          <td>Created when someone edits or deletes</td>
+          <td>Let the group see what changed and avoid misunderstandings</td>
+        </tr>
+        <tr>
+          <td>Shared recurring expenses: name, amount, due day, members, shares and reported payments</td>
+          <td>Entered by whoever creates it and whoever joins</td>
+          <td>Split the cost every month and record who already paid</td>
+        </tr>
+        <tr>
+          <td>Invite codes and failed attempts to use a code</td>
+          <td>Created when you invite or join</td>
+          <td>Add people and stop codes from being guessed. Codes expire, and failed attempts are erased after one day</td>
+        </tr>
+        <tr>
+          <td>Technical data about each connection, such as IP address, date and device type</td>
+          <td>Created when syncing</td>
+          <td>Run the service, keep it secure and fix errors</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    Only what you share leaves your phone. Your personal transactions, accounts and balances are never sent, even when you
+    are signed in.
+  </p>
+
+  <h3>Other people's data</h3>
+  <p>
+    When you set up a group or a recurring expense, you can add people by typing their name, even if they don't use the app
+    yet. If you share that group, the name is stored on our servers and the other members see it. Only use names or
+    nicknames those people are happy to share.
+  </p>
+
+  <h2 id="purchases">4. In-app purchases</h2>
+  <p>
+    The app is free and offers optional paid features. Payments are processed by Apple (App Store) or Google (Google Play)
+    under their own terms: we never receive or store your card or payment details. To unlock what you bought, the store
+    confirms the purchase to us (what you bought, when, and a transaction identifier) and, if you are signed in, we link it
+    to your account so you can restore it on another device.
+  </p>
+
+  <h2 id="legal-bases">5. Why we can use your data</h2>
+  <ul>
+    <li><strong>To provide the service you ask for:</strong> creating your account, syncing what you choose to share and unlocking your purchases.</li>
+    <li><strong>Your consent:</strong> given when you sign in and share, and for reminders, when you allow notifications. You can withdraw it at any time by signing out, stopping sharing, turning off notifications or deleting your account.</li>
+    <li><strong>Security and abuse prevention:</strong> technical logs and attempt limits that protect the service and the people who use it.</li>
+    <li><strong>Legal obligations:</strong> when a law or a competent authority requires it.</li>
+  </ul>
+  <p>We don't use your data for advertising, build spending profiles, or make automated decisions about you.</p>
+
+  <h2 id="sharing">6. Who we share it with</h2>
+  <ul>
+    <li><strong>The people you share with.</strong> Members of a group or recurring expense see your name, your photo and what is entered in it.</li>
+    <li><strong>Supabase</strong>, which provides our database, sign-in and servers. It processes data only on our instructions.</li>
+    <li><strong>Google</strong>, which verifies your identity when you sign in with Google, under its own privacy policy.</li>
+    <li><strong>Apple and Google</strong>, as app stores, payment processors and operating systems, under their own policies.</li>
+    <li><strong>Authorities</strong>, only when a law or a valid order requires it.</li>
+  </ul>
+  <p>We don't sell or rent personal data.</p>
+
+  <h3>International transfers</h3>
+  <p>
+    Our servers are in {LEGAL.dataRegion.en}. If you use the app from another country, what you share is stored there.
+    Supabase is contractually bound, through a data processing agreement with standard contractual clauses, to protect
+    that data to an adequate level, as Argentine Law 25,326 and the laws of other countries that require it demand.
+  </p>
+
+  <h2 id="notifications">7. Notifications and permissions</h2>
+  <p>
+    Reminders are scheduled on your phone. We don't use push notifications, so we don't store any token or device
+    identifier to message you. The only permission the app asks for is notifications, and you can turn it off in your
+    phone's settings.
+  </p>
+
+  <h2 id="retention">8. How long we keep data</h2>
+  <ul>
+    <li><strong>On your phone:</strong> until you delete it or uninstall the app.</li>
+    <li><strong>Your account and what you share:</strong> while your account is active.</li>
+    <li><strong>What you delete from a shared group:</strong> it is first marked as deleted so it disappears on every device, and is erased for good after {LEGAL.purgeDays} days.</li>
+    <li><strong>Invite codes:</strong> until they expire. Failed attempts, one day.</li>
+    <li><strong>Technical data:</strong> as long as our provider keeps it to run and protect the service.</li>
+    <li><strong>Server backups:</strong> up to {LEGAL.serverBackupDays} days, used only to restore the service after a failure.</li>
+  </ul>
+
+  <h3>What happens when you delete your account</h3>
+  <ul>
+    <li>We delete your account, name, email, photo and the link to your Google account.</li>
+    <li>In shared groups and recurring expenses, the expenses and payments you entered stay so the numbers still add up, but your name and photo are replaced with “Former user” and no longer linked to you.</li>
+    <li>If you administered a shared group, the group carries on for the others and any of its members can take over as admin.</li>
+    <li>If you created a shared recurring expense, it ends: it is archived for its members, who can look at it but not keep using it.</li>
+    <li>What is on your phone stays, unless you choose to erase it too when deleting your account.</li>
+  </ul>
+  <p>More details in <a href={withBase(LEGAL_PATHS.deleteAccount.en)}>Delete your account</a>.</p>
+
+  <h2 id="rights">9. Your rights</h2>
+  <p>You can ask us at any time for:</p>
+  <ul>
+    <li><strong>Access:</strong> to know what data we hold about you and get a copy.</li>
+    <li><strong>Correction:</strong> to fix inaccurate data.</li>
+    <li><strong>Deletion:</strong> to erase it. You can delete your account right from the app.</li>
+    <li><strong>Objection and restriction:</strong> to stop using it for a given purpose.</li>
+    <li><strong>Portability:</strong> to get it in a format you can take to another service.</li>
+  </ul>
+  <p>
+    Email us at <Email lang="en" /> from your account's email address. We answer access requests within 10 calendar days
+    and correction or deletion requests within {LEGAL.deletionDays} business days, as Argentine Law 25,326 requires. Under
+    article 14(3) of that law, you can exercise the right of access free of charge at intervals of no less than six months,
+    unless you show a legitimate interest in doing so sooner.
+  </p>
+  <Callout icon="shield-check-outline">
+    <p>
+      The Argentine Agency for Access to Public Information (AAIP), as the supervisory authority under Law 25,326, handles
+      complaints from anyone whose personal data rights have been affected by a breach of data protection rules.
+    </p>
+  </Callout>
+
+  <h3>If you live in the European Union, the EEA or the United Kingdom</h3>
+  <p>
+    We process your data under the General Data Protection Regulation (GDPR). Our legal bases are: performance of the
+    contract you accept by using the app, for your account, syncing and purchases (Art. 6(1)(b)); your consent, for
+    notifications (Art. 6(1)(a)); our legitimate interest in keeping the service secure (Art. 6(1)(f)); and compliance with
+    legal obligations (Art. 6(1)(c)). Besides the rights above, you can withdraw your consent at any time and lodge a
+    complaint with the data protection authority of your country.
+  </p>
+
+  <h3>If you live in Brazil</h3>
+  <p>
+    You have the rights set out in Article 18 of the General Data Protection Law (LGPD), including confirmation of
+    processing, access, correction, anonymization or deletion, portability and information about who we share your data
+    with. You can also complain to the National Data Protection Authority (ANPD).
+  </p>
+
+  <h3>If you live in the United States</h3>
+  <p>
+    In the last 12 months we have only processed the categories described in this policy: identifiers (name, email and
+    account identifier), financial information you enter when sharing expenses, purchase information and technical
+    connection data. We don't sell personal information, don't share it for cross-context behavioral advertising, and don't
+    use sensitive information to infer characteristics about you. Depending on your state, such as California, you can ask
+    to know, correct or delete the data we hold, and you won't be treated differently for doing so.
+  </p>
+
+  <h2 id="security">10. Security</h2>
+  <p>
+    Connections to our servers are encrypted. Each person can only read the groups and recurring expenses they belong to,
+    and only whoever entered an expense can edit or delete it. No system is perfect: if we detect an incident affecting your
+    data, we will let you know and notify the authorities when required.
+  </p>
+  <p>
+    Data on your phone is protected by your device's lock and encryption. We recommend using a passcode or biometrics to
+    unlock it.
+  </p>
+
+  <h2 id="children">11. Children</h2>
+  <p>
+    The app is not directed at children under {LEGAL.minimumAge} and we don't knowingly collect their data. If you know a
+    child gave us data without their parents' or guardians' permission, email us and we will delete it.
+  </p>
+
+  <h2 id="website">12. This website</h2>
+  <p>
+    {domain} uses no cookies, analytics or forms. To serve it, our hosting provider (GitHub Pages) processes technical data
+    such as your IP address. Fonts load from Google Fonts, so Google also receives your IP address when you visit.
+  </p>
+
+  <h2 id="changes">13. Changes to this policy</h2>
+  <p>
+    If we change this policy, we publish the new version here with its date. If the change is significant, we also let you
+    know in the app before it takes effect.
+  </p>
+
+  <h2 id="contact">14. Contact</h2>
+  <p>{LEGAL.ownerName} · {LEGAL.ownerAddress} · <Email lang="en" /></p>
+  <p>If this translation and the Spanish version differ, the <a href={withBase(LEGAL_PATHS.privacy.es)} hreflang="es">Spanish version</a> prevails, except where the law of your country requires otherwise.</p>
+</Legal>

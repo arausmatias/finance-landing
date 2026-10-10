@@ -1,0 +1,39 @@
+---
+import Sprite from '../components/Sprite.astro';
+import { SITE, absoluteUrl, withBase } from '../site';
+
+/**
+ * Shell for the landing variants: same head as Base, but no global landing or blog CSS,
+ * so each variant owns its styles. Variants are comparison pages and stay out of search.
+ */
+interface Props {
+  title: string;
+  description: string;
+  /** Site path without base, e.g. "variants/glow/" */
+  path: string;
+  themeColor: string;
+  scheme: 'light' | 'dark';
+}
+
+const { title, description, path, themeColor, scheme } = Astro.props;
+---
+<!doctype html>
+<html lang={SITE.locale} style={`color-scheme:${scheme}`}>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <link rel="canonical" href={absoluteUrl(path)}>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content={themeColor}>
+  <link rel="icon" href={withBase('favicon.svg')} type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700;800&display=swap">
+</head>
+<body>
+  <Sprite />
+  <slot />
+</body>
+</html>

@@ -1,0 +1,151 @@
+---
+import Legal from '../../layouts/Legal.astro';
+import Email from '../../components/Email.astro';
+import { SITE, LEGAL, LEGAL_PATHS, withBase } from '../../site';
+---
+<Legal
+  page="terms"
+  lang="en"
+  title="Terms of use"
+  shortTitle="Terms"
+  description={`The rules for using ${SITE.name}: what the app offers, what we expect from you and where our responsibility ends.`}
+>
+  <h2 id="acceptance">1. Acceptance</h2>
+  <p>
+    These terms govern your use of the {SITE.name} app for iPhone and Android (“the app”), provided by {LEGAL.ownerName},
+    Argentine tax ID (CUIT) {LEGAL.ownerTaxId}, located at {LEGAL.ownerAddress} (“we” or “us”). By downloading or using the
+    app you accept these terms and our <a href={withBase(LEGAL_PATHS.privacy.en)}>Privacy policy</a>. If you don't agree,
+    don't use the app.
+  </p>
+
+  <h2 id="service">2. What the app is</h2>
+  <p>
+    The app is a tool to record your income and expenses, organize them and split costs with other people. It works without
+    an account and keeps your data on your phone. If you sign in, you can share groups and recurring expenses with others.
+  </p>
+  <p>Keep in mind that the app:</p>
+  <ul>
+    <li><strong>Is not a bank or a wallet.</strong> It doesn't move money, process payments between people or connect to your bank accounts. When you record a payment between people, you are only noting something that happened outside the app.</li>
+    <li><strong>Doesn't give financial, accounting, tax or legal advice.</strong> Balances, totals and splits are calculations on the data you and the people you share with enter. Check them before making decisions.</li>
+    <li><strong>Is not an official record.</strong> It can't be used as proof with third parties or public bodies.</li>
+  </ul>
+
+  <h2 id="eligibility">3. Who can use it</h2>
+  <p>
+    You must be at least {LEGAL.minimumAge} years old. If you are a minor under the laws of your country, you need your
+    parents' or guardians' permission, especially to make in-app purchases.
+  </p>
+
+  <h2 id="account">4. Your account</h2>
+  <ul>
+    <li>To share, you need to sign in with a Google account. You are responsible for keeping that account and your phone secure.</li>
+    <li>You can sign out at any time: your data stays on the phone and shared items stop syncing.</li>
+    <li>You can delete your account at any time from the app, as explained in <a href={withBase(LEGAL_PATHS.deleteAccount.en)}>Delete your account</a>.</li>
+  </ul>
+
+  <h2 id="your-data">5. Your data and backups</h2>
+  <p>
+    What you enter without sharing lives only on your phone. We don't have a copy: if you lose the phone, wipe it or
+    uninstall the app, that data is lost unless it is in a backup of your device. Keeping those backups is your
+    responsibility.
+  </p>
+
+  <h2 id="sharing">6. What you share with other people</h2>
+  <ul>
+    <li>Everything you enter in a shared group or recurring expense is visible to all its members.</li>
+    <li>You are responsible for what you enter. Use real, respectful names, notes and amounts.</li>
+    <li>If you add someone by typing their name, they must agree to appear in that group.</li>
+    <li>Only whoever entered an expense can edit or delete it, and those changes are recorded for the group.</li>
+    <li>Whoever creates a shared group or recurring expense administers it, and their changes apply to all members.</li>
+    <li>If a group's admin deletes their account, the group carries on and any member can take over as admin. If whoever created a shared recurring expense deletes their account, the expense ends and is archived: to keep splitting it, a new one has to be created.</li>
+    <li>Disagreements between members about who owes what are settled between them. We are not part of those arrangements.</li>
+  </ul>
+  <p>
+    What you enter remains yours. You allow us to store it, copy it and show it to the members you chose, only as far as
+    needed for the app to work. If you delete your account, what you entered in shared groups stays for the other members
+    without your name or photo, so their numbers still add up.
+  </p>
+
+  <h2 id="acceptable-use">7. What is not allowed</h2>
+  <ul>
+    <li>Using the app for illegal activities, fraud or money laundering.</li>
+    <li>Entering offensive or discriminatory content, or content that infringes other people's rights.</li>
+    <li>Trying to guess invite codes or join groups you weren't invited to.</li>
+    <li>Accessing, copying or altering the app or its servers by unintended means, or overloading them.</li>
+    <li>Reverse engineering the app, except as expressly allowed by law.</li>
+  </ul>
+  <p>If you break these rules, we may suspend or close your account.</p>
+
+  <h2 id="pricing">8. Price and in-app purchases</h2>
+  <ul>
+    <li>The app is free. Some optional features are paid through in-app purchases.</li>
+    <li>Before buying, you will see the price, in your store's currency, and what the purchase includes.</li>
+    <li>Payments, billing and refunds are handled by Apple (App Store) or Google (Google Play) under their own terms. To request a refund, do it from the store where you bought.</li>
+    <li>If a purchase is a subscription, it renews automatically at the end of each period unless you cancel it at least 24 hours before, from your store's subscription settings. Deleting the app or your account doesn't cancel the subscription.</li>
+    <li>Purchases can be restored on another device with the same store account.</li>
+    <li>Free features that already exist won't become paid for people already using them without notice.</li>
+  </ul>
+
+  <h2 id="ip">9. Intellectual property</h2>
+  <p>
+    The app, its design, its code, the {SITE.name} name, the logo and the mascot belong to us or we have the right to use
+    them. We grant you a personal, non-exclusive, non-transferable license to use the app on devices you own, under these
+    terms and the rules of the store you downloaded it from.
+  </p>
+
+  <h2 id="availability">10. Availability and changes</h2>
+  <p>
+    We work to keep the app running well, but it may have bugs or interruptions, especially in syncing, which depends on the
+    internet and outside providers. We may change, improve or stop offering features. If we are going to stop offering
+    sharing or a paid feature, we will give you reasonable notice so you can keep what you need.
+  </p>
+
+  <h2 id="liability">11. Liability</h2>
+  <p>
+    To the extent allowed by law, the app is provided “as is”. We are not responsible for decisions you make based on the
+    app's calculations, for incorrectly entered data, for the loss of data stored only on your phone, or for arrangements
+    between members of a group.
+  </p>
+  <p>
+    Nothing in these terms limits the rights you have under Argentine Consumer Protection Law 24,240 or other consumer
+    protection rules that can't be waived by contract, including those of your country of residence.
+  </p>
+
+  <h2 id="termination">12. Termination</h2>
+  <p>
+    You can stop using the app and delete your account whenever you want. We may close your account if you break these
+    terms, notifying you when possible. In both cases, the Privacy policy explains what data is deleted and what stays in
+    other people's groups.
+  </p>
+
+  <h2 id="stores">13. App store terms</h2>
+  <p>If you downloaded the app from Apple's App Store, the following also applies:</p>
+  <ul>
+    <li>These terms are between you and us, not Apple. We alone are responsible for the app and its content.</li>
+    <li>Your license is limited to Apple-branded devices you own or control, as permitted by the Usage Rules in the App Store Terms of Service.</li>
+    <li>Apple has no obligation to provide maintenance or support for the app.</li>
+    <li>If the app fails to conform to any applicable warranty, you may notify Apple, and Apple will refund the purchase price, if any. To the maximum extent permitted by law, Apple has no other warranty obligation with respect to the app.</li>
+    <li>We, not Apple, are responsible for addressing any claims relating to the app, including product liability claims, claims that the app fails to conform to any legal or regulatory requirement, and claims under consumer protection, privacy or similar legislation.</li>
+    <li>If a third party claims the app infringes their intellectual property rights, we, not Apple, are responsible for the investigation, defense, settlement and discharge of that claim.</li>
+    <li>You represent that you are not located in a country subject to a U.S. Government embargo, and that you are not on any U.S. Government list of prohibited or restricted parties.</li>
+    <li>Apple and its subsidiaries are third-party beneficiaries of these terms and, once you accept them, may enforce them against you.</li>
+  </ul>
+  <p>If you downloaded it from Google Play, the Google Play Terms of Service also apply.</p>
+
+  <h2 id="law">14. Governing law and jurisdiction</h2>
+  <p>
+    These terms are governed by the laws of the Argentine Republic. Any dispute will be settled by the ordinary courts of
+    the Judicial District of Mercedes, Province of Buenos Aires. If you are a consumer, you may also bring a claim before the
+    courts where you live, and you keep the protection of the mandatory rules of your country of residence.
+  </p>
+
+  <h2 id="changes">15. Changes to these terms</h2>
+  <p>
+    If we change these terms, we publish the new version here with its date. If the change is significant, we let you know
+    in the app before it takes effect. If you keep using the app afterwards, you accept the new version.
+  </p>
+
+  <h2 id="contact">16. Contact</h2>
+  <p>For any question, email us at <Email lang="en" />.</p>
+  <p>If this translation and the Spanish version differ, the <a href={withBase(LEGAL_PATHS.terms.es)} hreflang="es">Spanish version</a> prevails, except where the law of your country requires otherwise.</p>
+</Legal>

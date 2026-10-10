@@ -1,0 +1,81 @@
+---
+import Legal from '../layouts/Legal.astro';
+import Callout from '../components/Callout.astro';
+import Email from '../components/Email.astro';
+import { SITE, LEGAL, LEGAL_PATHS, withBase } from '../site';
+---
+<Legal
+  page="deleteAccount"
+  lang="es"
+  title={`Eliminar tu cuenta de ${SITE.name}`}
+  shortTitle="Eliminar cuenta"
+  description={`Cómo eliminar tu cuenta de ${SITE.name}, de ${LEGAL.ownerName}, y qué datos se borran.`}
+>
+  <Callout icon="cellphone-lock">
+    <p>
+      Si usás la app como invitado, no tenés cuenta y no guardamos nada en nuestros servidores. Para borrar tus datos,
+      desinstalá la app.
+    </p>
+  </Callout>
+
+  <h2 id="como">Cómo eliminar tu cuenta</h2>
+  {LEGAL.inAppDeletion && (
+    <>
+      <h3>Desde la app</h3>
+      <ol>
+        <li>Abrí {SITE.name} y entrá a <strong>Perfil</strong>.</li>
+        <li>En <strong>Cuenta</strong>, tocá <strong>Eliminar cuenta</strong>.</li>
+        <li>Revisá qué va a pasar con tus grupos y elegí si también querés borrar los datos de tu teléfono.</li>
+        <li>Deslizá para confirmar. La cuenta se elimina en el momento.</li>
+      </ol>
+      <h3>Si ya no tenés la app</h3>
+    </>
+  )}
+  <ol>
+    <li>Escribinos a <Email subject={`Eliminar mi cuenta de ${SITE.name}`} /> con el asunto <strong>“Eliminar mi cuenta de {SITE.name}”</strong>.</li>
+    <li>Envialo desde el email de la cuenta de Google con la que iniciás sesión en la app, así podemos confirmar que la cuenta es tuya.</li>
+    <li>Eliminamos la cuenta dentro de los {LEGAL.deletionDays} días hábiles siguientes y te avisamos cuando esté hecho.</li>
+  </ol>
+
+  <h2 id="que-se-borra">Qué se elimina</h2>
+  <ul>
+    <li>Tu cuenta, tu nombre, tu email, tu foto de perfil y el vínculo con tu cuenta de Google.</li>
+    <li>Tu nombre y tu foto en todos los grupos y gastos recurrentes compartidos: ahí pasás a figurar como “Antiguo usuario”.</li>
+    <li>Los códigos de invitación que hayas generado.</li>
+  </ul>
+
+  <h2 id="que-queda">Qué se conserva</h2>
+  <ul>
+    <li>
+      <strong>Los gastos y pagos que cargaste en grupos compartidos:</strong> se mantienen para que las cuentas de los demás
+      sigan cerrando, sin tu nombre ni tu foto y sin vínculo con tu cuenta.
+    </li>
+    <li>
+      <strong>Los grupos que administrabas:</strong> siguen para los demás integrantes, y cualquiera de ellos puede tomar la
+      administración.
+    </li>
+    <li>
+      <strong>Los gastos recurrentes compartidos que creaste:</strong> se dan de baja y quedan archivados para sus
+      integrantes, que los pueden consultar pero no seguir usando.
+    </li>
+    <li>
+      <strong>Lo que está en tu teléfono:</strong> nunca estuvo en nuestros servidores. Se mantiene, salvo que al eliminar la
+      cuenta elijas borrarlo también o desinstales la app.
+    </li>
+    <li>
+      <strong>Copias de seguridad de nuestros servidores:</strong> tus datos pueden seguir en ellas hasta
+      {' '}{LEGAL.serverBackupDays} días, hasta que se renuevan. No se usan salvo para recuperar el servicio ante una falla.
+    </li>
+  </ul>
+
+  <h2 id="parcial">Si solo querés borrar algunos datos</h2>
+  <ul>
+    <li><strong>Dejar un grupo o gasto recurrente que no creaste vos:</strong> desde la app, entrá y elegí salir.</li>
+    <li><strong>Borrar un gasto que cargaste:</strong> abrilo en el grupo y eliminalo.</li>
+    <li><strong>Dejar de sincronizar sin borrar nada:</strong> cerrá sesión desde Perfil.</li>
+  </ul>
+  <p>
+    También podés pedirnos por email que borremos datos puntuales sin eliminar la cuenta. Más información en la{' '}
+    <a href={withBase(LEGAL_PATHS.privacy.es)}>Política de privacidad</a>.
+  </p>
+</Legal>

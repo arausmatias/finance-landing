@@ -1,0 +1,13 @@
+---
+import Fact from './Fact.astro';
+import { LEGAL, type Lang } from '../site';
+
+interface Props {
+  subject?: string;
+  lang?: Lang;
+}
+const { subject, lang = 'es' } = Astro.props;
+const email = LEGAL.contactEmail;
+const href = email && `mailto:${email}${subject ? `?subject=${encodeURIComponent(subject)}` : ''}`;
+---
+{email ? <a href={href}>{email}</a> : <Fact value={null} label={lang === 'en' ? 'contact email' : 'email de contacto'} lang={lang} />}

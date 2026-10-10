@@ -1,0 +1,80 @@
+---
+import Legal from '../../layouts/Legal.astro';
+import Callout from '../../components/Callout.astro';
+import Email from '../../components/Email.astro';
+import { SITE, LEGAL, LEGAL_PATHS, withBase } from '../../site';
+---
+<Legal
+  page="deleteAccount"
+  lang="en"
+  title={`Delete your ${SITE.name} account`}
+  shortTitle="Delete account"
+  description={`How to delete your ${SITE.name} account, by ${LEGAL.ownerName}, and what data is erased.`}
+>
+  <Callout icon="cellphone-lock">
+    <p>
+      If you use the app as a guest, you have no account and we store nothing on our servers. To erase your data, uninstall
+      the app.
+    </p>
+  </Callout>
+
+  <h2 id="how">How to delete your account</h2>
+  {LEGAL.inAppDeletion && (
+    <>
+      <h3>From the app</h3>
+      <ol>
+        <li>Open {SITE.name} and go to <strong>Profile</strong>.</li>
+        <li>Under <strong>Account</strong>, tap <strong>Delete account</strong>.</li>
+        <li>Review what will happen to your groups and choose whether to erase this phone's data too.</li>
+        <li>Slide to confirm. The account is deleted right away.</li>
+      </ol>
+      <h3>If you no longer have the app</h3>
+    </>
+  )}
+  <ol>
+    <li>Email us at <Email lang="en" subject={`Delete my ${SITE.name} account`} /> with the subject <strong>“Delete my {SITE.name} account”</strong>.</li>
+    <li>Send it from the email of the Google account you use to sign in to the app, so we can confirm the account is yours.</li>
+    <li>We delete the account within {LEGAL.deletionDays} business days and let you know when it's done.</li>
+  </ol>
+
+  <h2 id="deleted">What is deleted</h2>
+  <ul>
+    <li>Your account, name, email, profile photo and the link to your Google account.</li>
+    <li>Your name and photo in every shared group and recurring expense: you appear there as “Former user”.</li>
+    <li>Any invite codes you created.</li>
+  </ul>
+
+  <h2 id="kept">What is kept</h2>
+  <ul>
+    <li>
+      <strong>Expenses and payments you entered in shared groups:</strong> they stay so the other members' numbers still add
+      up, without your name or photo and with no link to your account.
+    </li>
+    <li>
+      <strong>Groups you administered:</strong> they carry on for the other members, and any of them can take over as admin.
+    </li>
+    <li>
+      <strong>Shared recurring expenses you created:</strong> they end and are archived for their members, who can look at
+      them but not keep using them.
+    </li>
+    <li>
+      <strong>What is on your phone:</strong> it was never on our servers. It stays, unless you choose to erase it too when
+      deleting your account, or uninstall the app.
+    </li>
+    <li>
+      <strong>Server backups:</strong> your data may remain in them for up to {LEGAL.serverBackupDays} days, until they roll
+      over. They are only used to restore the service after a failure.
+    </li>
+  </ul>
+
+  <h2 id="partial">If you only want to delete some data</h2>
+  <ul>
+    <li><strong>Leave a group or recurring expense you didn't create:</strong> open it in the app and choose to leave.</li>
+    <li><strong>Delete an expense you entered:</strong> open it in the group and delete it.</li>
+    <li><strong>Stop syncing without deleting anything:</strong> sign out from Profile.</li>
+  </ul>
+  <p>
+    You can also email us to delete specific data without deleting your account. More in the{' '}
+    <a href={withBase(LEGAL_PATHS.privacy.en)}>Privacy policy</a>.
+  </p>
+</Legal>

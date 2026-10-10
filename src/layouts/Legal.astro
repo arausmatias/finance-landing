@@ -1,0 +1,91 @@
+---
+import Base from './Base.astro';
+import BlogHeader from '../components/BlogHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Fact from '../components/Fact.astro';
+import { SITE, LEGAL, LEGAL_PATHS, ORGANIZATION, absoluteUrl, formatDate, withBase, type Lang, type LegalPage } from '../site';
+
+interface Props {
+  page: LegalPage;
+  lang: Lang;
+  title: string;
+  /** Short name for the breadcrumb */
+  shortTitle: string;
+  description: string;
+}
+
+const { page, lang, title, shortTitle, description } = Astro.props;
+const other: Lang = lang === 'es' ? 'en' : 'es';
+const path = LEGAL_PATHS[page][lang];
+const translation = LEGAL_PATHS[page][other];
+const effective = LEGAL.effectiveDate ? formatDate(new Date(LEGAL.effectiveDate), lang) : null;
+const copy = {
+  es: { crumbs: 'Migas de pan', effective: 'Vigente desde', date: 'fecha', switchLabel: 'Read in English', switchText: 'English' },
+  en: { crumbs: 'Breadcrumb', effective: 'Effective', date: 'date', switchLabel: 'Leer en español', switchText: 'Español' },
+}[lang];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title,
+    description,
+    url: absoluteUrl(path),
+    inLanguage: lang === 'en' ? 'en' : SITE.locale,
+    publisher: ORGANIZATION,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: SITE.name, item: absoluteUrl() },
+      { '@type': 'ListItem', position: 2, name: shortTitle, item: absoluteUrl(path) },
+    ],
+  },
+];
+---
+<Base
+  title={`${title} | ${SITE.name}`}
+  description={description}
+  path={path}
+  jsonLd={jsonLd}
+  lang={lang}
+  alternates={[{ lang: other, path: translation }]}
+>
+  <BlogHeader lang={lang} />
+  <main class="wrap">
+    <article class="article legal">
+      <div class="legal-top">
+        <nav class="crumbs" aria-label={copy.crumbs}>
+          <ol>
+            <li><a href={withBase('')}>{SITE.name}</a></li>
+            <li aria-hidden="true"><svg class="i"><use href="#i-chevron-right" /></svg></li>
+            <li><span aria-current="page">{shortTitle}</span></li>
+          </ol>
+        </nav>
+        <a class="lang-switch" href={withBase(translation)} hreflang={other} lang={other} aria-label={copy.switchLabel}>
+          <svg class="i" aria-hidden="true"><use href="#i-translate" /></svg>
+          {copy.switchText}
+        </a>
+      </div>
+
+      <header class="article-head">
+        <h1>{title}</h1>
+        <p class="dek">{description}</p>
+        <p class="article-meta">
+          <span class="pill">
+            <svg class="i" aria-hidden="true"><use href="#i-calendar-blank" /></svg>
+            {copy.effective}&nbsp;<Fact value={effective} label={copy.date} lang={lang} />
+          </span>
+        </p>
+      </header>
+
+      <slot name="summary" />
+
+      <div class="prose">
+        <slot />
+      </div>
+    </article>
+  </main>
+  <SiteFooter sampleNote={false} lang={lang} />
+</Base>

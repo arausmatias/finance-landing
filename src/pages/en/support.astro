@@ -1,0 +1,76 @@
+---
+import Legal from '../../layouts/Legal.astro';
+import Email from '../../components/Email.astro';
+import { SITE, LEGAL_PATHS, withBase } from '../../site';
+---
+<Legal
+  page="support"
+  lang="en"
+  title={`${SITE.name} help`}
+  shortTitle="Help"
+  description={`Quick answers about ${SITE.name} and how to reach us if something isn't working.`}
+>
+  <h2 id="contact">Contact</h2>
+  <p>
+    Email us at <Email lang="en" />. Tell us what happened, which phone you use and the app version. We reply on business
+    days.
+  </p>
+
+  <h2 id="faq">Frequently asked questions</h2>
+
+  <h3>Do I need an account?</h3>
+  <p>
+    No. You can use the app as a guest and everything stays on your phone. You only need an account to share groups or
+    recurring expenses with other people.
+  </p>
+
+  <h3>Where is my data?</h3>
+  <p>
+    Your transactions, accounts and categories are only on your phone. What you share is stored on our servers to sync it
+    with the other members. The details are in the <a href={withBase(LEGAL_PATHS.privacy.en)}>Privacy policy</a>.
+  </p>
+
+  <h3>I changed phones. How do I get my data back?</h3>
+  <p>
+    What you shared comes back when you sign in with the same account. What you didn't share can only be recovered if it was
+    in a backup of your phone (iCloud or Google) and you restore it on the new one. Purchases come back with the restore
+    purchases option and the same store account.
+  </p>
+
+  <h3>How do I join a group or a recurring expense?</h3>
+  <p>
+    Ask whoever created it for the invite code. In the app, choose to join with a code, sign in and type it. Codes expire,
+    so if it doesn't work, ask for a new one.
+  </p>
+
+  <h3>My group's admin deleted their account. What now?</h3>
+  <p>
+    The group keeps working. Open it and tap “Take over as admin”: the first person to do it becomes the admin. If it was a
+    shared recurring expense, it ended and was archived; to keep splitting it, create a new one.
+  </p>
+
+  <h3>Does the app move money or connect to my bank?</h3>
+  <p>No. It only records what you enter. Payments between people happen outside the app.</p>
+
+  <h3>How do I get a refund?</h3>
+  <p>
+    Purchases are charged by Apple or Google, so refunds are requested from the store where you bought. If something is
+    wrong with what you bought, email us anyway and we'll help.
+  </p>
+
+  <h3>I'm not getting reminders</h3>
+  <p>
+    Check that notifications for {SITE.name} are allowed in your phone's settings. On Android, also check that battery saver
+    isn't holding the app back.
+  </p>
+
+  <h3>How do I delete my account?</h3>
+  <p>In the app, go to Profile › Account › Delete account. More in <a href={withBase(LEGAL_PATHS.deleteAccount.en)}>Delete your account</a>.</p>
+
+  <h2 id="legal">Legal</h2>
+  <ul>
+    <li><a href={withBase(LEGAL_PATHS.privacy.en)}>Privacy policy</a></li>
+    <li><a href={withBase(LEGAL_PATHS.terms.en)}>Terms of use</a></li>
+    <li><a href={withBase(LEGAL_PATHS.deleteAccount.en)}>Delete your account</a></li>
+  </ul>
+</Legal>

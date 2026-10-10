@@ -1,17 +1,16 @@
 ---
 import Sprite from '../components/Sprite.astro';
 import SeoHead from '../components/SeoHead.astro';
-import '../styles/tokens.css';
-import '../styles/landing.css';
-import '../styles/blog.css';
-import { SITE, type Lang } from '../site';
+import { SITE } from '../site';
 
+/**
+ * Shell for the home page: the same indexable head as Base, but without the global
+ * landing and blog CSS, because the home owns its styles.
+ */
 type Props = Parameters<typeof SeoHead>[0];
-const lang: Lang = Astro.props.lang ?? 'es';
-const htmlLang = lang === 'en' ? 'en' : SITE.locale;
 ---
 <!doctype html>
-<html lang={htmlLang}>
+<html lang={SITE.locale} style="color-scheme:light">
 <head>
   <SeoHead {...Astro.props} />
 </head>

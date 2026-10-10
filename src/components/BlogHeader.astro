@@ -1,5 +1,10 @@
 ---
-import { SITE, withBase } from '../site';
+import { SITE, withBase, type Lang } from '../site';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'es' } = Astro.props;
 ---
 <header class="blog-bar">
   <div class="wrap topbar">
@@ -7,9 +12,11 @@ import { SITE, withBase } from '../site';
       <svg viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-happy"/></svg>
       {SITE.name}
     </a>
-    <nav class="bar-links" aria-label="Principal">
-      <a class="bar-link" href={withBase('blog/')} aria-current={Astro.url.pathname === withBase('blog/') ? 'page' : undefined}>Blog</a>
-      <a class="toplink press" href={withBase('')}>Conocé la app</a>
+    <nav class="bar-links" aria-label={lang === 'en' ? 'Main' : 'Principal'}>
+      {lang === 'es' && (
+        <a class="bar-link" href={withBase('blog/')} aria-current={Astro.url.pathname === withBase('blog/') ? 'page' : undefined}>Blog</a>
+      )}
+      <a class="toplink press" href={withBase('')} hreflang={lang === 'en' ? 'es' : undefined}>{lang === 'en' ? 'About the app' : 'Conocé la app'}</a>
     </nav>
   </div>
 </header>

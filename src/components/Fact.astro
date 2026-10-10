@@ -1,0 +1,13 @@
+---
+import type { Lang } from '../site';
+
+interface Props {
+  /** The legal fact from `LEGAL`; null renders a visible pending marker. */
+  value: string | null;
+  /** What is missing, shown in the marker. */
+  label: string;
+  lang?: Lang;
+}
+const { value, label, lang = 'es' } = Astro.props;
+---
+{value ?? <mark class="pending">[{lang === 'en' ? 'Pending' : 'Pendiente'}: {label}]</mark>}

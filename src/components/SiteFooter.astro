@@ -1,13 +1,28 @@
 ---
-import { SITE, withBase } from '../site';
+import { SITE, LEGAL_PATHS, withBase, type Lang } from '../site';
+
+interface Props {
+  /** Pages with real facts, like the legal ones, drop the sample-data note */
+  sampleNote?: boolean;
+  lang?: Lang;
+}
+const { sampleNote = true, lang = 'es' } = Astro.props;
+const labels = {
+  es: { nav: 'Pie de página', support: 'Ayuda', privacy: 'Privacidad', terms: 'Términos', deleteAccount: 'Eliminar cuenta' },
+  en: { nav: 'Footer', support: 'Help', privacy: 'Privacy', terms: 'Terms', deleteAccount: 'Delete account' },
+}[lang];
 ---
 <footer class="site-footer">
   <div class="wrap footer-inner">
-    <nav class="footer-links" aria-label="Pie de página">
+    <nav class="footer-links" aria-label={labels.nav}>
       <a href={withBase('')}>{SITE.name}</a>
-      <a href={withBase('blog/')}>Blog</a>
-      <a href={withBase('rss.xml')}>RSS</a>
+      {lang === 'es' && <a href={withBase('blog/')}>Blog</a>}
+      {lang === 'es' && <a href={withBase('rss.xml')}>RSS</a>}
+      <a href={withBase(LEGAL_PATHS.support[lang])}>{labels.support}</a>
+      <a href={withBase(LEGAL_PATHS.privacy[lang])}>{labels.privacy}</a>
+      <a href={withBase(LEGAL_PATHS.terms[lang])}>{labels.terms}</a>
+      <a href={withBase(LEGAL_PATHS.deleteAccount[lang])}>{labels.deleteAccount}</a>
     </nav>
-    <p>Los montos, nombres y cuentas de esta página son de ejemplo.</p>
+    {sampleNote && <p>Los montos, nombres y cuentas de esta página son de ejemplo.</p>}
   </div>
 </footer>

@@ -1,0 +1,152 @@
+---
+import Legal from '../layouts/Legal.astro';
+import Email from '../components/Email.astro';
+import { SITE, LEGAL, LEGAL_PATHS, withBase } from '../site';
+---
+<Legal
+  page="terms"
+  lang="es"
+  title="Términos y condiciones de uso"
+  shortTitle="Términos"
+  description={`Las reglas para usar ${SITE.name}: qué ofrece la app, qué esperamos de vos y hasta dónde llega nuestra responsabilidad.`}
+>
+  <h2 id="aceptacion">1. Aceptación</h2>
+  <p>
+    Estos términos regulan el uso de la app {SITE.name} para iPhone y Android (en adelante, “la app”), ofrecida por
+    {' '}{LEGAL.ownerName}, CUIT {LEGAL.ownerTaxId}, con domicilio en {LEGAL.ownerAddress} (en adelante, “nosotros”). Al
+    descargar o usar la app aceptás estos términos y nuestra{' '}
+    <a href={withBase(LEGAL_PATHS.privacy.es)}>Política de privacidad</a>. Si no estás de acuerdo, no uses la app.
+  </p>
+
+  <h2 id="servicio">2. Qué es la app</h2>
+  <p>
+    La app es una herramienta para anotar tus ingresos y gastos, ordenarlos y dividir gastos con otras personas. Funciona
+    sin cuenta y guarda tus datos en tu teléfono. Si iniciás sesión, podés compartir grupos y gastos recurrentes con otras
+    personas.
+  </p>
+  <p>Tené en cuenta que la app:</p>
+  <ul>
+    <li><strong>No es un banco ni una billetera.</strong> No mueve dinero, no procesa pagos entre personas y no se conecta con tus cuentas bancarias. Cuando registrás un pago entre personas, solo dejás constancia de algo que hicieron por fuera de la app.</li>
+    <li><strong>No da asesoramiento financiero, contable, impositivo ni legal.</strong> Los saldos, totales y divisiones son cálculos sobre los datos que cargan vos y las personas con las que compartís. Revisalos antes de tomar decisiones.</li>
+    <li><strong>No es un registro oficial.</strong> No sirve como comprobante ante terceros ni ante organismos públicos.</li>
+  </ul>
+
+  <h2 id="edad">3. Quién puede usarla</h2>
+  <p>
+    Tenés que tener al menos {LEGAL.minimumAge} años. Si sos menor de edad según las leyes de tu país, necesitás la
+    autorización de tus padres o tutores, sobre todo para hacer compras dentro de la app.
+  </p>
+
+  <h2 id="cuenta">4. Tu cuenta</h2>
+  <ul>
+    <li>Para compartir necesitás iniciar sesión con una cuenta de Google. Sos responsable de mantener segura esa cuenta y tu teléfono.</li>
+    <li>Podés cerrar sesión cuando quieras: tus datos siguen en el teléfono y lo compartido deja de sincronizarse.</li>
+    <li>Podés eliminar tu cuenta en cualquier momento desde la app, como se explica en <a href={withBase(LEGAL_PATHS.deleteAccount.es)}>Eliminar tu cuenta</a>.</li>
+  </ul>
+
+  <h2 id="tus-datos">5. Tus datos y las copias de seguridad</h2>
+  <p>
+    Lo que cargás sin compartir vive solo en tu teléfono. No tenemos una copia: si perdés el teléfono, lo borrás o
+    desinstalás la app, esos datos se pierden salvo que estén en una copia de seguridad de tu dispositivo. Mantener esas
+    copias es tu responsabilidad.
+  </p>
+
+  <h2 id="compartir">6. Lo que compartís con otras personas</h2>
+  <ul>
+    <li>Lo que cargás en un grupo o gasto recurrente compartido lo ven todos sus integrantes.</li>
+    <li>Sos responsable de lo que cargás. Usá nombres, notas y montos reales y respetuosos.</li>
+    <li>Si sumás a alguien escribiendo su nombre, tiene que estar de acuerdo en figurar en ese grupo.</li>
+    <li>Solo quien cargó un gasto puede editarlo o eliminarlo, y esos cambios quedan registrados para el grupo.</li>
+    <li>Quien crea un grupo o gasto recurrente compartido es quien lo administra, y sus cambios se aplican para todos los integrantes.</li>
+    <li>Si quien administra un grupo elimina su cuenta, el grupo sigue y cualquier integrante puede tomar la administración. Si quien creó un gasto recurrente compartido elimina su cuenta, el gasto se da de baja y queda archivado: para seguir repartiéndolo hay que crear uno nuevo.</li>
+    <li>Las diferencias entre integrantes sobre quién debe qué se resuelven entre ellos. No somos parte de esos acuerdos.</li>
+  </ul>
+  <p>
+    Lo que cargás sigue siendo tuyo. Nos das permiso para guardarlo, copiarlo y mostrarlo a los integrantes que elegiste,
+    solo en la medida necesaria para que la app funcione. Si eliminás tu cuenta, lo que cargaste en grupos compartidos
+    queda para los demás integrantes sin tu nombre ni tu foto, para que sus cuentas sigan cerrando.
+  </p>
+
+  <h2 id="uso-aceptable">7. Lo que no está permitido</h2>
+  <ul>
+    <li>Usar la app para actividades ilegales, fraudes o lavado de dinero.</li>
+    <li>Cargar contenido ofensivo, discriminatorio o que viole derechos de otras personas.</li>
+    <li>Intentar adivinar códigos de invitación o entrar a grupos a los que no te invitaron.</li>
+    <li>Acceder, copiar o alterar la app o sus servidores por medios no previstos, o sobrecargarlos.</li>
+    <li>Hacer ingeniería inversa de la app, salvo en lo que la ley permita expresamente.</li>
+  </ul>
+  <p>Si no respetás estas reglas, podemos suspender o cerrar tu cuenta.</p>
+
+  <h2 id="precio">8. Precio y compras dentro de la app</h2>
+  <ul>
+    <li>La app es gratuita. Algunas funciones opcionales se pagan con compras dentro de la app.</li>
+    <li>Antes de comprar vas a ver el precio, en la moneda de tu tienda, y qué incluye la compra.</li>
+    <li>Los pagos, la facturación y los reembolsos los manejan Apple (App Store) o Google (Google Play) según sus propias condiciones. Para pedir un reembolso, hacelo desde la tienda donde compraste.</li>
+    <li>Si una compra es una suscripción, se renueva automáticamente al final de cada período salvo que la canceles al menos 24 horas antes desde los ajustes de suscripciones de tu tienda. Eliminar la app o la cuenta no cancela la suscripción.</li>
+    <li>Las compras se pueden restaurar en otro dispositivo con la misma cuenta de la tienda.</li>
+    <li>Las funciones gratuitas que ya existen no pasan a ser pagas para quien ya las usa sin avisarte antes.</li>
+  </ul>
+
+  <h2 id="propiedad">9. Propiedad intelectual</h2>
+  <p>
+    La app, su diseño, su código, el nombre {SITE.name}, el logo y la mascota son nuestros o tenemos derecho a usarlos. Te
+    damos una licencia personal, no exclusiva e intransferible para usar la app en los dispositivos que tengas, según estos
+    términos y las reglas de la tienda desde la que la descargaste.
+  </p>
+
+  <h2 id="disponibilidad">10. Disponibilidad y cambios</h2>
+  <p>
+    Trabajamos para que la app funcione bien, pero puede tener errores o interrupciones, sobre todo en la sincronización, que
+    depende de internet y de proveedores externos. Podemos cambiar, mejorar o dejar de ofrecer funciones. Si vamos a dejar de
+    ofrecer la función de compartir o una función paga, te avisamos con anticipación razonable para que puedas guardar lo que
+    necesites.
+  </p>
+
+  <h2 id="responsabilidad">11. Responsabilidad</h2>
+  <p>
+    En la medida que lo permita la ley, la app se ofrece “tal como está”. No somos responsables por decisiones que tomes en
+    base a los cálculos de la app, por datos cargados de forma incorrecta, por la pérdida de datos guardados solo en tu
+    teléfono ni por acuerdos entre integrantes de un grupo.
+  </p>
+  <p>
+    Nada de lo que dicen estos términos limita los derechos que te da la Ley 24.240 de Defensa del Consumidor ni otras
+    normas de protección al consumidor que no se puedan dejar de lado por contrato, incluidas las de tu país de residencia.
+  </p>
+
+  <h2 id="baja">12. Baja</h2>
+  <p>
+    Podés dejar de usar la app y eliminar tu cuenta cuando quieras. Nosotros podemos cerrar tu cuenta si incumplís estos
+    términos, avisándote cuando sea posible. En ambos casos aplica lo que dice la Política de privacidad sobre qué datos se
+    eliminan y cuáles quedan en los grupos de otras personas.
+  </p>
+
+  <h2 id="tiendas">13. Términos de las tiendas</h2>
+  <p>Si descargaste la app desde la App Store de Apple, también aplican los siguientes puntos:</p>
+  <ul>
+    <li>Estos términos son entre vos y nosotros, no con Apple. Somos los únicos responsables de la app y de su contenido.</li>
+    <li>La licencia de uso se limita a dispositivos Apple que tengas o controles, según las Reglas de uso de los Términos de servicio de la App Store.</li>
+    <li>Apple no tiene obligación de darte mantenimiento ni soporte sobre la app.</li>
+    <li>Si la app no cumple una garantía aplicable, podés avisarle a Apple y Apple te va a reintegrar el precio que hayas pagado, si hubo alguno. En la medida que lo permita la ley, Apple no tiene ninguna otra obligación de garantía sobre la app.</li>
+    <li>Nosotros, y no Apple, somos responsables de atender reclamos sobre la app, incluidos reclamos de responsabilidad por producto, incumplimientos legales o regulatorios, y reclamos de protección al consumidor o de privacidad.</li>
+    <li>Si un tercero reclama que la app viola su propiedad intelectual, nosotros, y no Apple, somos responsables de investigarlo y resolverlo.</li>
+    <li>Declarás que no estás en un país sujeto a embargo del gobierno de los Estados Unidos ni en una lista de personas restringidas de ese gobierno.</li>
+    <li>Apple y sus subsidiarias son terceros beneficiarios de estos términos y, una vez que los aceptás, pueden hacerlos valer frente a vos.</li>
+  </ul>
+  <p>Si la descargaste desde Google Play, también aplican los Términos del Servicio de Google Play.</p>
+
+  <h2 id="ley">14. Ley aplicable y jurisdicción</h2>
+  <p>
+    Estos términos se rigen por las leyes de la República Argentina. Cualquier conflicto se resuelve ante los tribunales
+    ordinarios del Departamento Judicial de Mercedes, Provincia de Buenos Aires. Si sos consumidor, podés reclamar también
+    ante los tribunales de tu domicilio, y conservás la protección de las normas imperativas de tu país de residencia.
+  </p>
+
+  <h2 id="cambios">15. Cambios en estos términos</h2>
+  <p>
+    Si cambiamos estos términos, publicamos la nueva versión acá con su fecha. Si el cambio es importante, te avisamos en la
+    app antes de que entre en vigencia. Si seguís usando la app después, aceptás la nueva versión.
+  </p>
+
+  <h2 id="contacto">16. Contacto</h2>
+  <p>Para cualquier consulta, escribinos a <Email />.</p>
+</Legal>

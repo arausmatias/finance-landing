@@ -7,5 +7,6 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://loneto.app',
   trailingSlash: 'always',
-  integrations: [mdx(), sitemap()],
+  // Landing variants are comparison pages (noindex), so they stay out of the sitemap.
+  integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/variants/') })],
 });

@@ -1,0 +1,255 @@
+---
+import Legal from '../layouts/Legal.astro';
+import Callout from '../components/Callout.astro';
+import Email from '../components/Email.astro';
+import { SITE, LEGAL, LEGAL_PATHS, withBase } from '../site';
+
+const domain = SITE.origin.replace('https://', '');
+---
+<Legal
+  page="privacy"
+  lang="es"
+  title="Política de privacidad"
+  shortTitle="Privacidad"
+  description={`Qué datos usa ${SITE.name}, dónde quedan y qué podés hacer con ellos. La mayoría nunca sale de tu teléfono.`}
+>
+  <section slot="summary" class="summary" aria-labelledby="en-resumen">
+    <h2 id="en-resumen">En resumen</h2>
+    <ul>
+      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>Tus movimientos, cuentas, categorías y etiquetas quedan solo en tu teléfono. No los vemos ni los guardamos.</span></li>
+      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>Si iniciás sesión, guardamos los datos básicos de tu cuenta. Si además compartís un grupo o un gasto recurrente, eso que compartís se guarda en nuestros servidores para sincronizarlo con las demás personas.</span></li>
+      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>No vendemos datos, no mostramos publicidad y no usamos herramientas de analítica ni de seguimiento.</span></li>
+      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>Podés pedir una copia de tus datos o eliminar tu cuenta desde la app cuando quieras.</span></li>
+    </ul>
+  </section>
+
+  <h2 id="responsable">1. Quién es responsable de tus datos</h2>
+  <p>
+    {SITE.name} (en adelante, “la app”) es ofrecida por {LEGAL.ownerName}, CUIT {LEGAL.ownerTaxId}, con domicilio en
+    {' '}{LEGAL.ownerAddress} (en adelante, “nosotros”). Somos los responsables del tratamiento de los datos que se
+    describen en esta política.
+  </p>
+  <p>Para cualquier consulta sobre privacidad escribinos a <Email />.</p>
+  <p>Esta política aplica a la app para iPhone y Android y al sitio <a href={withBase('')}>{domain}</a>.</p>
+
+  <h2 id="en-tu-telefono">2. Lo que queda solo en tu teléfono</h2>
+  <p>La app funciona sin cuenta. Todo lo que cargás se guarda en una base de datos dentro de tu dispositivo y no se envía a nuestros servidores:</p>
+  <ul>
+    <li>Ingresos, gastos, transferencias, notas, fechas y montos.</li>
+    <li>Tus cuentas, medios de pago, saldos, categorías y etiquetas.</li>
+    <li>Tus grupos y gastos recurrentes mientras no los compartas.</li>
+    <li>El nombre con el que te saluda la app, tu moneda principal, idioma, tema y horario de recordatorios.</li>
+    <li>Tu progreso: nivel, puntos y rachas.</li>
+  </ul>
+  <p>
+    No tenemos acceso a esa información. Si desinstalás la app, se borra del teléfono. Si tenés activadas las copias de
+    seguridad de tu dispositivo (iCloud o Google), esos datos pueden incluirse en ellas: esas copias las administran Apple
+    o Google según tu cuenta y su propia política de privacidad, no nosotros.
+  </p>
+
+  <h2 id="al-compartir">3. Lo que tratamos si iniciás sesión o compartís</h2>
+  <p>
+    La cuenta solo hace falta para compartir gastos con otras personas. Al iniciar sesión guardamos los datos de tu cuenta
+    (la primera fila). El resto se guarda solo cuando compartís un grupo o un gasto recurrente:
+  </p>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th scope="col">Dato</th><th scope="col">De dónde sale</th><th scope="col">Para qué</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Nombre, email, foto de perfil e identificador de tu cuenta de Google</td>
+          <td>Google, apenas iniciás sesión con “Continuar con Google”</td>
+          <td>Crear tu cuenta, identificarte y mostrar tu nombre y foto a las personas con las que compartís</td>
+        </tr>
+        <tr>
+          <td>Grupos compartidos: nombre, ícono, color, moneda e integrantes</td>
+          <td>Lo cargás vos o quien te invitó</td>
+          <td>Sincronizar el grupo entre sus integrantes</td>
+        </tr>
+        <tr>
+          <td>Gastos y pagos del grupo: monto, moneda, nota, fecha, categoría, quién pagó, cómo se dividió y quién lo cargó</td>
+          <td>Lo cargan los integrantes</td>
+          <td>Calcular saldos y mostrar quién le debe a quién</td>
+        </tr>
+        <tr>
+          <td>Historial de cambios: quién editó o eliminó un gasto del grupo y cómo quedó</td>
+          <td>Se genera al editar o eliminar</td>
+          <td>Que el grupo pueda ver qué cambió y evitar malentendidos</td>
+        </tr>
+        <tr>
+          <td>Gastos recurrentes compartidos: nombre, monto, día de vencimiento, integrantes, partes y pagos informados</td>
+          <td>Lo cargan quien lo crea y quienes se suman</td>
+          <td>Repartir el gasto cada mes y registrar quién ya pagó</td>
+        </tr>
+        <tr>
+          <td>Códigos de invitación e intentos fallidos de usar un código</td>
+          <td>Se generan al invitar o al unirte</td>
+          <td>Sumar personas y evitar que se adivinen códigos. Los códigos vencen y los intentos fallidos se borran después de un día</td>
+        </tr>
+        <tr>
+          <td>Datos técnicos de cada conexión, como dirección IP, fecha y tipo de dispositivo</td>
+          <td>Se generan al sincronizar</td>
+          <td>Operar el servicio, mantenerlo seguro y resolver errores</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    Solo sale de tu teléfono lo que compartís. Tus movimientos personales, tus cuentas y tus saldos siguen sin enviarse,
+    aunque hayas iniciado sesión.
+  </p>
+
+  <h3>Datos de otras personas</h3>
+  <p>
+    Cuando armás un grupo o un gasto recurrente podés sumar personas escribiendo su nombre, aunque todavía no usen la app.
+    Si compartís ese grupo, ese nombre se guarda en nuestros servidores y lo ven los demás integrantes. Usá solo nombres o
+    apodos que esas personas estén de acuerdo en compartir.
+  </p>
+
+  <h2 id="compras">4. Compras dentro de la app</h2>
+  <p>
+    La app es gratuita y ofrece funciones opcionales pagas. Los pagos los procesan Apple (App Store) o Google (Google Play)
+    según sus propias condiciones: no recibimos ni guardamos los datos de tu tarjeta ni de tus medios de pago. Para activar
+    lo que compraste, la tienda nos confirma la compra (qué compraste, cuándo y un identificador de la transacción) y, si
+    iniciaste sesión, la asociamos a tu cuenta para que la recuperes en otro dispositivo.
+  </p>
+
+  <h2 id="bases">5. Por qué podemos usar tus datos</h2>
+  <ul>
+    <li><strong>Para darte el servicio que pedís:</strong> crear tu cuenta, sincronizar lo que elegís compartir y activar tus compras.</li>
+    <li><strong>Tu consentimiento:</strong> lo das al iniciar sesión y al compartir, y para los recordatorios, al aceptar el permiso de notificaciones. Podés retirarlo cuando quieras cerrando sesión, dejando de compartir, desactivando las notificaciones o eliminando tu cuenta.</li>
+    <li><strong>Seguridad y prevención de abusos:</strong> registros técnicos y límites de intentos para proteger el servicio y a quienes lo usan.</li>
+    <li><strong>Obligaciones legales:</strong> cuando una ley o una autoridad competente nos lo exija.</li>
+  </ul>
+  <p>No usamos tus datos para publicidad, no armamos perfiles de consumo y no tomamos decisiones automatizadas sobre vos.</p>
+
+  <h2 id="con-quien">6. Con quién se comparten</h2>
+  <ul>
+    <li><strong>Las personas con las que compartís.</strong> Los integrantes de un grupo o gasto recurrente ven tu nombre, tu foto y lo que se carga en él.</li>
+    <li><strong>Supabase</strong>, que nos da la base de datos, el inicio de sesión y los servidores. Trata los datos solo siguiendo nuestras instrucciones.</li>
+    <li><strong>Google</strong>, que verifica tu identidad cuando iniciás sesión con Google, según su propia política de privacidad.</li>
+    <li><strong>Apple y Google</strong>, como tiendas de aplicaciones, procesadores de pagos y sistemas operativos, según sus propias políticas.</li>
+    <li><strong>Autoridades</strong>, solo cuando una ley o una orden válida nos obligue.</li>
+  </ul>
+  <p>No vendemos ni alquilamos datos personales.</p>
+
+  <h3>Transferencias internacionales</h3>
+  <p>
+    Nuestros servidores están en {LEGAL.dataRegion.es}. Si usás la app desde otro país, lo que compartís se guarda allí.
+    Supabase se compromete por contrato, mediante un acuerdo de tratamiento de datos con cláusulas contractuales tipo, a
+    proteger esos datos con un nivel adecuado, como exigen la Ley 25.326 y las normas de otros países que lo requieren.
+  </p>
+
+  <h2 id="notificaciones">7. Notificaciones y permisos</h2>
+  <p>
+    Los recordatorios se programan dentro de tu teléfono. No usamos notificaciones push, así que no guardamos ningún token
+    ni identificador de tu dispositivo para enviarte mensajes. El único permiso que pide la app es el de notificaciones, y
+    podés desactivarlo desde los ajustes de tu teléfono.
+  </p>
+
+  <h2 id="conservacion">8. Cuánto tiempo guardamos los datos</h2>
+  <ul>
+    <li><strong>En tu teléfono:</strong> hasta que los borres o desinstales la app.</li>
+    <li><strong>Tu cuenta y lo que compartís:</strong> mientras tengas la cuenta activa.</li>
+    <li><strong>Lo que eliminás de un grupo compartido:</strong> primero se marca como eliminado para que desaparezca en todos los dispositivos, y se borra de forma definitiva a los {LEGAL.purgeDays} días.</li>
+    <li><strong>Códigos de invitación:</strong> hasta que vencen. Los intentos fallidos, un día.</li>
+    <li><strong>Datos técnicos:</strong> el tiempo que los conserva nuestro proveedor para operar y proteger el servicio.</li>
+    <li><strong>Copias de seguridad de nuestros servidores:</strong> hasta {LEGAL.serverBackupDays} días, y solo se usan para recuperar el servicio ante una falla.</li>
+  </ul>
+
+  <h3>Qué pasa al eliminar tu cuenta</h3>
+  <ul>
+    <li>Borramos tu cuenta, tu nombre, tu email, tu foto y el vínculo con tu cuenta de Google.</li>
+    <li>En los grupos y gastos recurrentes compartidos, los gastos y pagos que cargaste se mantienen para que las cuentas sigan cerrando, pero tu nombre y tu foto se reemplazan por “Antiguo usuario” y dejan de estar vinculados a vos.</li>
+    <li>Si administrabas un grupo compartido, el grupo sigue para los demás y cualquiera de sus integrantes puede tomar la administración.</li>
+    <li>Si creaste un gasto recurrente compartido, se da de baja: queda archivado para sus integrantes, que lo pueden consultar pero no seguir usando.</li>
+    <li>Lo que está en tu teléfono se mantiene, salvo que elijas borrarlo también al eliminar la cuenta.</li>
+  </ul>
+  <p>Más detalles en <a href={withBase(LEGAL_PATHS.deleteAccount.es)}>Eliminar tu cuenta</a>.</p>
+
+  <h2 id="derechos">9. Tus derechos</h2>
+  <p>Podés pedirnos en cualquier momento:</p>
+  <ul>
+    <li><strong>Acceso:</strong> saber qué datos tuyos tenemos y recibir una copia.</li>
+    <li><strong>Rectificación:</strong> corregir datos inexactos.</li>
+    <li><strong>Supresión:</strong> que los borremos. Podés eliminar tu cuenta directamente desde la app.</li>
+    <li><strong>Oposición y limitación:</strong> que dejemos de usarlos para algún fin.</li>
+    <li><strong>Portabilidad:</strong> recibirlos en un formato que puedas llevar a otro servicio.</li>
+  </ul>
+  <p>
+    Escribinos a <Email /> desde el email de tu cuenta. Respondemos en un plazo máximo de 10 días corridos para pedidos de
+    acceso y de {LEGAL.deletionDays} días hábiles para rectificación o supresión, como establece la Ley 25.326.
+  </p>
+  <p>
+    El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los mismos en forma gratuita a
+    intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo al efecto conforme lo establecido en el
+    artículo 14, inciso 3 de la Ley Nº 25.326.
+  </p>
+  <Callout icon="shield-check-outline">
+    <p>
+      La AGENCIA DE ACCESO A LA INFORMACIÓN PÚBLICA, en su carácter de Órgano de Control de la Ley N° 25.326, tiene la
+      atribución de atender las denuncias y reclamos que interpongan quienes resulten afectados en sus derechos por
+      incumplimiento de las normas vigentes en materia de protección de datos personales.
+    </p>
+  </Callout>
+
+  <h3>Si vivís en la Unión Europea, el Espacio Económico Europeo o el Reino Unido</h3>
+  <p>
+    Tratamos tus datos según el Reglamento General de Protección de Datos (RGPD). Las bases legales son: la ejecución del
+    contrato que aceptás al usar la app, para tu cuenta, la sincronización y las compras (art. 6.1.b); tu consentimiento,
+    para las notificaciones (art. 6.1.a); nuestro interés legítimo en mantener el servicio seguro (art. 6.1.f); y el
+    cumplimiento de obligaciones legales (art. 6.1.c). Además de los derechos de arriba, podés retirar tu consentimiento en
+    cualquier momento y presentar un reclamo ante la autoridad de protección de datos de tu país.
+  </p>
+
+  <h3>Si vivís en Brasil</h3>
+  <p>
+    Tenés los derechos que reconoce el artículo 18 de la Ley General de Protección de Datos (LGPD), incluidos la
+    confirmación del tratamiento, el acceso, la corrección, la anonimización o eliminación, la portabilidad y la información
+    sobre con quién compartimos tus datos. También podés reclamar ante la Autoridad Nacional de Protección de Datos (ANPD).
+  </p>
+
+  <h3>Si vivís en Estados Unidos</h3>
+  <p>
+    En los últimos 12 meses solo tratamos las categorías descritas en esta política: identificadores (nombre, email e
+    identificador de cuenta), información financiera que cargás al compartir gastos, información de compras y datos
+    técnicos de conexión. No vendemos datos personales, no los compartimos para publicidad basada en tu comportamiento y no
+    usamos datos sensibles para inferir características tuyas. Según tu estado, por ejemplo California, podés pedir saber
+    qué datos tenemos, corregirlos o eliminarlos, y no vas a recibir un trato distinto por hacerlo.
+  </p>
+
+  <h2 id="seguridad">10. Seguridad</h2>
+  <p>
+    Las conexiones con nuestros servidores viajan cifradas. Cada persona solo puede leer los grupos y gastos recurrentes de
+    los que forma parte, y solo quien cargó un gasto puede editarlo o eliminarlo. Ningún sistema es infalible: si detectamos
+    un incidente que afecte tus datos, te vamos a avisar y vamos a informar a la autoridad cuando corresponda.
+  </p>
+  <p>
+    Los datos que quedan en tu teléfono están protegidos por el bloqueo y el cifrado de tu dispositivo. Te recomendamos
+    usar un código o biometría para desbloquearlo.
+  </p>
+
+  <h2 id="menores">11. Menores de edad</h2>
+  <p>
+    La app no está dirigida a menores de {LEGAL.minimumAge} años y no les pedimos datos a sabiendas. Si sabés que un menor
+    nos dio datos sin autorización de sus padres o tutores, escribinos y los borramos.
+  </p>
+
+  <h2 id="sitio">12. Este sitio web</h2>
+  <p>
+    {domain} no usa cookies, analítica ni formularios. Para mostrarlo, el proveedor de hosting (GitHub Pages) procesa datos
+    técnicos como tu dirección IP. Las tipografías se cargan desde Google Fonts, por lo que Google también recibe tu
+    dirección IP al visitar el sitio.
+  </p>
+
+  <h2 id="cambios">13. Cambios en esta política</h2>
+  <p>
+    Si cambiamos esta política, publicamos la nueva versión acá con su fecha. Si el cambio es importante, también te
+    avisamos dentro de la app antes de que entre en vigencia.
+  </p>
+
+  <h2 id="contacto">14. Contacto</h2>
+  <p>{LEGAL.ownerName} · {LEGAL.ownerAddress} · <Email /></p>
+</Legal>
