@@ -1,7 +1,7 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import BlogHeader from '../../components/BlogHeader.astro';
+import SiteNav from '../../components/SiteNav.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 import PostList from '../../components/PostList.astro';
 import { sortPosts, SITE, ORGANIZATION, absoluteUrl, formatDate, readingMinutes, withBase } from '../../site';
@@ -67,7 +67,7 @@ const jsonLd = [
   publishedTime={published}
   modifiedTime={modified}
 >
-  <BlogHeader />
+  <SiteNav current="blog" />
   <main class="wrap">
     <article class="article">
       <nav class="crumbs" aria-label="Migas de pan">
@@ -127,4 +127,19 @@ const jsonLd = [
     </article>
   </main>
   <SiteFooter />
+<script>
+import { gsap, ScrollTrigger, SplitText, $$, EXPO } from '../../scripts/home-motion';
+
+/* The headline rises out of its mask; the closing blocks settle in as they come up */
+gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+  SplitText.create('.article-head h1', {
+    type: 'lines', mask: 'lines', autoSplit: true,
+    onSplit: (self) => gsap.from(self.lines, { yPercent: 105, duration: 1.2, stagger: 0.1, ease: EXPO }),
+  });
+  gsap.from(['.dek', '.article-meta', '.summary'], { autoAlpha: 0, y: 16, stagger: 0.08, duration: 1, ease: EXPO, delay: 0.25 });
+  gsap.from('.cta .moni', { y: 40, rotate: -12, scale: 0.8, autoAlpha: 0, duration: 1.2, ease: 'elastic.out(1, 0.6)', scrollTrigger: { trigger: '.cta', start: 'top 80%', once: true } });
+  for (const card of $$('.more .post-item')) gsap.from(card, { autoAlpha: 0, y: 30, duration: 0.9, ease: EXPO, scrollTrigger: { trigger: card, start: 'top 90%', once: true } });
+});
+document.fonts?.ready.then(() => ScrollTrigger.refresh());
+</script>
 </Base>

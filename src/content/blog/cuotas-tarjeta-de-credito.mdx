@@ -1,0 +1,85 @@
+---
+title: "Cuotas con tarjeta de crédito: en qué resumen cae cada una y cuánto debés de verdad"
+shortTitle: "Cuotas y resumen de la tarjeta"
+description: "Comprás en cuotas y el resumen no dice lo que esperabas. Cómo funciona el cierre, en qué mes cae cada cuota y cómo ver lo que debés de verdad."
+pubDate: 2026-10-16
+order: 1
+keywords: ["cuotas tarjeta de crédito", "cierre de tarjeta", "resumen de tarjeta", "en qué resumen entra una compra", "deuda total tarjeta", "pago mínimo tarjeta"]
+icon: "credit-card"
+tone: "purple"
+summary:
+  - "Una compra entra en el primer resumen que cierra ese mismo día o después. Comprar un día después del cierre te da casi un mes más."
+  - "Cada cuota cae un resumen más tarde que la anterior, así que una compra en 6 cuotas toca 6 resúmenes."
+  - "El resumen muestra lo de este mes, pero lo que debés de verdad incluye todas las cuotas que vienen."
+  - "En Loneto cada cuota cae en su resumen, ves el total, el mes en curso y la deuda completa, y te avisamos antes del vencimiento."
+faq:
+  - q: "¿Qué pasa si compro el mismo día del cierre?"
+    a: "Entra en ese resumen. La compra va al primer cierre que cae ese día o después, así que el día del cierre todavía cuenta para el resumen que cierra."
+  - q: "¿Las cuotas sin interés suman a lo que debo?"
+    a: "Sí. Aunque no paguen interés, son plata que ya comprometiste. Por eso conviene mirar la deuda total y no solo el resumen del mes."
+  - q: "¿Conviene pagar el mínimo?"
+    a: "Solo si no hay otra salida. Lo que queda sin pagar se financia y el banco cobra intereses sobre ese saldo, que suelen ser altos."
+  - q: "¿Qué hago con una compra en dólares?"
+    a: "Queda como deuda en dólares hasta que la pagás. Si la pagás con pesos, el cambio se fija el día del pago."
+  - q: "¿Loneto lee el resumen del banco?"
+    a: "No. Cargás cada compra con la tarjeta y la app arma los resúmenes con el día de cierre y de vencimiento que le indicás."
+---
+import StatementFlow from '../../components/charts/StatementFlow.astro';
+import Scene from '../../components/Scene.astro';
+import Callout from '../../components/Callout.astro';
+
+Comprás unas zapatillas en seis cuotas a mediados de octubre, esperás verlas en el resumen de octubre y no están. Aparecen en el de noviembre. Al mes siguiente el resumen parece liviano, pero en la tarjeta todavía quedan cinco cuotas por pagar. Nada de eso es un error del banco: **es el calendario de la tarjeta**, y entenderlo cambia cómo la usás.
+
+## ¿Qué es el cierre de la tarjeta y por qué importa?
+
+Cada tarjeta tiene dos fechas por mes: el **cierre** y el **vencimiento**. El cierre es el día en que el banco corta y suma todo lo que compraste desde el cierre anterior. El vencimiento, unos días después, es la fecha límite para pagar ese resumen.
+
+La regla para saber dónde cae una compra es una sola: **entra en el primer resumen que cierra ese mismo día o después**. Si la tarjeta cierra el 18 y comprás el 18, va a ese resumen. Si comprás el 20, ya cerró, y la compra pasa al siguiente.
+
+Por eso comprar justo después del cierre te da casi un mes y medio hasta pagarla, y comprar el mismo día del cierre te deja poco más de dos semanas.
+
+## ¿En qué resumen cae cada cuota?
+
+Con las cuotas, la regla se repite: la primera cuota cae donde caería la compra y cada cuota siguiente cae un resumen más tarde. Una compra en 6 cuotas toca 6 resúmenes seguidos.
+
+<StatementFlow />
+
+<Callout icon="calendar-blank">
+Si tenés el cierre a mano, antes de una compra grande mirá la fecha: dos días de diferencia pueden mover todas las cuotas un mes.
+</Callout>
+
+## ¿Cuánto debés de verdad?
+
+Acá está la trampa más común. El resumen te dice cuánto pagar este mes, no cuánto debés. Conviene mirar tres números distintos:
+
+<div class="table-scroll">
+
+| Qué mirar | Qué incluye | Para qué sirve |
+| --- | --- | --- |
+| Último resumen cerrado | Lo que sumó al cierre, menos lo que ya pagaste | Saber cuánto pagar antes del vencimiento |
+| Lo que va del mes | Las compras desde el último cierre | Ver cómo viene el próximo resumen |
+| Deuda total | Todo lo anterior más las cuotas que todavía no llegaron | Saber cuánta plata ya está comprometida |
+
+</div>
+
+En el ejemplo de las zapatillas, en el resumen de noviembre la compra suma $ 15.000, pero la deuda total de la compra es de $ 90.000. Si sumás tres o cuatro compras así, el resumen de cada mes puede verse tranquilo mientras la deuda crece.
+
+## ¿Pagar el total, el mínimo u otro monto?
+
+Pagar **el total** del resumen es lo único que evita intereses. **El mínimo** te mantiene al día con el banco, pero el resto se financia y paga intereses que suelen ser altos. **Otro monto** sirve cuando podés pagar más que el mínimo pero no todo: cuanto más cerca del total, menos intereses.
+
+Si al pagar el banco te cobra intereses o cargos, anotalos aparte del pago. Así ves cuánto te costó financiarte y no se mezcla con lo que compraste.
+
+## ¿Cómo lo resolvemos en Loneto?
+
+En Loneto la tarjeta no es una cuenta más: es **con qué pagaste**. Cuando cargás un gasto, elegís la tarjeta y, si querés, en cuántas cuotas.
+
+<Scene kind="cards" title="Una tarjeta en Loneto" caption="Pagás el resumen y la deuda total baja, pero siguen las cuotas que vienen. El aviso llega 3 días antes y el día del vencimiento." />
+
+- **Cada cuota en su resumen.** Le decís el día de cierre y de vencimiento una vez, y al cargar la compra ves en qué resumen entra.
+- **Los tres números.** El último resumen cerrado, lo que va del mes y la deuda total con las cuotas por venir.
+- **Pagás como quieras.** El total, el mínimo u otro monto, desde la cuenta que elijas, y podés sumar intereses y cargos del banco.
+- **Un aviso a tiempo.** Te recordamos el vencimiento 3 días antes y el mismo día mientras siga sin pagar.
+- **Pesos y dólares separados.** Una compra en dólares queda como deuda en dólares, como en el resumen del banco.
+
+Loneto llega muy pronto a iPhone y Android. Mientras tanto, buscá en el último resumen la fecha de cierre y anotala en el celular: es el dato que más plata te ahorra.

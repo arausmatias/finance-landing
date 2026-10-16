@@ -1,0 +1,21 @@
+---
+import NewsVis from './NewsVis.astro';
+import { LATEST, dayLabel, type Featured } from '../data/changelog';
+
+/** One shipped feature with its animated miniature. `wide` puts the copy beside the scene. */
+interface Props {
+  entry: Featured;
+  wide?: boolean;
+}
+const { entry, wide = entry.wide } = Astro.props;
+const isNew = entry.date === LATEST;
+const tail = entry.pro ? ' · Pro' : isNew ? ' · Nuevo' : '';
+---
+<article class:list={['news-card', { wide }]} style={`--soft:${entry.soft};--ink:${entry.ink}`} data-news={entry.kind}>
+  <div class="nc-top">
+    <span class="date">{isNew && <i class="dot-new"></i>}<time datetime={entry.date}>{dayLabel(entry.date)}</time>{tail}</span>
+    <h3>{entry.title}</h3>
+    <p>{entry.body}</p>
+  </div>
+  <div class={`nc-vis ${entry.kind}`} aria-hidden="true"><NewsVis kind={entry.kind} /></div>
+</article>

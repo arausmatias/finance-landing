@@ -1,6 +1,6 @@
 ---
 import Base from './Base.astro';
-import BlogHeader from '../components/BlogHeader.astro';
+import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import Fact from '../components/Fact.astro';
 import { SITE, LEGAL, LEGAL_PATHS, ORGANIZATION, absoluteUrl, formatDate, withBase, type Lang, type LegalPage } from '../site';
@@ -52,7 +52,7 @@ const jsonLd = [
   lang={lang}
   alternates={[{ lang: other, path: translation }]}
 >
-  <BlogHeader lang={lang} />
+  <SiteNav lang={lang} />
   <main class="wrap">
     <article class="article legal">
       <div class="legal-top">

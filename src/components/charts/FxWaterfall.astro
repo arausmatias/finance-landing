@@ -1,0 +1,79 @@
+---
+/**
+ * Exchange difference as a waterfall: where the month started, what came in, what went out,
+ * and the gap that only the dollar moving explains. Example: $ 1.000.000 and US$ 1.000,
+ * dollar from 1.385 at the September close to 1.445 today.
+ */
+const STEPS = [
+  { key: 'start', label: 'Al cierre de septiembre', short: 'Inicio', value: 2385000, from: 0 },
+  { key: 'in', label: 'Ingresos', short: 'Ingresos', value: 1250000, from: 2385000 },
+  { key: 'out', label: 'Gastos', short: 'Gastos', value: -574100, from: 3635000 },
+  { key: 'fx', label: 'Diferencia de cambio', short: 'Cambio', value: 60000, from: 3060900 },
+  { key: 'end', label: 'Hoy', short: 'Hoy', value: 3120900, from: 0 },
+];
+const MAX = 3700000;
+const fmt = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
+const exact = (v: number, signed: boolean) => (signed ? (v < 0 ? '−' : '+') : '') + '$ ' + fmt.format(Math.abs(v));
+const compact = (v: number, signed: boolean) => {
+  const a = Math.abs(v);
+  const txt = a >= 1e6 ? `${(Math.round(a / 1e4) / 100).toFixed(2).replace('.', ',')} M` : `${fmt.format(Math.round(a / 1000))} mil`;
+  return (signed ? (v < 0 ? '−' : '+') : '') + '$ ' + txt;
+};
+const bars = STEPS.map((s, i) => {
+  const lo = s.value < 0 ? s.from + s.value : s.from;
+  const hi = s.value < 0 ? s.from : s.from + s.value;
+  return { ...s, signed: i > 0 && i < STEPS.length - 1, bottom: (lo / MAX) * 100, height: ((hi - lo) / MAX) * 100 };
+});
+---
+<figure class="chart fxw" data-fxw>
+  <div class="chart-head">
+    <div>
+      <p class="chart-title">Por qué tenés más de lo que sumaste</p>
+      <p class="chart-sub">$ 1.000.000 y US$ 1.000; el dólar pasó de $ 1.385 a $ 1.445</p>
+    </div>
+    <button class="scene-replay press" type="button" data-replay><svg class="i" aria-hidden="true"><use href="#i-play"/></svg>Ver de nuevo</button>
+  </div>
+  <div class="fx-plot" aria-hidden="true">
+    {bars.map((b) => (
+      <span class={`fx-col fx-${b.key}`}>
+        <span class="fx-track">
+          <i class="fx-bar" style={`bottom:${b.bottom}%;height:${b.height}%`}><em class="num">{compact(b.value, b.signed)}</em></i>
+        </span>
+        <small>{b.short}</small>
+      </span>
+    ))}
+  </div>
+  <dl class="fx-rows">
+    {bars.map((b) => (
+      <div class={`fx-${b.key}`}><dt>{b.label}</dt><dd class="num">{exact(b.value, b.signed)}</dd></div>
+    ))}
+  </dl>
+  <figcaption>
+    Sin el cambio, el mes cerraría en $ 3.060.900. Pero los US$ 1.000 ahora valen $ 60.000 más: esa es la <strong>diferencia de cambio</strong>. No la ganaste ni la gastaste; la movió el dólar.
+  </figcaption>
+</figure>
+
+<script>
+  import { gsap, ScrollTrigger, $, $$, EXPO } from '../../scripts/home-motion';
+
+  for (const fig of $$('[data-fxw]')) {
+    const tl = gsap.timeline({ paused: true, defaults: { ease: EXPO } });
+    const cols = $$('.fx-col', fig);
+    const rows = $$('.fx-rows > div', fig);
+    cols.forEach((c, i) => {
+      const at = i * 0.55 + (i === 3 ? 0.4 : 0);
+      tl.from($('.fx-bar', c), { scaleY: 0, transformOrigin: i === 2 ? '50% 0' : '50% 100%', duration: 0.8 }, at)
+        .from($('.fx-bar em', c), { autoAlpha: 0, y: 6, duration: 0.4 }, at + 0.4)
+        .from(rows[i], { autoAlpha: 0, x: -12, duration: 0.5 }, at + 0.2);
+    });
+    tl.fromTo($('.fx-fx .fx-bar', fig), { boxShadow: '0 0 0 0 rgba(47,158,91,0.45)' }, { boxShadow: '0 0 0 12px rgba(47,158,91,0)', duration: 1.1, ease: 'power2.out' }, 2.6);
+
+    const replay = $<HTMLButtonElement>('[data-replay]', fig);
+    gsap.matchMedia()
+      .add('(prefers-reduced-motion: no-preference)', () => {
+        ScrollTrigger.create({ trigger: fig, start: 'top 75%', once: true, onEnter: () => tl.play(0) });
+        replay.addEventListener('click', () => tl.play(0));
+      })
+      .add('(prefers-reduced-motion: reduce)', () => { tl.progress(1); replay.hidden = true; });
+  }
+</script>

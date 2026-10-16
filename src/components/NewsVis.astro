@@ -1,0 +1,123 @@
+---
+import type { SceneKind } from '../data/changelog';
+
+/**
+ * The animated miniature of one shipped feature. Renders only the inner markup, so a news card
+ * and a feature tile can wrap the same scene; the motion lives in scripts/home-motion.ts.
+ */
+interface Props {
+  kind: SceneKind;
+}
+const { kind } = Astro.props;
+
+const CURRENCIES = [
+  ['🇦🇷', 'ARS', 'Peso argentino'],
+  ['🇺🇸', 'USD', 'Dólar estadounidense'],
+  ['🇪🇺', 'EUR', 'Euro'],
+  ['🇧🇷', 'BRL', 'Real brasileño'],
+  ['🇯🇵', 'JPY', 'Yen japonés'],
+  ['🇬🇧', 'GBP', 'Libra esterlina'],
+  ['🇲🇽', 'MXN', 'Peso mexicano'],
+  ['🇨🇱', 'CLP', 'Peso chileno'],
+  ['🇺🇾', 'UYU', 'Peso uruguayo'],
+  ['🇨🇭', 'CHF', 'Franco suizo'],
+];
+// Words from the app's own locale files: es, en, pt, fr, de, it
+const WORDS = [
+  { icon: 'i-arrow-down', color: '#B8433A', words: ['Gasto', 'Expense', 'Despesa', 'Dépense', 'Ausgabe', 'Spesa'] },
+  { icon: 'i-arrow-up', color: '#1F7A44', words: ['Ingreso', 'Income', 'Receita', 'Revenu', 'Einnahme', 'Entrata'] },
+  { icon: 'i-check-bold', color: '#0E4A34', words: ['Saldar', 'Settle up', 'Acertar', 'Régler', 'Ausgleichen', 'Salda'] },
+  { icon: 'i-account-multiple', color: '#6B42B0', words: ['Compartir', 'Share', 'Compartilhar', 'Partager', 'Teilen', 'Condividi'] },
+];
+// May to October; the hatched last month is the Pro projection
+const BARS = [['May', 0.7], ['Jun', 0.76], ['Jul', 0.94], ['Ago', 1], ['Sep', 0.88], ['Oct', 0.9]] as const;
+---
+{kind === 'cards' && (
+  <div class="cc-top">
+    <div class="cc-face"><span class="cc-net">Visa</span><small>Terminada en 4821</small><span class="cc-debt"><small>Deuda total</small><b class="num cc-debt-v">$ 75.000</b></span></div>
+    <div class="cc-st"><span class="cc-lab">Resumen de septiembre</span><b class="num">$ 312.400</b><span class="tag cc-tag" data-s="paid">Pagado</span></div>
+  </div>
+  <div class="cc-plan">
+    <span class="cc-plan-h"><b>Zapatillas</b><span class="num">6 cuotas de $ 15.000</span></span>
+    <ol class="cc-q"><li class="now"><i></i><small>Sep</small></li><li><i></i><small>Oct</small></li><li><i></i><small>Nov</small></li><li><i></i><small>Dic</small></li><li><i></i><small>Ene</small></li><li><i></i><small>Feb</small></li></ol>
+  </div>
+  <span class="cc-pay"><svg class="i"><use href="#i-bell-outline"/></svg>Aviso 3 días antes y el día que vence</span>
+)}
+
+{kind === 'worth' && (
+  <ul class="nw-parts">
+    <li><span class="nw-cur">ARS</span><span>Banco y efectivo</span><b class="num">$ 1.245.000</b></li>
+    <li><span class="nw-cur">USD</span><span>Ahorro</span><b class="num">US$ 1.250</b></li>
+  </ul>
+  <div class="nw-total"><span>Tenés en total</span><b class="num">$ 2.976.250</b></div>
+  <div class="nw-diff"><span>Diferencia de cambio</span><b class="num">+$ 58.750</b></div>
+)}
+
+{kind === 'currencies' && (
+  <div class="cur-big"><b class="num cur-n">154</b><span>monedas, <br>cada una con su bandera</span></div>
+  <div class="cur-badge">
+    <span class="cur-roll">
+      {[...CURRENCIES, CURRENCIES[0]].map(([flag, code, name]) => (
+        <span class="cur-item"><span class="cur-flag">{flag}</span><b>{code}</b><span>{name}</span></span>
+      ))}
+    </span>
+    <svg class="i fav"><use href="#i-star"/></svg>
+  </div>
+  <span class="cur-hint"><svg class="i"><use href="#i-magnify"/></svg>Por nombre o por código</span>
+)}
+
+{kind === 'langs' && (
+  <span class="lg-seg"><i class="lg-ind"></i><span>ES</span><span>EN</span><span>PT</span><span>FR</span><span>DE</span><span>IT</span></span>
+  <div class="lg-words">
+    {WORDS.map((w) => (
+      <span class="lg-word">
+        <span class="lg-ico" style={`color:${w.color}`}><svg class="i"><use href={`#${w.icon}`}/></svg></span>
+        <span class="roll"><span class="roll-in">{[...w.words, w.words[0]].map((x) => <b>{x}</b>)}</span></span>
+      </span>
+    ))}
+  </div>
+)}
+
+{kind === 'reports' && (
+  <div class="rep-head"><span class="rep-tabs"><span class="on">Gastos</span><span>Ingresos</span><span>Neto</span></span><span class="rep-cmp num">Septiembre <b>$ 574.100</b><em><svg class="i"><use href="#i-arrow-down"/></svg><span class="rep-pct">12</span>% vs. agosto</em></span></div>
+  <div class="rep-chart"><div class="rep-track">
+    {BARS.map(([m, h], i) => (
+      <span class:list={['rb', { sel: m === 'Sep', proj: i === BARS.length - 1 }]}><i style={`--h:${h}`}></i><small>{m}{i === BARS.length - 1 && <em>Pro</em>}</small></span>
+    ))}
+  </div></div>
+)}
+
+{kind === 'rates' && (
+  <span class="r-lab">Cierre de septiembre</span>
+  <b class="r-val num">1 USD = <span class="r-num">$ 1.385</span></b>
+  <span class="r-seg"><i class="r-ind"></i><span>Oficial</span><span>MEP</span><span>Blue</span><span><svg class="i"><use href="#i-pencil"/></svg>A mano</span></span>
+)}
+
+{kind === 'search' && (
+  <span class="sr-field"><svg class="i"><use href="#i-magnify"/></svg><span class="sr-q">súper</span><i class="caret"></i></span>
+  <ul class="sr-list">
+    <li><span class="badge" style="background:#DDF3E4;color:#2F9E5B"><svg class="i"><use href="#i-cart"/></svg></span><b>Súper</b><em class="num">−$ 23.180</em></li>
+    <li class="miss"><span class="badge" style="background:#FBF1D0;color:#E0B021"><svg class="i"><use href="#i-coffee"/></svg></span><b>Café</b><em class="num">−$ 4.500</em></li>
+    <li><span class="badge" style="background:#DDF3E4;color:#2F9E5B"><svg class="i"><use href="#i-cart"/></svg></span><b>Súper</b><em class="num">−$ 18.900</em></li>
+  </ul>
+)}
+
+{kind === 'groups' && (
+  <span class="code">{'X7K2QP'.split('').map((c) => <i>{c}</i>)}</span>
+  <ul class="act">
+    <li><span class="avatar" style="background:#FCE8D6;color:#9E561A">S</span>Sofi editó “Cena”</li>
+    <li><span class="avatar" style="background:#DCEAF7;color:#1F5F9A">T</span>Tomi borró “Nafta”</li>
+    <li><span class="avatar" style="background:#DCEBE3;color:#0E4A34">V</span>Agregaste “Súper”</li>
+  </ul>
+)}
+
+{kind === 'recurring' && (
+  <div class="rec-head"><span class="badge" style="background:#DCEAF7;color:#2F7FC8"><svg class="i"><use href="#i-play-box-multiple"/></svg></span><span class="row-main"><b>Streaming en familia</b><span>Vence el 10 · 4 personas</span></span><b class="num">$ 9.600</b></div>
+  <span class="rec-track"><i></i></span>
+  <ul class="rec-ppl">
+    <li><span class="avatar" style="background:#DCEBE3;color:#0E4A34">V</span><b>Vos</b><span class="tag" data-s="owner">Paga la cuenta</span></li>
+    <li><span class="avatar" style="background:#F9DFE8;color:#B03B61">M</span><b>Mamá</b><span class="tag" data-s="paid">Pagado</span></li>
+    <li><span class="avatar" style="background:#EBE2FA;color:#6B42B0">J</span><b>Juli</b><span class="tag rec-juli" data-s="paid">Pagado</span></li>
+    <li><span class="avatar" style="background:#E8EAE4;color:#4F5953">N</span><b>Nico</b><span class="tag rec-nico" data-s="reported">Informó que pagó</span></li>
+  </ul>
+)}

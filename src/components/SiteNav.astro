@@ -1,0 +1,38 @@
+---
+import { SITE, withBase, type Lang } from '../site';
+
+/**
+ * The home's floating pill nav for every other page: home sections as links, the blog marked
+ * when it is the current page. English pages only get the logo and a way back to the app.
+ */
+interface Props {
+  lang?: Lang;
+  current?: 'blog';
+}
+const { lang = 'es', current } = Astro.props;
+const home = (hash: string) => `${withBase('')}#${hash}`;
+---
+<span class="nav-sentinel" aria-hidden="true"></span>
+<header class="nav-wrap" id="navWrap">
+  <nav class="nav" aria-label={lang === 'en' ? 'Main' : 'Principal'}>
+    <a class="logo" href={withBase('')} hreflang={lang === 'en' ? 'es' : undefined}><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-happy"/></svg>{SITE.name}</a>
+    {lang === 'es' && (
+      <span class="nav-links">
+        <a href={home('por-que')}>Por qué</a>
+        <a href={home('como-funciona')}>Cómo funciona</a>
+        <a href={home('funciones')}>Funciones</a>
+        <a href={home('comparar')}>Comparar</a>
+        <a class:list={{ here: current === 'blog' }} href={withBase('blog/')} aria-current={current === 'blog' ? 'page' : undefined}>Blog</a>
+      </span>
+    )}
+    {lang === 'es'
+      ? <a class="nav-cta press" href={home('empezar')}>Cuándo sale</a>
+      : <a class="nav-cta press" href={withBase('')} hreflang="es">About the app</a>}
+  </nav>
+</header>
+
+<script>
+  // The bar turns into a floating pill once the page scrolls
+  const wrap = document.getElementById('navWrap')!;
+  new IntersectionObserver(([e]) => wrap.classList.toggle('floating', !e.isIntersecting)).observe(document.querySelector('.nav-sentinel')!);
+</script>

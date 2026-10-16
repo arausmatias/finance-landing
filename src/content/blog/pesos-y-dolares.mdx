@@ -1,0 +1,82 @@
+---
+title: "Pesos y dólares: cómo saber cuánto tenés en total (y cuánto te movió el dólar)"
+shortTitle: "Pesos, dólares y diferencia de cambio"
+description: "Si ahorrás en dólares y gastás en pesos, sumar no alcanza. Qué cotización usar, a qué valor cuenta cada gasto y qué es la diferencia de cambio."
+pubDate: 2026-10-16
+order: 2
+keywords: ["pesos y dólares", "cuánto tengo en total", "diferencia de cambio", "dólar MEP", "dólar blue", "ahorro en dólares", "patrimonio en pesos"]
+icon: "swap-horizontal"
+tone: "teal"
+summary:
+  - "Pesos y dólares no se suman tal cual: para un total hace falta una cotización, y en Argentina hay más de una."
+  - "Lo que tenés se valúa a la cotización de hoy; lo que gastaste o cobraste, a la del día en que pasó."
+  - "La diferencia entre esas dos cuentas es la diferencia de cambio: plata que ganaste o perdiste solo porque se movió el dólar."
+  - "En Loneto cada cuenta tiene su moneda, cada movimiento guarda la cotización de su día y, con Pro, ves el total y la diferencia de cambio."
+faq:
+  - q: "¿Qué dólar conviene usar para sumar mis ahorros?"
+    a: "El que usarías si los vendieras hoy. Para mucha gente es el MEP; si cambiás en otro lado, usá ese. Lo importante es usar siempre el mismo."
+  - q: "¿Por qué un gasto viejo no cambia de valor si sube el dólar?"
+    a: "Porque ya pasó. Un gasto de septiembre se pagó con la plata de septiembre, así que cuenta a la cotización de ese día. Cambiarlo después haría que tus meses viejos se muevan solos."
+  - q: "¿La diferencia de cambio es una ganancia real?"
+    a: "Es real en el valor de lo que tenés, pero no es plata nueva hasta que vendés. Por eso conviene verla aparte de los ingresos."
+  - q: "¿Puedo poner mi propia cotización?"
+    a: "Sí. Si cambiaste a un valor distinto, cargá el tuyo: en Loneto la cotización que cargás a mano manda sobre la automática."
+  - q: "¿Qué ve gratis y qué es Pro en Loneto?"
+    a: "Gratis tenés todas las cuentas y monedas, con sus totales por moneda y sus reportes. Pro suma el total en una sola moneda y la diferencia de cambio."
+---
+import FxWaterfall from '../../components/charts/FxWaterfall.astro';
+import Scene from '../../components/Scene.astro';
+import Callout from '../../components/Callout.astro';
+
+Tenés pesos en el banco para el mes y unos dólares guardados para el viaje o para lo que venga. Un día alguien te pregunta cuánto tenés en total y no sabés qué contestar: depende de qué dólar uses, y encima el número cambia aunque no hayas hecho nada. **No es que no sepas sumar: es que pesos y dólares no se suman tal cual.**
+
+## ¿Por qué no se pueden sumar pesos y dólares así nomás?
+
+Porque son dos cosas distintas que solo se comparan a través de una cotización. $ 1.000.000 y US$ 1.000 no son "un millón mil": son un millón de pesos más lo que valgan esos mil dólares el día que mires.
+
+Por eso hay dos reglas que conviene respetar:
+
+- **Cada cuenta en su moneda.** Los dólares que guardás siguen siendo dólares. Si los anotás como pesos, el día que sube el dólar tu ahorro parece no moverse.
+- **El total siempre dice a qué cotización.** Un total sin cotización es un número que no podés comparar con el del mes pasado.
+
+## ¿Qué cotización usar?
+
+En Argentina hay varias: el oficial, el MEP y el blue, como mínimo. Ninguna es "la correcta" para todos. La pregunta útil es: **¿a cuánto los vendería hoy?** Ese es tu dólar.
+
+<Scene kind="rates" title="La cotización de cierre de cada mes" caption="Cada mes guarda su cotización. Elegís oficial, MEP o blue, o cargás la tuya a mano." />
+
+Elegí una y usala siempre. Cambiar de cotización de un mes a otro hace que tus números suban o bajen por un motivo que no tiene nada que ver con tu plata.
+
+## ¿A qué cotización cuenta cada gasto?
+
+Acá hay una diferencia importante entre **lo que tenés** y **lo que pasó**:
+
+- **Lo que tenés** (saldos, ahorros) se valúa a la cotización de hoy, porque es lo que vale hoy.
+- **Lo que pasó** (un sueldo, una compra, una cena) se valúa a la cotización del día en que pasó, y no cambia más.
+
+Si un gasto de septiembre cambiara de valor cada vez que se mueve el dólar, tus meses viejos nunca terminarían de cerrar. Fijarlo el día que pasó hace que septiembre sea siempre septiembre.
+
+## ¿Qué es la diferencia de cambio?
+
+Cuando juntás las dos reglas aparece algo curioso. Si sumás lo que tenías al empezar el mes, más lo que cobraste, menos lo que gastaste, no llegás a lo que tenés hoy. Falta, o sobra, un pedazo. Ese pedazo es la **diferencia de cambio**: lo que ganaste o perdiste solo porque se movió la cotización.
+
+<FxWaterfall />
+
+En el ejemplo, nadie te pagó $ 60.000. Tus US$ 1.000 pasaron de valer $ 1.385.000 a valer $ 1.445.000. Verlo aparte evita dos errores: creer que gastaste menos de lo que gastaste o que ganaste más de lo que ganaste.
+
+<Callout icon="swap-horizontal">
+Cuando vendés dólares, la diferencia de cambio deja de ser un número en la pantalla y se vuelve pesos de verdad. Hasta entonces, es valor que puede ir y venir.
+</Callout>
+
+## ¿Cómo lo resolvemos en Loneto?
+
+Loneto separa las monedas desde el principio para que el total nunca mienta:
+
+- **Cada cuenta en su moneda.** Efectivo, banco y billetera virtual, en cualquiera de 154 monedas. Los pesos y los dólares no se mezclan.
+- **Cada movimiento guarda la cotización de su día.** Un gasto de septiembre vale lo mismo hoy que el día que lo cargaste.
+- **Tu cotización, si querés.** Oficial, MEP o blue para el peso, o la que cargues a mano, que siempre manda.
+- **Todo en una moneda, con Pro.** Tus pesos, tus dólares y lo que uses, sumados a la cotización de hoy, con la diferencia de cambio del mes aparte.
+
+<Scene kind="worth" title="Todo lo que tenés, en una moneda" caption="Los saldos de cada moneda se suman a la cotización de hoy, y la diferencia de cambio aparece aparte." />
+
+Loneto llega muy pronto a iPhone y Android. Hasta entonces, probá anotar al final del mes cuántos dólares tenés y a qué cotización los contaste: en tres meses vas a ver cuánto de tu ahorro fue esfuerzo y cuánto fue el dólar.

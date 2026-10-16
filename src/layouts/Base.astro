@@ -2,7 +2,7 @@
 import Sprite from '../components/Sprite.astro';
 import SeoHead from '../components/SeoHead.astro';
 import '../styles/tokens.css';
-import '../styles/landing.css';
+import '../styles/home.css';
 import '../styles/blog.css';
 import { SITE, type Lang } from '../site';
 
@@ -11,7 +11,7 @@ const lang: Lang = Astro.props.lang ?? 'es';
 const htmlLang = lang === 'en' ? 'en' : SITE.locale;
 ---
 <!doctype html>
-<html lang={htmlLang}>
+<html lang={htmlLang} data-theme="light" style="color-scheme:light">
 <head>
   <SeoHead {...Astro.props} />
 </head>

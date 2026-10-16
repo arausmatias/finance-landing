@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import BlogHeader from '../../components/BlogHeader.astro';
+import SiteNav from '../../components/SiteNav.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 import PostList from '../../components/PostList.astro';
 import { sortPosts, SITE, ORGANIZATION, absoluteUrl } from '../../site';
@@ -35,13 +35,29 @@ const jsonLd = [
 ];
 ---
 <Base title={title} description={SITE.blogDescription} path="blog/" jsonLd={jsonLd}>
-  <BlogHeader />
-  <main class="wrap blog-main">
-    <header class="blog-head">
-      <h1>{SITE.blogName}</h1>
-      <p>{SITE.blogDescription}</p>
-    </header>
-    <PostList posts={posts} />
+  <SiteNav current="blog" />
+  <main>
+    <section class="page-hero" aria-labelledby="h-blog">
+      <p class="page-kicker"><svg class="i" aria-hidden="true"><use href="#i-file-document-outline"/></svg>Blog</p>
+      <h1 id="h-blog" class="page-title">{SITE.blogName}</h1>
+      <p class="lead">{SITE.blogDescription}</p>
+    </section>
+    <div class="wrap blog-main">
+      <PostList posts={posts} />
+    </div>
   </main>
   <SiteFooter />
+<script>
+import { gsap, SplitText, $$, EXPO } from '../../scripts/home-motion';
+
+/* Same entrance as the changelog: the title rises out of its mask, then the cards deal in */
+gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+  SplitText.create('.page-title', {
+    type: 'lines', mask: 'lines', autoSplit: true,
+    onSplit: (self) => gsap.from(self.lines, { yPercent: 105, duration: 1.2, stagger: 0.1, ease: EXPO }),
+  });
+  gsap.from(['.page-kicker', '.page-hero .lead'], { autoAlpha: 0, y: 16, stagger: 0.08, duration: 1, ease: EXPO, delay: 0.2 });
+  gsap.from($$('.post-item'), { autoAlpha: 0, y: 40, stagger: 0.08, duration: 1, ease: EXPO, delay: 0.35 });
+});
+</script>
 </Base>

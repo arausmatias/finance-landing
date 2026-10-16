@@ -1,0 +1,77 @@
+---
+/**
+ * One card purchase in six cuotas: the closing date decides the first statement, then each cuota
+ * lands on the next one. Example card closes on the 18th and is due on the 5th.
+ */
+const fmt = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
+const money = (v: number) => '$ ' + fmt.format(v);
+const CUOTA = 15000;
+const N = 6;
+// statement month, due date
+const STATEMENTS = [['Noviembre', '5 dic'], ['Diciembre', '5 ene'], ['Enero', '5 feb'], ['Febrero', '5 mar'], ['Marzo', '5 abr'], ['Abril', '5 may']];
+---
+<figure class="chart sflow" data-sflow>
+  <div class="chart-head">
+    <div>
+      <p class="chart-title">Unas zapatillas en 6 cuotas, resumen por resumen</p>
+      <p class="chart-sub">Tarjeta que cierra el 18 y vence el 5 del mes siguiente</p>
+    </div>
+    <button class="scene-replay press" type="button" data-replay><svg class="i" aria-hidden="true"><use href="#i-play"/></svg>Ver de nuevo</button>
+  </div>
+
+  <div class="sf-line" aria-hidden="true">
+    <span class="sf-rail"><i></i></span>
+    <span class="sf-tick sf-closed"><b>18 oct</b><small>Cierre</small></span>
+    <span class="sf-buy"><svg class="i"><use href="#i-credit-card"/></svg><b>20 oct</b><small>{money(CUOTA * N)} en {N} cuotas</small></span>
+    <span class="sf-tick sf-next"><b>18 nov</b><small>Cierre</small></span>
+  </div>
+
+  <ol class="sf-cols">
+    {STATEMENTS.map(([m, due], i) => (
+      <li class:list={['sf-col', { first: i === 0 }]}>
+        <small>Resumen</small><b class="sf-m">{m}</b>
+        <span class="sf-q"><b>{i + 1}/{N}</b><span class="num">{money(CUOTA)}</span></span>
+        <em>Vence {due}</em>
+        {i === 0 && <span class="tag sf-tag" data-s="paid">Pagado</span>}
+      </li>
+    ))}
+  </ol>
+
+  <p class="sf-debt"><span>Deuda total de la compra</span><b class="num" data-debt>{money(CUOTA * (N - 1))}</b></p>
+  <figcaption>
+    La compra del 20 de octubre llegó <strong>después del cierre del 18</strong>, así que su primera cuota entra en el resumen de noviembre. Cada cuota siguiente cae un resumen más tarde. Cuando pagás el de noviembre, la deuda baja de {money(CUOTA * N)} a {money(CUOTA * (N - 1))}.
+  </figcaption>
+</figure>
+
+<script>
+  import { gsap, ScrollTrigger, $, $$, money, EXPO } from '../../scripts/home-motion';
+
+  for (const fig of $$('[data-sflow]')) {
+    const debt = $('[data-debt]', fig);
+    const tag = $('.sf-tag', fig);
+    const d = { v: 90000 };
+    const tl = gsap.timeline({ paused: true, defaults: { ease: EXPO } });
+    tl.add(() => { debt.textContent = money(90000); tag.dataset.s = 'pending'; tag.textContent = 'Por pagar'; fig.classList.remove('lit'); }, 0.01)
+      .fromTo($('.sf-rail i', fig), { scaleX: 0 }, { scaleX: 1, duration: 1.1, ease: 'power2.inOut' }, 0)
+      .from($$('.sf-tick', fig), { autoAlpha: 0, y: 8, stagger: 0.25, duration: 0.6 }, 0.1)
+      .from($('.sf-buy', fig), { autoAlpha: 0, scale: 0.6, y: -16, duration: 0.8, ease: 'back.out(2)' }, 0.9)
+      // after the closing: the purchase belongs to the next one
+      .fromTo($('.sf-closed', fig), { opacity: 1 }, { opacity: 0.4, duration: 0.4 }, 1.6)
+      .add(() => fig.classList.add('lit'), 1.7)
+      .fromTo($('.sf-next', fig), { scale: 1 }, { scale: 1.08, duration: 0.2, yoyo: true, repeat: 1, ease: 'power1.out' }, 1.7)
+      .from($$('.sf-col', fig), { autoAlpha: 0, y: 16, stagger: 0.06, duration: 0.6 }, 1.9)
+      .from($$('.sf-q', fig), { autoAlpha: 0, y: -26, scale: 0.8, stagger: 0.22, duration: 0.6, ease: 'back.out(1.8)' }, 2.3)
+      .from($('.sf-debt', fig), { autoAlpha: 0, y: 10, duration: 0.6 }, 3.6)
+      .add(() => { tag.dataset.s = 'paid'; tag.textContent = 'Pagado'; }, 4.6)
+      .fromTo(tag, { scale: 0.8 }, { scale: 1, duration: 0.5, ease: 'back.out(3)' }, 4.6)
+      .fromTo(d, { v: 90000 }, { v: 75000, duration: 1, ease: 'power2.out', onUpdate: () => { debt.textContent = money(d.v); } }, 4.6);
+
+    const replay = $<HTMLButtonElement>('[data-replay]', fig);
+    gsap.matchMedia()
+      .add('(prefers-reduced-motion: no-preference)', () => {
+        ScrollTrigger.create({ trigger: fig, start: 'top 75%', once: true, onEnter: () => tl.play(0) });
+        replay.addEventListener('click', () => tl.play(0));
+      })
+      .add('(prefers-reduced-motion: reduce)', () => { tl.progress(1); replay.hidden = true; });
+  }
+</script>

@@ -1,0 +1,148 @@
+---
+import Home from '../layouts/Home.astro';
+import NewsCard from '../components/NewsCard.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { CHANGELOG, byDay, dayLabel, weekday, isFeatured } from '../data/changelog';
+import { SITE, absoluteUrl, withBase } from '../site';
+import '../styles/home.css';
+
+const title = `Novedades de ${SITE.name}`;
+const description = 'Todo lo que entró a Loneto, día por día: tarjetas con cuotas, 154 monedas, seis idiomas, reportes, grupos y gastos fijos compartidos.';
+const days = byDay();
+const first = days[days.length - 1].date;
+const home = (hash: string) => `${withBase('')}#${hash}`;
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebPage', name: title, url: absoluteUrl('changelog/'), inLanguage: SITE.locale, description },
+];
+---
+<Home title={title} description={description} path="changelog/" jsonLd={jsonLd}>
+<SiteNav />
+
+<main id="top">
+
+<!-- ================= Head: what this page is, and a jump to every day ================= -->
+<section class="page-hero" aria-labelledby="h-cl">
+  <p class="page-kicker"><svg class="i" aria-hidden="true"><use href="#i-star-four-points"/></svg>Novedades</p>
+  <h1 id="h-cl" class="page-title">Lo que entró a Loneto, <em>día por día.</em></h1>
+  <p class="lead">Todavía no salió, pero no para de crecer. {CHANGELOG.length} cambios desde el {dayLabel(first)}, cada uno tal como llegó a la app.</p>
+  <nav class="cl-jump" aria-label="Días">
+    {days.map((d) => <a class="press" href={`#d-${d.date}`}><b>{dayLabel(d.date)}</b><span>{d.entries.length}</span></a>)}
+  </nav>
+</section>
+
+<!-- ================= Timeline: newest first ================= -->
+<div class="cl">
+  <i class="cl-rail" aria-hidden="true"><i class="cl-fill"></i></i>
+  {days.map((d) => (
+    <section class="cl-day" id={`d-${d.date}`} aria-labelledby={`h-${d.date}`}>
+      <div class="cl-when">
+        <i class="cl-dot" aria-hidden="true"></i>
+        <h2 id={`h-${d.date}`}><time datetime={d.date}>{dayLabel(d.date)}</time></h2>
+        <span>{weekday(d.date)}</span>
+      </div>
+      <div class="cl-body">
+        {d.entries.filter(isFeatured).map((e) => <NewsCard entry={e} wide />)}
+        {d.entries.some((e) => !isFeatured(e)) && (
+          <ul class="cl-minor">
+            {d.entries.filter((e) => !isFeatured(e)).map((e) => 'icon' in e && (
+              <li>
+                {e.icon === 'moni'
+                  ? <svg viewBox="0 0 120 120" class="i" aria-hidden="true"><use href="#moni-happy"/></svg>
+                  : <svg class="i" aria-hidden="true"><use href={`#${e.icon}`}/></svg>}
+                <span>{e.title}</span>
+                {e.pro && <em>Pro</em>}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  ))}
+</div>
+
+<section class="close" aria-labelledby="h-close">
+  <svg class="close-moni" viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-wow"/></svg>
+  <h2 id="h-close" class="split">Esto recién empieza.</h2>
+  <p>Loneto llega pronto a iPhone y Android. Mientras tanto, mirá cómo se usa.</p>
+  <a class="btn-line press" href={home('como-funciona')}>Mirá cómo funciona<svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+</section>
+</main>
+
+<SiteFooter />
+
+<style>
+/* ---------- Head ---------- */
+.cl-jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.cl-jump a { height: 44px; padding: 0 8px 0 16px; display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.24); text-decoration: none; font-size: 15px; }
+.cl-jump a:hover { background: rgba(255, 255, 255, 0.08); border-color: var(--mint); }
+.cl-jump b { font-weight: 700; }
+.cl-jump span { min-width: 28px; height: 28px; padding: 0 8px; display: grid; place-items: center; border-radius: 999px; background: rgba(134, 214, 171, 0.18); color: var(--mint); font-size: 13px; font-weight: 800; }
+
+/* ---------- Timeline ---------- */
+.cl { position: relative; max-width: 1160px; margin: 0 auto; padding: 32px 16px 0; }
+.cl-rail { display: none; }
+.cl-day { padding-top: 64px; display: grid; gap: 20px; scroll-margin-top: 72px; }
+.cl-when { display: flex; align-items: baseline; gap: 12px; }
+.cl-when h2 { font-size: clamp(34px, 5vw, 52px); line-height: 1; font-weight: 800; letter-spacing: -0.035em; }
+.cl-when span { color: var(--muted); font-size: 16px; font-weight: 700; }
+.cl-dot { display: none; }
+.cl-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; min-width: 0; }
+/* the home grid makes wide cards span three columns; here every card takes the one column */
+.cl-body > :global(.news-card) { grid-column: 1 / -1; }
+.cl-minor { display: grid; border-top: 1px solid var(--line); }
+.cl-minor li { display: flex; align-items: center; gap: 14px; padding: 16px 4px; border-bottom: 1px solid var(--line); font-weight: 600; }
+.cl-minor .i { width: 22px; height: 22px; color: var(--brand); }
+.cl-minor span { flex: 1; }
+.cl-minor em { font-style: normal; height: 24px; padding: 0 9px; display: inline-flex; align-items: center; border-radius: 999px; background: var(--brand-soft); color: var(--brand); font-size: 12.5px; font-weight: 800; }
+@media (min-width: 900px) {
+  .cl { padding-top: 48px; }
+  /* a rail runs down between the dates and the cards and fills as you read */
+  .cl-rail { display: block; position: absolute; left: 219px; top: 159px; bottom: 0; width: 2px; border-radius: 2px; background: var(--line); }
+  .cl-fill { display: block; width: 100%; height: 100%; border-radius: 2px; background: var(--brand); transform: scaleY(0); transform-origin: 50% 0; }
+  .cl-day { grid-template-columns: 180px minmax(0, 1fr); gap: 48px; padding-top: 88px; }
+  .cl-when { position: sticky; top: 104px; align-self: start; flex-direction: column; align-items: flex-start; gap: 6px; }
+  .cl-dot { display: block; position: absolute; right: -33px; top: 14px; width: 18px; height: 18px; border-radius: 50%; background: var(--page); box-shadow: inset 0 0 0 2px var(--line-2); transition: background-color 300ms, box-shadow 300ms; }
+  .cl-day.lit .cl-dot { background: var(--brand); box-shadow: inset 0 0 0 2px var(--brand), 0 0 0 6px var(--brand-soft); }
+}
+.close .btn-line { margin-top: 28px; }
+</style>
+
+<script>
+import { gsap, ScrollTrigger, SplitText, $$, EXPO, splitHeadings, revealNews, settleNews } from '../scripts/home-motion';
+
+const mm = gsap.matchMedia();
+
+mm.add('(prefers-reduced-motion: no-preference)', () => {
+  /* Head: the title rises out of its mask, then the day chips deal in */
+  SplitText.create('.page-title', {
+    type: 'lines', mask: 'lines', autoSplit: true,
+    onSplit: (self) => gsap.from(self.lines, { yPercent: 105, duration: 1.2, stagger: 0.1, ease: EXPO }),
+  });
+  gsap.timeline({ defaults: { ease: EXPO } })
+    .from(['.page-kicker', '.page-hero .lead'], { autoAlpha: 0, y: 16, stagger: 0.08, duration: 1 }, 0.2)
+    .from('.cl-jump a', { autoAlpha: 0, y: 14, scale: 0.92, stagger: 0.05, duration: 0.8 }, 0.45);
+  splitHeadings();
+
+  /* Each day: the date slides in and its dot lights up as it passes the reading line */
+  for (const day of $$('.cl-day')) {
+    gsap.from($$('.cl-when > *:not(.cl-dot)', day), { autoAlpha: 0, x: -20, stagger: 0.08, duration: 0.9, ease: EXPO, scrollTrigger: { trigger: day, start: 'top 82%', once: true } });
+    ScrollTrigger.create({ trigger: day, start: 'top 55%', onToggle: (self) => day.classList.toggle('lit', self.isActive), end: 'max' });
+    const minor = $$('.cl-minor li', day);
+    if (minor.length) gsap.from(minor, { autoAlpha: 0, y: 12, stagger: 0.07, duration: 0.7, ease: EXPO, scrollTrigger: { trigger: minor[0], start: 'top 90%', once: true } });
+  }
+  gsap.to('.cl-fill', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.cl', start: 'top 55%', end: 'bottom 55%', scrub: 0.4 } });
+
+  revealNews($$('.news-card'));
+  gsap.from('.close-moni', { y: 40, rotate: -12, scale: 0.8, autoAlpha: 0, duration: 1.2, ease: 'elastic.out(1, 0.6)', scrollTrigger: { trigger: '.close', start: 'top 80%', once: true } });
+});
+
+mm.add('(prefers-reduced-motion: reduce)', () => {
+  settleNews($$('.news-card'));
+  gsap.set('.cl-fill', { scaleY: 1 });
+  for (const day of $$('.cl-day')) day.classList.add('lit');
+});
+
+document.fonts?.ready.then(() => ScrollTrigger.refresh());
+</script>
+</Home>

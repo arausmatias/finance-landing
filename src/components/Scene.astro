@@ -1,0 +1,37 @@
+---
+import NewsVis from './NewsVis.astro';
+import { CHANGELOG, isFeatured, type SceneKind } from '../data/changelog';
+
+/**
+ * One of the landing's animated scenes inside an article: same markup and motion as the home,
+ * played when it comes into view, with a button to see it again.
+ */
+interface Props {
+  kind: SceneKind;
+  title: string;
+  caption: string;
+}
+const { kind, title, caption } = Astro.props;
+const entry = CHANGELOG.filter(isFeatured).find((e) => e.kind === kind);
+const soft = entry?.soft ?? '#DDF3E4';
+const ink = entry?.ink ?? '#1F7A44';
+---
+<figure class="chart scene" style={`--soft:${soft};--ink:${ink}`}>
+  <div class="chart-head">
+    <p class="chart-title">{title}</p>
+    <button class="scene-replay press" type="button"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg>Ver de nuevo</button>
+  </div>
+  <div class={`nc-vis ${kind}`} data-news={kind} aria-hidden="true"><NewsVis kind={kind} /></div>
+  <figcaption>{caption}</figcaption>
+</figure>
+
+<script>
+  import { gsap, $$, revealScenes, settleNews } from '../scripts/home-motion';
+
+  const mm = gsap.matchMedia();
+  mm.add('(prefers-reduced-motion: no-preference)', () => revealScenes($$('.scene [data-news]')));
+  mm.add('(prefers-reduced-motion: reduce)', () => {
+    settleNews($$('.scene [data-news]'));
+    for (const b of $$('.scene-replay')) b.hidden = true;
+  });
+</script>
