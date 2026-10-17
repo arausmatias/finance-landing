@@ -18,7 +18,7 @@ const domain = SITE.origin.replace('https://', '');
     <ul>
       <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>Your transactions, accounts, categories and tags stay on your phone. We never see or store them.</span></li>
       <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>If you sign in, we store your basic account details. If you also share a group or a recurring expense, what you share is stored on our servers to sync it with the other people.</span></li>
-      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>We don't sell data, show ads, or use analytics or tracking tools.</span></li>
+      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>We don't sell data or show ads. We measure app usage and errors anonymously, without tying them to your identity, and you can turn this off in Settings > Privacy.</span></li>
       <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>You can ask for a copy of your data, or delete your account from the app, at any time.</span></li>
     </ul>
   </section>
@@ -119,6 +119,7 @@ const domain = SITE.origin.replace('https://', '');
   <ul>
     <li><strong>To provide the service you ask for:</strong> creating your account, syncing what you choose to share and unlocking your purchases.</li>
     <li><strong>Your consent:</strong> given when you sign in and share, and for reminders, when you allow notifications. You can withdraw it at any time by signing out, stopping sharing, turning off notifications or deleting your account.</li>
+    <li><strong>Our legitimate interest in improving the app and fixing failures:</strong> anonymous usage statistics and crash reports. They are on by default and you can turn them off at any time in Settings > Privacy.</li>
     <li><strong>Security and abuse prevention:</strong> technical logs and attempt limits that protect the service and the people who use it.</li>
     <li><strong>Legal obligations:</strong> when a law or a competent authority requires it.</li>
   </ul>
@@ -128,6 +129,8 @@ const domain = SITE.origin.replace('https://', '');
   <ul>
     <li><strong>The people you share with.</strong> Members of a group or recurring expense see your name, your photo and what is entered in it.</li>
     <li><strong>Supabase</strong>, which provides our database, sign-in and servers. It processes data only on our instructions.</li>
+    <li><strong>PostHog</strong>, for anonymous usage statistics. It processes data only on our instructions and hosts it in its European Union region.</li>
+    <li><strong>Sentry</strong>, for crash reports. It processes data only on our instructions and hosts it in its European Union region (Germany).</li>
     <li><strong>Google</strong>, which verifies your identity when you sign in with Google, under its own privacy policy.</li>
     <li><strong>Apple and Google</strong>, as app stores, payment processors and operating systems, under their own policies.</li>
     <li><strong>Authorities</strong>, only when a law or a valid order requires it.</li>
@@ -139,6 +142,7 @@ const domain = SITE.origin.replace('https://', '');
     Our servers are in {LEGAL.dataRegion.en}. If you use the app from another country, what you share is stored there.
     Supabase is contractually bound, through a data processing agreement with standard contractual clauses, to protect
     that data to an adequate level, as Argentine Law 25,326 and the laws of other countries that require it demand.
+    Usage statistics and crash reports are stored on PostHog and Sentry servers located in the European Union.
   </p>
 
   <h2 id="notifications">7. Notifications and permissions</h2>
@@ -154,6 +158,7 @@ const domain = SITE.origin.replace('https://', '');
     <li><strong>Your account and what you share:</strong> while your account is active.</li>
     <li><strong>What you delete from a shared group:</strong> it is first marked as deleted so it disappears on every device, and is erased for good after {LEGAL.purgeDays} days.</li>
     <li><strong>Invite codes:</strong> until they expire. Failed attempts, one day.</li>
+    <li><strong>Usage statistics and error reports:</strong> up to {LEGAL.analyticsRetentionMonths} months and up to {LEGAL.crashRetentionDays} days, respectively.</li>
     <li><strong>Technical data:</strong> as long as our provider keeps it to run and protect the service.</li>
     <li><strong>Server backups:</strong> up to {LEGAL.serverBackupDays} days, used only to restore the service after a failure.</li>
   </ul>
@@ -195,7 +200,9 @@ const domain = SITE.origin.replace('https://', '');
     We process your data under the General Data Protection Regulation (GDPR). Our legal bases are: performance of the
     contract you accept by using the app, for your account, syncing and purchases (Art. 6(1)(b)); your consent, for
     notifications (Art. 6(1)(a)); our legitimate interest in keeping the service secure (Art. 6(1)(f)); and compliance with
-    legal obligations (Art. 6(1)(c)). Besides the rights above, you can withdraw your consent at any time and lodge a
+    legal obligations (Art. 6(1)(c)). For anonymous usage statistics and crash reports we rely on our legitimate interest
+    in improving the app and fixing failures (Art. 6(1)(f)), and you can object by turning them off in Settings >
+    Privacy. Besides the rights above, you can withdraw your consent at any time and lodge a
     complaint with the data protection authority of your country.
   </p>
 
@@ -210,7 +217,7 @@ const domain = SITE.origin.replace('https://', '');
   <p>
     In the last 12 months we have only processed the categories described in this policy: identifiers (name, email and
     account identifier), financial information you enter when sharing expenses, purchase information and technical
-    connection data. We don't sell personal information, don't share it for cross-context behavioral advertising, and don't
+    connection, usage and error data. We don't sell personal information, don't share it for cross-context behavioral advertising, and don't
     use sensitive information to infer characteristics about you. Depending on your state, such as California, you can ask
     to know, correct or delete the data we hold, and you won't be treated differently for doing so.
   </p>
@@ -232,19 +239,34 @@ const domain = SITE.origin.replace('https://', '');
     child gave us data without their parents' or guardians' permission, email us and we will delete it.
   </p>
 
-  <h2 id="website">12. This website</h2>
+  <h2 id="usage-and-crashes">12. Usage statistics and crash reports</h2>
+  <p>
+    To know what to improve and to fix failures, the app sends two kinds of technical data. They are on by default and are
+    not tied to your account or your name: we don't use your identity for this data, whether or not you are signed in.
+  </p>
+  <ul>
+    <li><strong>Usage statistics (PostHog):</strong> which screens are opened and which features are used, for example whether a Pro offer is shown. They never include amounts, names or notes.</li>
+    <li><strong>Crash reports (Sentry):</strong> when the app fails, the technical detail of the error (trace and message), the app version, the operating system and its version, the device model and the language. We don't use screen recording or screenshots.</li>
+  </ul>
+  <p>
+    Both use a random identifier for this installation, which can't tell us who you are and changes if you reinstall the
+    app. You can turn both off in Settings > Privacy and they stop being sent. We keep usage statistics for up to
+    {LEGAL.analyticsRetentionMonths} months and error reports for up to {LEGAL.crashRetentionDays} days.
+  </p>
+
+  <h2 id="website">13. This website</h2>
   <p>
     {domain} uses no cookies, analytics or forms. To serve it, our hosting provider (GitHub Pages) processes technical data
     such as your IP address. Fonts load from Google Fonts, so Google also receives your IP address when you visit.
   </p>
 
-  <h2 id="changes">13. Changes to this policy</h2>
+  <h2 id="changes">14. Changes to this policy</h2>
   <p>
     If we change this policy, we publish the new version here with its date. If the change is significant, we also let you
     know in the app before it takes effect.
   </p>
 
-  <h2 id="contact">14. Contact</h2>
+  <h2 id="contact">15. Contact</h2>
   <p>{LEGAL.ownerName} · {LEGAL.ownerAddress} · <Email lang="en" /></p>
   <p>If this translation and the Spanish version differ, the <a href={withBase(LEGAL_PATHS.privacy.es)} hreflang="es">Spanish version</a> prevails, except where the law of your country requires otherwise.</p>
 </Legal>

@@ -18,7 +18,7 @@ const domain = SITE.origin.replace('https://', '');
     <ul>
       <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>Tus movimientos, cuentas, categorías y etiquetas quedan solo en tu teléfono. No los vemos ni los guardamos.</span></li>
       <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>Si iniciás sesión, guardamos los datos básicos de tu cuenta. Si además compartís un grupo o un gasto recurrente, eso que compartís se guarda en nuestros servidores para sincronizarlo con las demás personas.</span></li>
-      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>No vendemos datos, no mostramos publicidad y no usamos herramientas de analítica ni de seguimiento.</span></li>
+      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>No vendemos datos ni mostramos publicidad. Medimos el uso de la app y los errores de forma anónima, sin vincularlos a tu identidad, y podés desactivarlo en Ajustes > Privacidad.</span></li>
       <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>Podés pedir una copia de tus datos o eliminar tu cuenta desde la app cuando quieras.</span></li>
     </ul>
   </section>
@@ -120,6 +120,7 @@ const domain = SITE.origin.replace('https://', '');
   <ul>
     <li><strong>Para darte el servicio que pedís:</strong> crear tu cuenta, sincronizar lo que elegís compartir y activar tus compras.</li>
     <li><strong>Tu consentimiento:</strong> lo das al iniciar sesión y al compartir, y para los recordatorios, al aceptar el permiso de notificaciones. Podés retirarlo cuando quieras cerrando sesión, dejando de compartir, desactivando las notificaciones o eliminando tu cuenta.</li>
+    <li><strong>Nuestro interés legítimo en mejorar la app y corregir fallas:</strong> las estadísticas de uso anónimas y los reportes de errores. Vienen activados y podés desactivarlos cuando quieras en Ajustes > Privacidad.</li>
     <li><strong>Seguridad y prevención de abusos:</strong> registros técnicos y límites de intentos para proteger el servicio y a quienes lo usan.</li>
     <li><strong>Obligaciones legales:</strong> cuando una ley o una autoridad competente nos lo exija.</li>
   </ul>
@@ -129,6 +130,8 @@ const domain = SITE.origin.replace('https://', '');
   <ul>
     <li><strong>Las personas con las que compartís.</strong> Los integrantes de un grupo o gasto recurrente ven tu nombre, tu foto y lo que se carga en él.</li>
     <li><strong>Supabase</strong>, que nos da la base de datos, el inicio de sesión y los servidores. Trata los datos solo siguiendo nuestras instrucciones.</li>
+    <li><strong>PostHog</strong>, para las estadísticas de uso anónimas. Trata los datos solo siguiendo nuestras instrucciones y los aloja en su región de la Unión Europea.</li>
+    <li><strong>Sentry</strong>, para los reportes de errores. Trata los datos solo siguiendo nuestras instrucciones y los aloja en su región de la Unión Europea (Alemania).</li>
     <li><strong>Google</strong>, que verifica tu identidad cuando iniciás sesión con Google, según su propia política de privacidad.</li>
     <li><strong>Apple y Google</strong>, como tiendas de aplicaciones, procesadores de pagos y sistemas operativos, según sus propias políticas.</li>
     <li><strong>Autoridades</strong>, solo cuando una ley o una orden válida nos obligue.</li>
@@ -140,6 +143,8 @@ const domain = SITE.origin.replace('https://', '');
     Nuestros servidores están en {LEGAL.dataRegion.es}. Si usás la app desde otro país, lo que compartís se guarda allí.
     Supabase se compromete por contrato, mediante un acuerdo de tratamiento de datos con cláusulas contractuales tipo, a
     proteger esos datos con un nivel adecuado, como exigen la Ley 25.326 y las normas de otros países que lo requieren.
+    Las estadísticas de uso y los reportes de errores se guardan en servidores de PostHog y Sentry ubicados en la Unión
+    Europea.
   </p>
 
   <h2 id="notificaciones">7. Notificaciones y permisos</h2>
@@ -155,6 +160,7 @@ const domain = SITE.origin.replace('https://', '');
     <li><strong>Tu cuenta y lo que compartís:</strong> mientras tengas la cuenta activa.</li>
     <li><strong>Lo que eliminás de un grupo compartido:</strong> primero se marca como eliminado para que desaparezca en todos los dispositivos, y se borra de forma definitiva a los {LEGAL.purgeDays} días.</li>
     <li><strong>Códigos de invitación:</strong> hasta que vencen. Los intentos fallidos, un día.</li>
+    <li><strong>Estadísticas de uso y reportes de errores:</strong> hasta {LEGAL.analyticsRetentionMonths} meses y hasta {LEGAL.crashRetentionDays} días, respectivamente.</li>
     <li><strong>Datos técnicos:</strong> el tiempo que los conserva nuestro proveedor para operar y proteger el servicio.</li>
     <li><strong>Copias de seguridad de nuestros servidores:</strong> hasta {LEGAL.serverBackupDays} días, y solo se usan para recuperar el servicio ante una falla.</li>
   </ul>
@@ -200,7 +206,9 @@ const domain = SITE.origin.replace('https://', '');
     Tratamos tus datos según el Reglamento General de Protección de Datos (RGPD). Las bases legales son: la ejecución del
     contrato que aceptás al usar la app, para tu cuenta, la sincronización y las compras (art. 6.1.b); tu consentimiento,
     para las notificaciones (art. 6.1.a); nuestro interés legítimo en mantener el servicio seguro (art. 6.1.f); y el
-    cumplimiento de obligaciones legales (art. 6.1.c). Además de los derechos de arriba, podés retirar tu consentimiento en
+    cumplimiento de obligaciones legales (art. 6.1.c). Para las estadísticas de uso anónimas y los reportes de errores nos
+    basamos en nuestro interés legítimo en mejorar la app y corregir fallas (art. 6.1.f), y podés oponerte desactivándolos
+    en Ajustes > Privacidad. Además de los derechos de arriba, podés retirar tu consentimiento en
     cualquier momento y presentar un reclamo ante la autoridad de protección de datos de tu país.
   </p>
 
@@ -215,7 +223,7 @@ const domain = SITE.origin.replace('https://', '');
   <p>
     En los últimos 12 meses solo tratamos las categorías descritas en esta política: identificadores (nombre, email e
     identificador de cuenta), información financiera que cargás al compartir gastos, información de compras y datos
-    técnicos de conexión. No vendemos datos personales, no los compartimos para publicidad basada en tu comportamiento y no
+    técnicos de conexión, de uso y de errores. No vendemos datos personales, no los compartimos para publicidad basada en tu comportamiento y no
     usamos datos sensibles para inferir características tuyas. Según tu estado, por ejemplo California, podés pedir saber
     qué datos tenemos, corregirlos o eliminarlos, y no vas a recibir un trato distinto por hacerlo.
   </p>
@@ -237,19 +245,34 @@ const domain = SITE.origin.replace('https://', '');
     nos dio datos sin autorización de sus padres o tutores, escribinos y los borramos.
   </p>
 
-  <h2 id="sitio">12. Este sitio web</h2>
+  <h2 id="uso-y-errores">12. Estadísticas de uso y reportes de errores</h2>
+  <p>
+    Para saber qué mejorar y corregir fallas, la app envía dos tipos de datos técnicos. Vienen activados y no se vinculan a
+    tu cuenta ni a tu nombre: no usamos tu identidad para estos datos, con o sin sesión iniciada.
+  </p>
+  <ul>
+    <li><strong>Estadísticas de uso (PostHog):</strong> qué pantallas se abren y qué funciones se usan, por ejemplo si se muestra una oferta Pro. No incluyen montos, nombres ni notas.</li>
+    <li><strong>Reportes de errores (Sentry):</strong> cuando la app falla, el detalle técnico del error (traza y mensaje), la versión de la app, el sistema operativo y su versión, el modelo del dispositivo y el idioma. No usamos grabación de pantalla ni capturas.</li>
+  </ul>
+  <p>
+    Ambos usan un identificador aleatorio de esta instalación, que no sirve para saber quién sos y cambia si reinstalás la
+    app. Podés desactivar los dos desde Ajustes > Privacidad, y dejan de enviarse. Conservamos las estadísticas de uso
+    hasta {LEGAL.analyticsRetentionMonths} meses y los reportes de errores hasta {LEGAL.crashRetentionDays} días.
+  </p>
+
+  <h2 id="sitio">13. Este sitio web</h2>
   <p>
     {domain} no usa cookies, analítica ni formularios. Para mostrarlo, el proveedor de hosting (GitHub Pages) procesa datos
     técnicos como tu dirección IP. Las tipografías se cargan desde Google Fonts, por lo que Google también recibe tu
     dirección IP al visitar el sitio.
   </p>
 
-  <h2 id="cambios">13. Cambios en esta política</h2>
+  <h2 id="cambios">14. Cambios en esta política</h2>
   <p>
     Si cambiamos esta política, publicamos la nueva versión acá con su fecha. Si el cambio es importante, también te
     avisamos dentro de la app antes de que entre en vigencia.
   </p>
 
-  <h2 id="contacto">14. Contacto</h2>
+  <h2 id="contacto">15. Contacto</h2>
   <p>{LEGAL.ownerName} · {LEGAL.ownerAddress} · <Email /></p>
 </Legal>

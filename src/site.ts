@@ -35,8 +35,12 @@ export const LEGAL = {
   deletionDays: '5',
   /** Days Supabase keeps daily backups (7 on Free and Pro, 14 on Team). */
   serverBackupDays: '7',
+  /** Days Sentry keeps crash reports (30 on the Developer plan, 90 on Team): the longest either plan keeps them. */
+  crashRetentionDays: '90',
+  /** Months PostHog keeps usage statistics (1 year on the free plan). */
+  analyticsRetentionMonths: '12',
   /** ISO date the current version of the documents takes effect: set it on the day they are deployed. */
-  effectiveDate: null as string | null,
+  effectiveDate: '2026-10-17' as string | null,
   /** Whether "Eliminar cuenta" exists inside the app. */
   inAppDeletion: true,
 };
