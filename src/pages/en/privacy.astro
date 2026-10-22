@@ -88,6 +88,11 @@ const domain = SITE.origin.replace('https://', '');
           <td>Add people and stop codes from being guessed. Codes expire, and failed attempts are erased after one day</td>
         </tr>
         <tr>
+          <td>Push notification token, platform, and your device's language and time zone</td>
+          <td>Your phone, only if you are signed in and turn on notifications</td>
+          <td>Send you notifications about your groups and shared recurring expenses, in your language</td>
+        </tr>
+        <tr>
           <td>Technical data about each connection, such as IP address, date and device type</td>
           <td>Created when syncing</td>
           <td>Run the service, keep it secure and fix errors</td>
@@ -131,8 +136,9 @@ const domain = SITE.origin.replace('https://', '');
     <li><strong>Supabase</strong>, which provides our database, sign-in and servers. It processes data only on our instructions.</li>
     <li><strong>PostHog</strong>, for anonymous usage statistics. It processes data only on our instructions and hosts it in its European Union region.</li>
     <li><strong>Sentry</strong>, for crash reports. It processes data only on our instructions and hosts it in its European Union region (Germany).</li>
+    <li><strong>Expo</strong>, whose push notification service receives each notification's text and your push token so it can deliver it. Under its own terms and privacy policy.</li>
     <li><strong>Google</strong>, which verifies your identity when you sign in with Google, under its own privacy policy.</li>
-    <li><strong>Apple and Google</strong>, as app stores, payment processors and operating systems, under their own policies.</li>
+    <li><strong>Apple and Google</strong>, as app stores, payment processors, operating systems and push notification services (Apple Push Notification service and Firebase Cloud Messaging), under their own policies.</li>
     <li><strong>Authorities</strong>, only when a law or a valid order requires it.</li>
   </ul>
   <p>We don't sell or rent personal data.</p>
@@ -147,10 +153,26 @@ const domain = SITE.origin.replace('https://', '');
 
   <h2 id="notifications">7. Notifications and permissions</h2>
   <p>
-    Reminders are scheduled on your phone. We don't use push notifications, so we don't store any token or device
-    identifier to message you. The only permission the app asks for is notifications, and you can turn it off in your
-    phone's settings.
+    Reminders are scheduled on your phone and don't involve any server. The only permission the app asks for is
+    notifications, and you can turn it off in your phone's settings.
   </p>
+
+  <h3>Notifications about your groups</h3>
+  <p>
+    If you are signed in and allow notifications, the app tells you when something happens in your groups and shared
+    recurring expenses, such as a new expense or someone joining. To do that we store your device's push token, its
+    platform, and its language and time zone, so we can message that device in your language.
+  </p>
+  <p>
+    The text of each notification can include the group name, member names and amounts. It goes through Expo's push
+    notification service and then through Apple's or Google's push services to reach your phone, so those providers
+    process it too.
+  </p>
+  <ul>
+    <li>You can turn notifications off at any time in your phone's settings.</li>
+    <li>In the app you can also turn them off by type, or for a specific group.</li>
+    <li>We delete your token when you sign out and when you delete your account.</li>
+  </ul>
 
   <h2 id="retention">8. How long we keep data</h2>
   <ul>
@@ -158,6 +180,7 @@ const domain = SITE.origin.replace('https://', '');
     <li><strong>Your account and what you share:</strong> while your account is active.</li>
     <li><strong>What you delete from a shared group:</strong> it is first marked as deleted so it disappears on every device, and is erased for good after {LEGAL.purgeDays} days.</li>
     <li><strong>Invite codes:</strong> until they expire. Failed attempts, one day.</li>
+    <li><strong>Push token:</strong> until you sign out or delete your account.</li>
     <li><strong>Usage statistics and error reports:</strong> up to {LEGAL.analyticsRetentionMonths} months and up to {LEGAL.crashRetentionDays} days, respectively.</li>
     <li><strong>Technical data:</strong> as long as our provider keeps it to run and protect the service.</li>
     <li><strong>Server backups:</strong> up to {LEGAL.serverBackupDays} days, used only to restore the service after a failure.</li>
@@ -165,7 +188,7 @@ const domain = SITE.origin.replace('https://', '');
 
   <h3>What happens when you delete your account</h3>
   <ul>
-    <li>We delete your account, name, email, photo and the link to your Google account.</li>
+    <li>We delete your account, name, email, photo, push tokens and the link to your Google account.</li>
     <li>In shared groups and recurring expenses, the expenses and payments you entered stay so the numbers still add up, but your name and photo are replaced with “Former user” and no longer linked to you.</li>
     <li>If you administered a shared group, the group carries on for the others and any of its members can take over as admin.</li>
     <li>If you created a shared recurring expense, it ends: it is archived for its members, who can look at it but not keep using it.</li>

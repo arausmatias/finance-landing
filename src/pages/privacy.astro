@@ -89,6 +89,11 @@ const domain = SITE.origin.replace('https://', '');
           <td>Sumar personas y evitar que se adivinen códigos. Los códigos vencen y los intentos fallidos se borran después de un día</td>
         </tr>
         <tr>
+          <td>Token de notificaciones push, plataforma, e idioma y zona horaria de tu dispositivo</td>
+          <td>Tu teléfono, solo si iniciaste sesión y activaste las notificaciones</td>
+          <td>Enviarte avisos sobre tus grupos y gastos recurrentes compartidos, en tu idioma</td>
+        </tr>
+        <tr>
           <td>Datos técnicos de cada conexión, como dirección IP, fecha y tipo de dispositivo</td>
           <td>Se generan al sincronizar</td>
           <td>Operar el servicio, mantenerlo seguro y resolver errores</td>
@@ -132,8 +137,9 @@ const domain = SITE.origin.replace('https://', '');
     <li><strong>Supabase</strong>, que nos da la base de datos, el inicio de sesión y los servidores. Trata los datos solo siguiendo nuestras instrucciones.</li>
     <li><strong>PostHog</strong>, para las estadísticas de uso anónimas. Trata los datos solo siguiendo nuestras instrucciones y los aloja en su región de la Unión Europea.</li>
     <li><strong>Sentry</strong>, para los reportes de errores. Trata los datos solo siguiendo nuestras instrucciones y los aloja en su región de la Unión Europea (Alemania).</li>
+    <li><strong>Expo</strong>, cuyo servicio de notificaciones push recibe el texto de cada notificación y tu token para poder entregarla. Según sus propios términos y política de privacidad.</li>
     <li><strong>Google</strong>, que verifica tu identidad cuando iniciás sesión con Google, según su propia política de privacidad.</li>
-    <li><strong>Apple y Google</strong>, como tiendas de aplicaciones, procesadores de pagos y sistemas operativos, según sus propias políticas.</li>
+    <li><strong>Apple y Google</strong>, como tiendas de aplicaciones, procesadores de pagos, sistemas operativos y servicios de notificaciones push (Apple Push Notification service y Firebase Cloud Messaging), según sus propias políticas.</li>
     <li><strong>Autoridades</strong>, solo cuando una ley o una orden válida nos obligue.</li>
   </ul>
   <p>No vendemos ni alquilamos datos personales.</p>
@@ -149,10 +155,26 @@ const domain = SITE.origin.replace('https://', '');
 
   <h2 id="notificaciones">7. Notificaciones y permisos</h2>
   <p>
-    Los recordatorios se programan dentro de tu teléfono. No usamos notificaciones push, así que no guardamos ningún token
-    ni identificador de tu dispositivo para enviarte mensajes. El único permiso que pide la app es el de notificaciones, y
-    podés desactivarlo desde los ajustes de tu teléfono.
+    Los recordatorios se programan dentro de tu teléfono y no pasan por ningún servidor. El único permiso que pide la app
+    es el de notificaciones, y podés desactivarlo desde los ajustes de tu teléfono.
   </p>
+
+  <h3>Avisos sobre tus grupos</h3>
+  <p>
+    Si iniciaste sesión y permitís las notificaciones, la app te avisa cuando pasa algo en tus grupos y gastos recurrentes
+    compartidos, como un gasto nuevo o alguien que se suma. Para eso guardamos el token de notificaciones push de tu
+    dispositivo, su plataforma, y su idioma y zona horaria, así podemos escribirle a ese dispositivo en tu idioma.
+  </p>
+  <p>
+    El texto de cada notificación puede incluir el nombre del grupo, nombres de integrantes y montos. Pasa por el servicio
+    de notificaciones push de Expo y después por los servicios push de Apple o de Google hasta llegar a tu teléfono, así
+    que esos proveedores también lo tratan.
+  </p>
+  <ul>
+    <li>Podés desactivar las notificaciones cuando quieras en los ajustes de tu teléfono.</li>
+    <li>En la app también podés desactivarlas por tipo, o para un grupo en particular.</li>
+    <li>Borramos tu token cuando cerrás sesión y cuando eliminás tu cuenta.</li>
+  </ul>
 
   <h2 id="conservacion">8. Cuánto tiempo guardamos los datos</h2>
   <ul>
@@ -160,6 +182,7 @@ const domain = SITE.origin.replace('https://', '');
     <li><strong>Tu cuenta y lo que compartís:</strong> mientras tengas la cuenta activa.</li>
     <li><strong>Lo que eliminás de un grupo compartido:</strong> primero se marca como eliminado para que desaparezca en todos los dispositivos, y se borra de forma definitiva a los {LEGAL.purgeDays} días.</li>
     <li><strong>Códigos de invitación:</strong> hasta que vencen. Los intentos fallidos, un día.</li>
+    <li><strong>Token de notificaciones push:</strong> hasta que cerrás sesión o eliminás tu cuenta.</li>
     <li><strong>Estadísticas de uso y reportes de errores:</strong> hasta {LEGAL.analyticsRetentionMonths} meses y hasta {LEGAL.crashRetentionDays} días, respectivamente.</li>
     <li><strong>Datos técnicos:</strong> el tiempo que los conserva nuestro proveedor para operar y proteger el servicio.</li>
     <li><strong>Copias de seguridad de nuestros servidores:</strong> hasta {LEGAL.serverBackupDays} días, y solo se usan para recuperar el servicio ante una falla.</li>
@@ -167,7 +190,7 @@ const domain = SITE.origin.replace('https://', '');
 
   <h3>Qué pasa al eliminar tu cuenta</h3>
   <ul>
-    <li>Borramos tu cuenta, tu nombre, tu email, tu foto y el vínculo con tu cuenta de Google.</li>
+    <li>Borramos tu cuenta, tu nombre, tu email, tu foto, tus tokens de notificaciones push y el vínculo con tu cuenta de Google.</li>
     <li>En los grupos y gastos recurrentes compartidos, los gastos y pagos que cargaste se mantienen para que las cuentas sigan cerrando, pero tu nombre y tu foto se reemplazan por “Antiguo usuario” y dejan de estar vinculados a vos.</li>
     <li>Si administrabas un grupo compartido, el grupo sigue para los demás y cualquiera de sus integrantes puede tomar la administración.</li>
     <li>Si creaste un gasto recurrente compartido, se da de baja: queda archivado para sus integrantes, que lo pueden consultar pero no seguir usando.</li>
