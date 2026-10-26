@@ -47,9 +47,7 @@ const jsonLd = [
           <ul class="cl-minor">
             {d.entries.filter((e) => !isFeatured(e)).map((e) => 'icon' in e && (
               <li>
-                {e.icon === 'moni'
-                  ? <svg viewBox="0 0 120 120" class="i" aria-hidden="true"><use href="#moni-happy"/></svg>
-                  : <svg class="i" aria-hidden="true"><use href={`#${e.icon}`}/></svg>}
+                <svg class="i" aria-hidden="true"><use href={`#${e.icon}`}/></svg>
                 <span>{e.title}</span>
                 {e.pro && <em>Pro</em>}
               </li>
@@ -62,7 +60,7 @@ const jsonLd = [
 </div>
 
 <section class="close" aria-labelledby="h-close">
-  <svg class="close-moni" viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-wow"/></svg>
+  <img class="close-mark" src={withBase('brand/symbol.svg')} alt="" width="112" height="84" decoding="async">
   <h2 id="h-close" class="split">Esto recién empieza.</h2>
   <p>Loneto llega pronto a iPhone y Android. Mientras tanto, mirá cómo se usa.</p>
   <a class="btn-line press" href={home('como-funciona')}>Mirá cómo funciona<svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
@@ -77,7 +75,7 @@ const jsonLd = [
 .cl-jump a { height: 44px; padding: 0 8px 0 16px; display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.24); text-decoration: none; font-size: 15px; }
 .cl-jump a:hover { background: rgba(255, 255, 255, 0.08); border-color: var(--mint); }
 .cl-jump b { font-weight: 700; }
-.cl-jump span { min-width: 28px; height: 28px; padding: 0 8px; display: grid; place-items: center; border-radius: 999px; background: rgba(134, 214, 171, 0.18); color: var(--mint); font-size: 13px; font-weight: 800; }
+.cl-jump span { min-width: 28px; height: 28px; padding: 0 8px; display: grid; place-items: center; border-radius: 999px; background: rgba(63, 224, 200, 0.18); color: var(--mint); font-size: 13px; font-weight: 800; }
 
 /* ---------- Timeline ---------- */
 .cl { position: relative; max-width: 1160px; margin: 0 auto; padding: 32px 16px 0; }
@@ -134,7 +132,7 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
   gsap.to('.cl-fill', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.cl', start: 'top 55%', end: 'bottom 55%', scrub: 0.4 } });
 
   revealNews($$('.news-card'));
-  gsap.from('.close-moni', { y: 40, rotate: -12, scale: 0.8, autoAlpha: 0, duration: 1.2, ease: 'elastic.out(1, 0.6)', scrollTrigger: { trigger: '.close', start: 'top 80%', once: true } });
+  gsap.from('.close-mark', { y: 40, rotate: -12, scale: 0.8, autoAlpha: 0, duration: 1.2, ease: 'elastic.out(1, 0.6)', scrollTrigger: { trigger: '.close', start: 'top 80%', once: true } });
 });
 
 mm.add('(prefers-reduced-motion: reduce)', () => {

@@ -13,8 +13,8 @@ interface Props {
 }
 const { kind, title, caption } = Astro.props;
 const entry = CHANGELOG.filter(isFeatured).find((e) => e.kind === kind);
-const soft = entry?.soft ?? '#DDF3E4';
-const ink = entry?.ink ?? '#1F7A44';
+const soft = entry?.soft ?? '#D6F4DE';
+const ink = entry?.ink ?? '#007A41';
 ---
 <figure class="chart scene" style={`--soft:${soft};--ink:${ink}`}>
   <div class="chart-head">

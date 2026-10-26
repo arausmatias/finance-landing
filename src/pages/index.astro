@@ -17,7 +17,7 @@ const jsonLd = [
 <span class="nav-sentinel" aria-hidden="true"></span>
 <header class="nav-wrap" id="navWrap">
   <nav class="nav" aria-label="Principal">
-    <a class="logo" href="#top"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-happy"/></svg>Loneto</a>
+    <a class="logo" href="#top"><img src={withBase('brand/symbol.svg')} alt="" width="36" height="27" decoding="async">Loneto</a>
     <span class="nav-links" id="navLinks">
       <i class="nav-ind" id="navInd" aria-hidden="true"></i>
       <a href="#por-que">Por qué</a>
@@ -57,11 +57,11 @@ const jsonLd = [
         </svg>
         <div class="node n-amount" data-d="1.2"><small>ARS · Gasto</small><b class="num" id="cAmount">$ 4.500</b><i class="caret"></i></div>
         <div class="node n-chip" data-d="0.6"><svg class="i" aria-hidden="true"><use href="#i-coffee"/></svg>Café</div>
-        <div class="node n-row" data-d="0.9"><span class="badge" style="background:#FBF1D0;color:#E0B021"><svg class="i"><use href="#i-coffee"/></svg></span><span class="row-main"><b>Café</b><span>Efectivo · hoy 8:12</span></span><b class="amt num">−$ 4.500</b></div>
+        <div class="node n-row" data-d="0.9"><span class="badge" style="background:#F9EACA;color:#AB8100"><svg class="i"><use href="#i-coffee"/></svg></span><span class="row-main"><b>Café</b><span>Efectivo · hoy 8:12</span></span><b class="amt num">−$ 4.500</b></div>
         <div class="node n-card" data-d="0.4"><span class="nc-net">Visa</span><small>Terminada en 4821</small><b>Cuota 2 de 6</b></div>
         <div class="node n-wallet" data-d="1.4"><span class="w-ico"><svg class="i"><use href="#i-wallet"/></svg></span><span class="w-name">ARS · Efectivo</span><b class="num" id="cWallet">$ 33.700</b></div>
         <div class="node n-streak" data-d="0.7"><svg class="i fire" aria-hidden="true"><use href="#i-fire"/></svg><span>Racha de <b class="num" id="cStreak">13</b> días</span></div>
-        <div class="node n-split" data-d="1"><span class="stack"><span class="avatar" style="background:#DCEBE3;color:#0E4A34">V</span><span class="avatar" style="background:#FCE8D6;color:#9E561A">S</span><span class="avatar" style="background:#DCEAF7;color:#1F5F9A">T</span></span><span class="row-main"><b>Cena</b><span>Te deben <b class="num">$ 32.200</b></span></span></div>
+        <div class="node n-split" data-d="1"><span class="stack"><span class="avatar" style="background:#C8F5EE;color:#0B3440">V</span><span class="avatar" style="background:#FFE5D7;color:#A75000">S</span><span class="avatar" style="background:#E1ECFF;color:#0E4FC2">T</span></span><span class="row-main"><b>Cena</b><span>Te deben <b class="num">$ 32.200</b></span></span></div>
       </div>
     </div>
   </div>
@@ -98,10 +98,10 @@ const jsonLd = [
       <span class="why-word">Con otros.</span>
       <p>Dividí un gasto o armá un grupo sin pedirle a nadie que se registre. Si lo compartís, cada uno carga lo suyo.</p>
       <div class="why-fx fx-people" aria-hidden="true">
-        <span class="avatar a1" style="background:#DCEBE3;color:#0E4A34">V</span>
-        <span class="avatar a2" style="background:#FCE8D6;color:#9E561A">S</span>
-        <span class="avatar a3" style="background:#DCEAF7;color:#1F5F9A">T</span>
-        <span class="avatar a4" style="background:#EBE2FA;color:#6B42B0">J</span>
+        <span class="avatar a1" style="background:#C8F5EE;color:#0B3440">V</span>
+        <span class="avatar a2" style="background:#FFE5D7;color:#A75000">S</span>
+        <span class="avatar a3" style="background:#E1ECFF;color:#0E4FC2">T</span>
+        <span class="avatar a4" style="background:#EBE8FF;color:#6F3AD3">J</span>
         <span class="fx-pill">Nadie se registra</span>
       </div>
     </li>
@@ -130,24 +130,24 @@ const jsonLd = [
           <div class="fit-in stage" id="stage">
             <!-- step 1 -->
             <div class="amt-disp" id="sAmt"><small>ARS · Gasto</small><b class="num" id="sTyped">$ 48.300</b><i class="caret"></i></div>
-            <div class="s-chips" id="sChips"><span class="s-chip" id="sChipFood"><svg class="i"><use href="#i-silverware-fork-knife"/></svg>Comida</span><span class="s-chip"><svg class="i" style="color:#2F9E5B"><use href="#i-cart"/></svg>Súper</span><span class="s-chip"><svg class="i" style="color:#E0B021"><use href="#i-coffee"/></svg>Café</span></div>
+            <div class="s-chips" id="sChips"><span class="s-chip" id="sChipFood"><svg class="i"><use href="#i-silverware-fork-knife"/></svg>Comida</span><span class="s-chip"><svg class="i" style="color:#1A9C58"><use href="#i-cart"/></svg>Súper</span><span class="s-chip"><svg class="i" style="color:#AB8100"><use href="#i-coffee"/></svg>Café</span></div>
             <div class="kp" id="sKp">
               <span data-k="1">1</span><span data-k="2">2</span><span data-k="3">3</span><span data-k="4">4</span><span data-k="5">5</span><span data-k="6">6</span><span data-k="7">7</span><span data-k="8">8</span><span data-k="9">9</span><span>,</span><span data-k="0">0</span><span><svg class="i"><use href="#i-backspace-outline"/></svg></span>
             </div>
             <span class="s-save" id="sSave">Guardar</span>
 
             <!-- the bill itself travels through every step -->
-            <div class="token" id="sToken"><span class="badge" style="background:#FCE8D6;color:#E8893A"><svg class="i"><use href="#i-silverware-fork-knife"/></svg></span><span class="row-main"><b>Cena en lo de Sofi</b><span>Comida · Pagaste vos</span></span><b class="amt num">−$ 48.300</b></div>
+            <div class="token" id="sToken"><span class="badge" style="background:#FFE5D7;color:#D56700"><svg class="i"><use href="#i-silverware-fork-knife"/></svg></span><span class="row-main"><b>Cena en lo de Sofi</b><span>Comida · Pagaste vos</span></span><b class="amt num">−$ 48.300</b></div>
 
             <!-- step 2 -->
             <div class="month" id="sMonth">
               <div class="m-head"><span>Gastos de septiembre</span><b class="num" id="sTotal">$ 574.100</b></div>
-              <div class="m-bar"><i class="m-food" id="sBarFood" style="width:40.2%;background:#E8893A"></i><i style="width:28.6%;background:#2F9E5B"></i><i style="width:21%;background:#E0B021"></i><i style="width:10.2%;background:#2F7FC8"></i></div>
+              <div class="m-bar"><i class="m-food" id="sBarFood" style="width:40.2%;background:#D56700"></i><i style="width:28.6%;background:#1A9C58"></i><i style="width:21%;background:#AB8100"></i><i style="width:10.2%;background:#2F6FE4"></i></div>
               <ul class="m-list">
-                <li id="sFoodRow"><span class="badge" style="background:#FCE8D6;color:#E8893A"><svg class="i"><use href="#i-silverware-fork-knife"/></svg></span><b>Comida</b><b class="num" id="sFood">$ 230.700</b></li>
-                <li><span class="badge" style="background:#DDF3E4;color:#2F9E5B"><svg class="i"><use href="#i-cart"/></svg></span><b>Súper</b><b class="num">$ 164.000</b></li>
-                <li><span class="badge" style="background:#FBF1D0;color:#E0B021"><svg class="i"><use href="#i-lightning-bolt"/></svg></span><b>Servicios</b><b class="num">$ 120.500</b></li>
-                <li><span class="badge" style="background:#DCEAF7;color:#2F7FC8"><svg class="i"><use href="#i-bus"/></svg></span><b>Transporte</b><b class="num">$ 58.900</b></li>
+                <li id="sFoodRow"><span class="badge" style="background:#FFE5D7;color:#D56700"><svg class="i"><use href="#i-silverware-fork-knife"/></svg></span><b>Comida</b><b class="num" id="sFood">$ 230.700</b></li>
+                <li><span class="badge" style="background:#D6F4DE;color:#1A9C58"><svg class="i"><use href="#i-cart"/></svg></span><b>Súper</b><b class="num">$ 164.000</b></li>
+                <li><span class="badge" style="background:#F9EACA;color:#AB8100"><svg class="i"><use href="#i-lightning-bolt"/></svg></span><b>Servicios</b><b class="num">$ 120.500</b></li>
+                <li><span class="badge" style="background:#E1ECFF;color:#2F6FE4"><svg class="i"><use href="#i-bus"/></svg></span><b>Transporte</b><b class="num">$ 58.900</b></li>
               </ul>
             </div>
 
@@ -155,13 +155,13 @@ const jsonLd = [
             <div class="split-ui" id="sSplit">
               <div class="seg4"><span class="on">Iguales</span><span>Partes</span><span>%</span><span>Importe</span></div>
               <ul class="ppl">
-                <li><span class="avatar" style="background:#DCEBE3;color:#0E4A34">V</span><b>Vos</b><span class="tag" id="sTagV">Tu parte</span></li>
-                <li><span class="avatar" style="background:#FCE8D6;color:#9E561A">S</span><b>Sofi</b><span class="tag ok" id="sTagS"><svg class="i"><use href="#i-check-bold"/></svg>Te pagó</span></li>
-                <li><span class="avatar" style="background:#DCEAF7;color:#1F5F9A">T</span><b>Tomi</b><span class="tag ok" id="sTagT"><svg class="i"><use href="#i-check-bold"/></svg>Te pagó</span></li>
+                <li><span class="avatar" style="background:#C8F5EE;color:#0B3440">V</span><b>Vos</b><span class="tag" id="sTagV">Tu parte</span></li>
+                <li><span class="avatar" style="background:#FFE5D7;color:#A75000">S</span><b>Sofi</b><span class="tag ok" id="sTagS"><svg class="i"><use href="#i-check-bold"/></svg>Te pagó</span></li>
+                <li><span class="avatar" style="background:#E1ECFF;color:#0E4FC2">T</span><b>Tomi</b><span class="tag ok" id="sTagT"><svg class="i"><use href="#i-check-bold"/></svg>Te pagó</span></li>
               </ul>
               <svg class="arrows" viewBox="0 0 400 440"><path id="sArrS" pathLength="1" d="M44 248 C 16 248, 16 192, 40 192"/><path id="sArrT" pathLength="1" d="M44 304 C 4 304, 4 192, 40 192"/></svg>
               <div class="owed" id="sOwed"><span>Te deben</span><b class="num" id="sOwedVal">$ 0</b></div>
-              <div class="done" id="sDone"><svg viewBox="0 0 120 120"><use href="#moni-happy"/></svg><b>Todo saldado</b></div>
+              <div class="done" id="sDone"><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg><b>Todo saldado</b></div>
             </div>
             <span class="fly num" id="sFlyV">$ 16.100</span>
             <span class="fly num" id="sFlyS">$ 16.100</span>
@@ -195,9 +195,9 @@ const jsonLd = [
     <article class="tile wide" data-tile="wallets">
       <div class="t-vis" aria-hidden="true">
         <div class="fan">
-          <span class="wcard" style="background:#1F5F9A"><span class="w-ico"><svg class="i"><use href="#i-bank"/></svg></span><small>ARS · Banco</small><b class="num">$ 412.650</b></span>
-          <span class="wcard" style="background:#1F7A44"><span class="w-ico"><svg class="i"><use href="#i-wallet"/></svg></span><small>ARS · Efectivo</small><b class="num">$ 33.700</b></span>
-          <span class="wcard" style="background:#147369"><span class="w-ico"><svg class="i"><use href="#i-cash"/></svg></span><small>USD · Ahorro</small><b class="num">US$ 1.250</b></span>
+          <span class="wcard" style="background:#0E4FC2"><span class="w-ico"><svg class="i"><use href="#i-bank"/></svg></span><small>ARS · Banco</small><b class="num">$ 412.650</b></span>
+          <span class="wcard" style="background:#007A41"><span class="w-ico"><svg class="i"><use href="#i-wallet"/></svg></span><small>ARS · Efectivo</small><b class="num">$ 33.700</b></span>
+          <span class="wcard" style="background:#00747E"><span class="w-ico"><svg class="i"><use href="#i-cash"/></svg></span><small>USD · Ahorro</small><b class="num">US$ 1.250</b></span>
         </div>
       </div>
       <h3>Cuentas y monedas</h3>
@@ -215,10 +215,10 @@ const jsonLd = [
 
     <article class="tile" data-tile="cats">
       <div class="t-vis cloud" aria-hidden="true">
-        <span class="chip"><svg class="i" style="color:#2F9E5B"><use href="#i-cart"/></svg>Súper</span>
-        <span class="chip"><svg class="i" style="color:#E0B021"><use href="#i-coffee"/></svg>Café</span>
-        <span class="chip"><svg class="i" style="color:#2F7FC8"><use href="#i-bus"/></svg>Colectivo</span>
-        <span class="chip"><svg class="i" style="color:#8B5CD6"><use href="#i-home"/></svg>Alquiler</span>
+        <span class="chip"><svg class="i" style="color:#1A9C58"><use href="#i-cart"/></svg>Súper</span>
+        <span class="chip"><svg class="i" style="color:#AB8100"><use href="#i-coffee"/></svg>Café</span>
+        <span class="chip"><svg class="i" style="color:#2F6FE4"><use href="#i-bus"/></svg>Colectivo</span>
+        <span class="chip"><svg class="i" style="color:#8B5CF6"><use href="#i-home"/></svg>Alquiler</span>
         <span class="chip tagc"><svg class="i"><use href="#i-tag-outline"/></svg>vacaciones</span>
         <span class="chip tagc"><svg class="i"><use href="#i-tag-outline"/></svg>trabajo</span>
       </div>
@@ -247,9 +247,9 @@ const jsonLd = [
         <div class="sp">
           <span class="seg4 sp-seg"><i class="sp-ind"></i><span>Iguales</span><span>Partes</span><span>%</span><span>Importe</span></span>
           <div class="sp-bars">
-            <span><b>Vos</b><i class="sp-b" style="background:#0E4A34"></i><em class="num">$ 16.100</em></span>
-            <span><b>Sofi</b><i class="sp-b" style="background:#E8893A"></i><em class="num">$ 16.100</em></span>
-            <span><b>Tomi</b><i class="sp-b" style="background:#2F7FC8"></i><em class="num">$ 16.100</em></span>
+            <span><b>Vos</b><i class="sp-b" style="background:#0B3440"></i><em class="num">$ 16.100</em></span>
+            <span><b>Sofi</b><i class="sp-b" style="background:#D56700"></i><em class="num">$ 16.100</em></span>
+            <span><b>Tomi</b><i class="sp-b" style="background:#2F6FE4"></i><em class="num">$ 16.100</em></span>
           </div>
         </div>
       </div>
@@ -257,7 +257,7 @@ const jsonLd = [
       <p>En partes iguales, por partes, por porcentaje o por importe fijo. Sumá a alguien después y la cuenta se acomoda.</p>
     </article>
 
-    <article class="tile wide" data-tile="reports" style="--ink:#1F5F9A">
+    <article class="tile wide" data-tile="reports" style="--ink:#0E4FC2">
       <div class="t-vis free h-l reports" aria-hidden="true"><NewsVis kind="reports" /></div>
       <h3>Reportes del mes</h3>
       <p>Gastos, ingresos y neto mes a mes, con el detalle por categoría. Cada movimiento cuenta a la cotización de su día. La proyección de lo que viene, cuotas incluidas, es parte de Pro.</p>
@@ -269,7 +269,7 @@ const jsonLd = [
       <p>Alquiler, streaming o la luz: lo cargás una vez y cada uno ve su parte de cada mes y avisa cuando pagó. Para esto, y solo para esto, entrás con Google.</p>
     </article>
 
-    <article class="tile wide" data-tile="groups" style="--ink:#6B42B0">
+    <article class="tile wide" data-tile="groups" style="--ink:#6F3AD3">
       <div class="t-vis free h-m groups" aria-hidden="true"><NewsVis kind="groups" /></div>
       <h3>Grupos compartidos</h3>
       <p>Compartí un grupo con un código que vale 7 días. Cada uno carga lo suyo y todo cambio queda en la actividad.</p>
@@ -293,12 +293,12 @@ const jsonLd = [
 <section class="start-wrap sec" id="empezar" aria-labelledby="h-start">
   <div class="start">
     <div class="start-copy">
-      <h2 id="h-start" class="split">Empezar es decir cómo te llamás.</h2>
-      <p class="start-lead">Sin crear cuenta y sin conectar el banco. Tu nombre, tu moneda y ya estás anotando.</p>
+      <h2 id="h-start" class="split">En un minuto ya estás anotando.</h2>
+      <p class="start-lead">Sin cuenta, sin conectar el banco y sin planillas. Bajá Loneto, poné tu nombre y anotá tu primer gasto.</p>
       <ol class="st-steps">
-        <li class="is-on" data-st="1"><span class="sn">1</span><span><b>Bajá Loneto</b><span>Muy pronto en App Store y Google Play.</span></span></li>
-        <li data-st="2"><span class="sn">2</span><span><b>Tu nombre y tu moneda</b><span>No hace falta mail ni contraseña.</span></span></li>
-        <li data-st="3"><span class="sn">3</span><span><b>Anotá el primero</b><span>Con el teclado de la app. Ahí arranca tu racha.</span></span></li>
+        <li class="is-on" data-st="1"><span class="sn">1</span><span><b>Bajá Loneto</b><span>Gratis, muy pronto en App Store y Google Play.</span></span></li>
+        <li data-st="2"><span class="sn">2</span><span><b>Tu nombre y tu moneda</b><span>Sin mail ni contraseña. Tus datos quedan en tu teléfono.</span></span></li>
+        <li data-st="3"><span class="sn">3</span><span><b>Anotá el primero</b><span>Tres toques y arranca tu racha.</span></span></li>
       </ol>
       <div class="stores">
         <span class="store"><svg class="i" aria-hidden="true"><use href="#i-apple"/></svg><span><small>Próximamente</small><b>App Store</b></span></span>
@@ -311,10 +311,10 @@ const jsonLd = [
       <p class="sr-only">Animación de ejemplo: se abre Loneto, la persona escribe su nombre, elige pesos y anota su primer café.</p>
       <div class="fit" data-fit data-w="360" data-h="440" style="height:440px" aria-hidden="true">
         <div class="fit-in ob" id="ob">
-          <div class="ob-icon" id="obIcon"><span><svg viewBox="0 0 120 120"><use href="#moni-happy"/></svg></span><b>Loneto</b></div>
+          <div class="ob-icon" id="obIcon"><span><img src={withBase('brand/symbol-light.svg')} alt="" width="68" height="51" decoding="async"></span><b>Loneto</b></div>
 
           <div class="ob-a" id="obA">
-            <svg class="ob-moni" viewBox="0 0 120 120"><use href="#moni-wow"/></svg>
+            <img class="ob-mark" src={withBase('brand/symbol.svg')} alt="" width="72" height="54" decoding="async">
             <b class="ob-title">¡Hola! ¿Cómo te llamás?</b>
             <span class="ob-field"><span id="obName">Vale</span><i class="caret"></i></span>
             <span class="ob-lab">Tu moneda principal</span>
@@ -327,7 +327,7 @@ const jsonLd = [
             <span class="ob-amt"><small>ARS · Gasto</small><b class="num" id="obAmt">$ 4.500</b></span>
             <span class="ob-chips"><span id="obCafe"><svg class="i"><use href="#i-coffee"/></svg>Café</span><span><svg class="i"><use href="#i-cart"/></svg>Súper</span><span><svg class="i"><use href="#i-bus"/></svg>Colectivo</span></span>
             <span class="ob-btn" id="obSave">Guardar</span>
-            <span class="ob-row" id="obRow"><span class="badge" style="background:#FBF1D0;color:#E0B021"><svg class="i"><use href="#i-coffee"/></svg></span><span class="row-main"><b>Café</b><span>Efectivo · recién</span></span><b class="amt num">−$ 4.500</b></span>
+            <span class="ob-row" id="obRow"><span class="badge" style="background:#F9EACA;color:#AB8100"><svg class="i"><use href="#i-coffee"/></svg></span><span class="row-main"><b>Café</b><span>Efectivo · recién</span></span><b class="amt num">−$ 4.500</b></span>
             <span class="ob-toast" id="obToast"><svg class="i"><use href="#i-party-popper"/></svg>Primer gasto anotado</span>
           </div>
         </div>
@@ -347,7 +347,7 @@ const jsonLd = [
     <table class="cmp">
       <caption class="sr-only">Comparación entre las notas del celular, una planilla y Loneto</caption>
       <colgroup><col style="width:22%"><col style="width:22%"><col style="width:22%"><col style="width:34%"></colgroup>
-      <thead><tr><td></td><th scope="col">Notas del celular</th><th scope="col">Una planilla</th><th scope="col" class="me"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-happy"/></svg>Loneto</th></tr></thead>
+      <thead><tr><td></td><th scope="col">Notas del celular</th><th scope="col">Una planilla</th><th scope="col" class="me"><img src={withBase('brand/symbol.svg')} alt="" width="28" height="21" decoding="async">Loneto</th></tr></thead>
       <tbody>
         <tr><th scope="row">Cargar un gasto</th><td data-c="Notas del celular">Escribís el texto a mano</td><td data-c="Una planilla">Celdas chiquitas en el celular</td><td data-c="Loneto" class="me"><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg>Tres toques, con su propio teclado</td></tr>
         <tr><th scope="row">Pesos y dólares</th><td data-c="Notas del celular">Todo en el mismo texto</td><td data-c="Una planilla">Fórmulas que armás vos</td><td data-c="Loneto" class="me"><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg>Cada cuenta con su moneda</td></tr>
@@ -363,7 +363,7 @@ const jsonLd = [
 </section>
 
 <section class="close" aria-labelledby="h-close">
-  <svg class="close-moni" viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-wow"/></svg>
+  <img class="close-mark" src={withBase('brand/symbol.svg')} alt="" width="112" height="84" decoding="async">
   <h2 id="h-close" class="split">Anotá hoy. Mañana ya es costumbre.</h2>
   <p>Loneto llega pronto a iPhone y Android, en seis idiomas.</p>
 </section>
@@ -485,13 +485,13 @@ function buildHow() {
     .set(['#sArrS', '#sArrT'], { strokeDashoffset: 1 }, 0)
     .set('#sOwed', { autoAlpha: 0, y: 0 }, 0)
     .set('#sBarFood', { width: '31.8%' }, 0)
-    .set('#sFoodRow', { backgroundColor: 'rgba(252,232,214,0)' }, 0)
+    .set('#sFoodRow', { backgroundColor: 'rgba(255,229,215,0)' }, 0)
     .addLabel('s1', 0)
     .from(L1, { autoAlpha: 0, y: 16, stagger: 0.06, duration: 0.6 }, 0.05);
 
   // step 1: type 48.300
   const digits: [string, number][] = [['4', 0.7], ['8', 1.05], ['3', 1.4], ['0', 1.7], ['0', 2.0]];
-  for (const [k, at] of digits) tl.to(key(k), { backgroundColor: '#DCEBE3', scale: 0.92, duration: 0.09, yoyo: true, repeat: 1, ease: 'power1.out' }, at);
+  for (const [k, at] of digits) tl.to(key(k), { backgroundColor: '#C8F5EE', scale: 0.92, duration: 0.09, yoyo: true, repeat: 1, ease: 'power1.out' }, at);
   tracks.push(frames($('#sTyped'), [[0, '$ 0'], [0.75, '$ 4'], [1.1, '$ 48'], [1.45, '$ 483'], [1.75, '$ 4.830'], [2.05, '$ 48.300']]));
   const toggleAt = (el: Element, cls: string, at: number): Track => (t) => el.classList.toggle(cls, t >= at);
   tracks.push(toggleAt($('#sChipFood'), 'sel', 2.4));
@@ -506,7 +506,7 @@ function buildHow() {
   tl.addLabel('s2', STEP_AT[1])
     .fromTo('#sMonth', { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.7 }, 4.6)
     .to('#sToken', { y: 160, scale: 0.42, autoAlpha: 0, duration: 0.7, ease: 'power3.in' }, 5.3)
-    .to('#sFoodRow', { backgroundColor: 'rgba(252,232,214,1)', duration: 0.25, yoyo: true, repeat: 1, ease: 'power1.out' }, 5.95)
+    .to('#sFoodRow', { backgroundColor: 'rgba(255,229,215,1)', duration: 0.25, yoyo: true, repeat: 1, ease: 'power1.out' }, 5.95)
     .to('#sBarFood', { width: '40.2%', duration: 0.9 }, 6.0);
   tracks.push(count($('#sFood'), [[0, 182400], [6.0, 182400], [6.9, 230700]]));
   tracks.push(count($('#sTotal'), [[0, 525800], [6.0, 525800], [6.9, 574100]]));
@@ -675,7 +675,7 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
       tl.from(fx.children, { autoAlpha: 0, y: 10, stagger: 0.08, duration: 0.5 }, 0.3)
         .from($$('.strike i', fx), { scaleX: 0, stagger: 0.3, duration: 0.5, ease: 'power2.inOut' }, 1)
         .to($$('.strike span', fx), { opacity: 0.5, stagger: 0.3, duration: 0.3 }, 1.3)
-        .fromTo($('.lock', fx), { boxShadow: '0 0 0 0 rgba(14,74,52,0.35)' }, { boxShadow: '0 0 0 14px rgba(14,74,52,0)', duration: 1.1, ease: 'power2.out' }, 1.6);
+        .fromTo($('.lock', fx), { boxShadow: '0 0 0 0 rgba(11,52,64,0.35)' }, { boxShadow: '0 0 0 14px rgba(11,52,64,0)', duration: 1.1, ease: 'power2.out' }, 1.6);
     } else {
       tl.from($$('.avatar', fx), { x: (i) => i * 34, autoAlpha: 0, duration: 0.9, stagger: 0.06 }, 0.3)
         .from($('.fx-pill', fx), { autoAlpha: 0, scale: 0.8, duration: 0.6, ease: 'back.out(2)' }, 1);
@@ -712,7 +712,7 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
     .from('.cmp td.me .i', { scale: 0, rotate: -60, stagger: 0.07, duration: 0.6, ease: 'back.out(2.4)' }, 0.5);
 
   /* ----- Close ----- */
-  gsap.from('.close-moni', { y: 40, rotate: -12, scale: 0.8, autoAlpha: 0, duration: 1.2, ease: 'elastic.out(1, 0.6)', scrollTrigger: { trigger: '.close', start: 'top 80%', once: true } });
+  gsap.from('.close-mark', { y: 40, rotate: -12, scale: 0.8, autoAlpha: 0, duration: 1.2, ease: 'elastic.out(1, 0.6)', scrollTrigger: { trigger: '.close', start: 'top 80%', once: true } });
 
   return () => { how.tl.pause(); start.tl.pause(); };
 });
@@ -745,9 +745,9 @@ function tileMotion(kind: string, tile: HTMLElement) {
     const icon = $('.kind-amt use', tile);
     const amtBox = $('.kind-amt', tile);
     const states = [
-      { bg: '#FBE1DD', color: '#B8433A', txt: '−$ 4.500', ico: '#i-arrow-down' },
-      { bg: '#DDF3E4', color: '#1F7A44', txt: '+$ 1.250.000', ico: '#i-arrow-up' },
-      { bg: '#DCEAF7', color: '#1F5F9A', txt: '$ 50.000', ico: '#i-swap-horizontal' },
+      { bg: '#FFE4E2', color: '#BC1E31', txt: '−$ 4.500', ico: '#i-arrow-down' },
+      { bg: '#D6F4DE', color: '#007A41', txt: '+$ 1.250.000', ico: '#i-arrow-up' },
+      { bg: '#E1ECFF', color: '#0E4FC2', txt: '$ 50.000', ico: '#i-swap-horizontal' },
     ];
     const go = (i: number, at: number) => {
       const s = opts[i];

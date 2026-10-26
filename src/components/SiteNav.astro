@@ -15,7 +15,7 @@ const home = (hash: string) => `${withBase('')}#${hash}`;
 <span class="nav-sentinel" aria-hidden="true"></span>
 <header class="nav-wrap" id="navWrap">
   <nav class="nav" aria-label={lang === 'en' ? 'Main' : 'Principal'}>
-    <a class="logo" href={withBase('')} hreflang={lang === 'en' ? 'es' : undefined}><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#moni-happy"/></svg>{SITE.name}</a>
+    <a class="logo" href={withBase('')} hreflang={lang === 'en' ? 'es' : undefined}><img src={withBase('brand/symbol.svg')} alt="" width="36" height="27" decoding="async">{SITE.name}</a>
     {lang === 'es' && (
       <span class="nav-links">
         <a href={home('por-que')}>Por qué</a>

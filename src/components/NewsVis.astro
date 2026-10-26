@@ -24,10 +24,10 @@ const CURRENCIES = [
 ];
 // Words from the app's own locale files: es, en, pt, fr, de, it
 const WORDS = [
-  { icon: 'i-arrow-down', color: '#B8433A', words: ['Gasto', 'Expense', 'Despesa', 'Dépense', 'Ausgabe', 'Spesa'] },
-  { icon: 'i-arrow-up', color: '#1F7A44', words: ['Ingreso', 'Income', 'Receita', 'Revenu', 'Einnahme', 'Entrata'] },
-  { icon: 'i-check-bold', color: '#0E4A34', words: ['Saldar', 'Settle up', 'Acertar', 'Régler', 'Ausgleichen', 'Salda'] },
-  { icon: 'i-account-multiple', color: '#6B42B0', words: ['Compartir', 'Share', 'Compartilhar', 'Partager', 'Teilen', 'Condividi'] },
+  { icon: 'i-arrow-down', color: '#BC1E31', words: ['Gasto', 'Expense', 'Despesa', 'Dépense', 'Ausgabe', 'Spesa'] },
+  { icon: 'i-arrow-up', color: '#007A41', words: ['Ingreso', 'Income', 'Receita', 'Revenu', 'Einnahme', 'Entrata'] },
+  { icon: 'i-check-bold', color: '#0B3440', words: ['Saldar', 'Settle up', 'Acertar', 'Régler', 'Ausgleichen', 'Salda'] },
+  { icon: 'i-account-multiple', color: '#6F3AD3', words: ['Compartir', 'Share', 'Compartilhar', 'Partager', 'Teilen', 'Condividi'] },
 ];
 // May to October; the hatched last month is the Pro projection
 const BARS = [['May', 0.7], ['Jun', 0.76], ['Jul', 0.94], ['Ago', 1], ['Sep', 0.88], ['Oct', 0.9]] as const;
@@ -96,28 +96,28 @@ const BARS = [['May', 0.7], ['Jun', 0.76], ['Jul', 0.94], ['Ago', 1], ['Sep', 0.
 {kind === 'search' && (
   <span class="sr-field"><svg class="i"><use href="#i-magnify"/></svg><span class="sr-q">súper</span><i class="caret"></i></span>
   <ul class="sr-list">
-    <li><span class="badge" style="background:#DDF3E4;color:#2F9E5B"><svg class="i"><use href="#i-cart"/></svg></span><b>Súper</b><em class="num">−$ 23.180</em></li>
-    <li class="miss"><span class="badge" style="background:#FBF1D0;color:#E0B021"><svg class="i"><use href="#i-coffee"/></svg></span><b>Café</b><em class="num">−$ 4.500</em></li>
-    <li><span class="badge" style="background:#DDF3E4;color:#2F9E5B"><svg class="i"><use href="#i-cart"/></svg></span><b>Súper</b><em class="num">−$ 18.900</em></li>
+    <li><span class="badge" style="background:#D6F4DE;color:#1A9C58"><svg class="i"><use href="#i-cart"/></svg></span><b>Súper</b><em class="num">−$ 23.180</em></li>
+    <li class="miss"><span class="badge" style="background:#F9EACA;color:#AB8100"><svg class="i"><use href="#i-coffee"/></svg></span><b>Café</b><em class="num">−$ 4.500</em></li>
+    <li><span class="badge" style="background:#D6F4DE;color:#1A9C58"><svg class="i"><use href="#i-cart"/></svg></span><b>Súper</b><em class="num">−$ 18.900</em></li>
   </ul>
 )}
 
 {kind === 'groups' && (
   <span class="code">{'X7K2QP'.split('').map((c) => <i>{c}</i>)}</span>
   <ul class="act">
-    <li><span class="avatar" style="background:#FCE8D6;color:#9E561A">S</span>Sofi editó “Cena”</li>
-    <li><span class="avatar" style="background:#DCEAF7;color:#1F5F9A">T</span>Tomi borró “Nafta”</li>
-    <li><span class="avatar" style="background:#DCEBE3;color:#0E4A34">V</span>Agregaste “Súper”</li>
+    <li><span class="avatar" style="background:#FFE5D7;color:#A75000">S</span>Sofi editó “Cena”</li>
+    <li><span class="avatar" style="background:#E1ECFF;color:#0E4FC2">T</span>Tomi borró “Nafta”</li>
+    <li><span class="avatar" style="background:#C8F5EE;color:#0B3440">V</span>Agregaste “Súper”</li>
   </ul>
 )}
 
 {kind === 'recurring' && (
-  <div class="rec-head"><span class="badge" style="background:#DCEAF7;color:#2F7FC8"><svg class="i"><use href="#i-play-box-multiple"/></svg></span><span class="row-main"><b>Streaming en familia</b><span>Vence el 10 · 4 personas</span></span><b class="num">$ 9.600</b></div>
+  <div class="rec-head"><span class="badge" style="background:#E1ECFF;color:#2F6FE4"><svg class="i"><use href="#i-play-box-multiple"/></svg></span><span class="row-main"><b>Streaming en familia</b><span>Vence el 10 · 4 personas</span></span><b class="num">$ 9.600</b></div>
   <span class="rec-track"><i></i></span>
   <ul class="rec-ppl">
-    <li><span class="avatar" style="background:#DCEBE3;color:#0E4A34">V</span><b>Vos</b><span class="tag" data-s="owner">Paga la cuenta</span></li>
-    <li><span class="avatar" style="background:#F9DFE8;color:#B03B61">M</span><b>Mamá</b><span class="tag" data-s="paid">Pagado</span></li>
-    <li><span class="avatar" style="background:#EBE2FA;color:#6B42B0">J</span><b>Juli</b><span class="tag rec-juli" data-s="paid">Pagado</span></li>
-    <li><span class="avatar" style="background:#E8EAE4;color:#4F5953">N</span><b>Nico</b><span class="tag rec-nico" data-s="reported">Informó que pagó</span></li>
+    <li><span class="avatar" style="background:#C8F5EE;color:#0B3440">V</span><b>Vos</b><span class="tag" data-s="owner">Paga la cuenta</span></li>
+    <li><span class="avatar" style="background:#FFE2EC;color:#BD1F70">M</span><b>Mamá</b><span class="tag" data-s="paid">Pagado</span></li>
+    <li><span class="avatar" style="background:#EBE8FF;color:#6F3AD3">J</span><b>Juli</b><span class="tag rec-juli" data-s="paid">Pagado</span></li>
+    <li><span class="avatar" style="background:#E9E9E9;color:#45545A">N</span><b>Nico</b><span class="tag rec-nico" data-s="reported">Informó que pagó</span></li>
   </ul>
 )}

@@ -78,12 +78,12 @@ export function visMotion(kind: string, root: HTMLElement, tl: gsap.core.Timelin
     const items = $$('.cur-item', root);
     const star = $('.cur-badge .fav', root);
     const loop = gsap.timeline({ paused: true, repeat: -1 });
-    loop.set(roll, { y: 0 }, 0).set(star, { color: '#E0B021', scale: 1 }, 0);
+    loop.set(roll, { y: 0 }, 0).set(star, { color: '#AB8100', scale: 1 }, 0);
     for (let i = 1; i < items.length; i++) {
       const t = 1.2 + (i - 1) * 1.4;
       const fav = FAVORITES.includes(items[i].querySelector('b')!.textContent!);
       loop.to(roll, { y: () => -items[0].offsetHeight * i, duration: 0.6, ease: 'power3.inOut' }, t)
-        .to(star, { color: fav ? '#E0B021' : '#C9CDC6', duration: 0.3 }, t + 0.3);
+        .to(star, { color: fav ? '#AB8100' : '#ACACAC', duration: 0.3 }, t + 0.3);
       if (fav) loop.fromTo(star, { scale: 0.6 }, { scale: 1, duration: 0.5, ease: 'back.out(3)' }, t + 0.3);
     }
     loop.set(roll, { y: 0 }, 1.2 + (items.length - 2) * 1.4 + 0.65);
@@ -110,11 +110,19 @@ export function visMotion(kind: string, root: HTMLElement, tl: gsap.core.Timelin
   } else if (kind === 'reports') {
     const pct = $('.rep-pct', root);
     const rbs = $$('.rb', root);
+    const track = $('.rep-track', root);
     const o = { v: 0 };
-    tl.from($$('.rb i', root), { scaleY: 0, stagger: 0.08, duration: 0.9 }, at)
+    // One bar plus one gap, measured when it plays (and on resize), never cached
+    const step = () => -(rbs[1].offsetLeft - rbs[0].offsetLeft);
+    let slid = false;
+    // The track moves through standalone tweens, not timeline ones: a timeline replay would snap
+    // it back to 0 in a single frame. Here it eases home while the bars regrow from nothing.
+    tl.add(() => { slid = false; gsap.to(track, { x: 0, duration: 0.7, ease: 'power3.inOut', overwrite: true }); }, 0.01)
+      .from($$('.rb i', root), { scaleY: 0, stagger: 0.08, duration: 0.9 }, at)
       .from($$('.rb small', root), { autoAlpha: 0, stagger: 0.08, duration: 0.5 }, at + 0.1)
       .fromTo(o, { v: 0 }, { v: 12, duration: 0.9, ease: 'power2.out', onUpdate: () => { pct.textContent = String(Math.round(o.v)); } }, at + 0.5)
-      .fromTo($('.rep-track', root), { x: 0 }, { x: () => -(rbs[1].offsetLeft - rbs[0].offsetLeft), duration: 1, ease: 'power3.inOut' }, at + 1.3);
+      .add(() => { slid = true; gsap.to(track, { x: step, duration: 1.1, ease: 'power3.inOut', overwrite: true }); }, at + 1.8);
+    window.addEventListener('resize', () => { if (slid) gsap.set(track, { x: step() }); });
   } else if (kind === 'rates') {
     const ind = $('.r-ind', root);
     const opts = $$('.r-seg > span', root);
@@ -138,7 +146,7 @@ export function visMotion(kind: string, root: HTMLElement, tl: gsap.core.Timelin
     tl.set(miss, { height: 34, autoAlpha: 1 }, 0);
     typeIn(tl, $('.sr-q', root), 'súper', 'Buscar', at + 0.5, 0.12);
     tl.to(miss, { height: 0, autoAlpha: 0, duration: 0.5, ease: 'power3.inOut' }, at + 1.25)
-      .fromTo(hits, { backgroundColor: 'rgba(221,243,228,0)' }, { backgroundColor: 'rgba(221,243,228,1)', stagger: 0.08, duration: 0.3, yoyo: true, repeat: 1, ease: 'power1.out' }, at + 1.6);
+      .fromTo(hits, { backgroundColor: 'rgba(214,244,222,0)' }, { backgroundColor: 'rgba(214,244,222,1)', stagger: 0.08, duration: 0.3, yoyo: true, repeat: 1, ease: 'power1.out' }, at + 1.6);
   } else if (kind === 'groups') {
     tl.from($$('.code i', root), { rotateX: -90, autoAlpha: 0, stagger: 0.07, duration: 0.7, transformOrigin: '50% 50% -20px' }, at)
       .from($$('.act li', root), { x: -24, autoAlpha: 0, stagger: 0.14, duration: 0.7 }, at + 0.6);
