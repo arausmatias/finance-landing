@@ -246,6 +246,8 @@ main { overflow-x: clip; }
 .rep-cmp b { color: var(--text); font-weight: 800; }
 .rep-cmp em { font-style: normal; display: inline-flex; align-items: center; gap: 2px; height: 26px; padding: 0 8px 0 4px; border-radius: 999px; background: #FFFFFF; color: var(--green-ink); }
 .rep-cmp em .i { width: 16px; height: 16px; }
+/* The counter runs 0 to 12: reserve its final width so the heading never re-wraps while it counts */
+.rep-pct { display: inline-block; min-width: 2ch; text-align: right; font-variant-numeric: tabular-nums; }
 .rep-chart { --rep-h: 190px; margin-top: 18px; height: var(--rep-h); overflow: hidden; }
 /* five months in view; the sixth, the Pro projection, slides in */
 .rep-track { display: flex; gap: 10px; height: var(--rep-h); align-items: flex-end; }
