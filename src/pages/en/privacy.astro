@@ -58,8 +58,8 @@ const domain = SITE.origin.replace('https://', '');
       </thead>
       <tbody>
         <tr>
-          <td>Name, email, profile photo and identifier of your Google account</td>
-          <td>Google, as soon as you sign in with “Continue with Google”</td>
+          <td>Name, email, profile photo and identifier of your Google or Apple account. If you choose to hide your email with Apple, we receive a forwarding address instead of the real one</td>
+          <td>Google or Apple, as soon as you sign in</td>
           <td>Create your account, identify you and show your name and photo to the people you share with</td>
         </tr>
         <tr>
@@ -137,7 +137,7 @@ const domain = SITE.origin.replace('https://', '');
     <li><strong>PostHog</strong>, for anonymous usage statistics. It processes data only on our instructions and hosts it in its European Union region.</li>
     <li><strong>Sentry</strong>, for crash reports. It processes data only on our instructions and hosts it in its European Union region (Germany).</li>
     <li><strong>Expo</strong>, whose push notification service receives each notification's text and your push token so it can deliver it. Under its own terms and privacy policy.</li>
-    <li><strong>Google</strong>, which verifies your identity when you sign in with Google, under its own privacy policy.</li>
+    <li><strong>Google and Apple</strong>, which verify your identity when you sign in with them, under their own privacy policies.</li>
     <li><strong>Apple and Google</strong>, as app stores, payment processors, operating systems and push notification services (Apple Push Notification service and Firebase Cloud Messaging), under their own policies.</li>
     <li><strong>Authorities</strong>, only when a law or a valid order requires it.</li>
   </ul>
@@ -188,7 +188,7 @@ const domain = SITE.origin.replace('https://', '');
 
   <h3>What happens when you delete your account</h3>
   <ul>
-    <li>We delete your account, name, email, photo, push tokens and the link to your Google account.</li>
+    <li>We delete your account, name, email, photo, push tokens and the link to your Google or Apple account. If you used Apple, we also revoke the app's access to your Apple account.</li>
     <li>In shared groups and recurring expenses, the expenses and payments you entered stay so the numbers still add up, but your name and photo are replaced with “Former user” and no longer linked to you.</li>
     <li>If you administered a shared group, the group carries on for the others and any of its members can take over as admin.</li>
     <li>If you created a shared recurring expense, it ends: it is archived for its members, who can look at it but not keep using it.</li>
