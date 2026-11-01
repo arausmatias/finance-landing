@@ -18,6 +18,7 @@ const { page, lang, title, shortTitle, description } = Astro.props;
 const other: Lang = lang === 'es' ? 'en' : 'es';
 const path = LEGAL_PATHS[page][lang];
 const translation = LEGAL_PATHS[page][other];
+const legalPaths = Object.values(LEGAL_PATHS).flatMap((paths) => Object.values(paths).map((legalPath) => withBase(legalPath)));
 const effective = LEGAL.effectiveDate ? formatDate(new Date(LEGAL.effectiveDate), lang) : null;
 const copy = {
   es: { crumbs: 'Migas de pan', effective: 'Vigente desde', date: 'fecha', switchLabel: 'Read in English', switchText: 'English' },
@@ -52,6 +53,26 @@ const jsonLd = [
   lang={lang}
   alternates={[{ lang: other, path: translation }]}
 >
+  <script is:inline define:vars={{ legalPaths }}>
+    // Opened from the app (?embed=app): runs before the nav is parsed so the site chrome never flashes.
+    if (new URLSearchParams(location.search).get('embed') === 'app') {
+      document.documentElement.dataset.embed = 'app';
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('main a[href]').forEach((link) => {
+          const url = new URL(link.href);
+          if (url.origin !== location.origin) return;
+          if (legalPaths.includes(url.pathname)) {
+            // Legal pages link to each other: stay in embed mode across them.
+            url.searchParams.set('embed', 'app');
+            link.href = url.href;
+          } else {
+            // Anything else would lead out to the marketing site.
+            link.replaceWith(link.textContent);
+          }
+        });
+      });
+    }
+  </script>
   <SiteNav lang={lang} />
   <main class="wrap">
     <article class="article legal">

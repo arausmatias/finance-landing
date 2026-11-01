@@ -78,6 +78,9 @@
 .lang-switch:hover { border-color: var(--border-strong); color: var(--brand-tint); }
 .lang-switch .i { width: 18px; height: 18px; color: var(--brand-tint); }
 .legal .prose > h2:first-child { margin-top: 8px; }
+/* Opened from the app: no way out to the rest of the site. The language switch stays, it only swaps the same document. */
+[data-embed="app"] :is(.nav-sentinel, .nav-wrap, .crumbs, .foot) { display: none; }
+[data-embed="app"] .legal-top { justify-content: flex-end; }
 .pending {
   background: var(--yellow-soft); color: var(--yellow-ink); border-radius: 6px; padding: 1px 6px;
   font-weight: 700; box-decoration-break: clone; -webkit-box-decoration-break: clone;
