@@ -18,7 +18,7 @@ const domain = SITE.origin.replace('https://', '');
     <ul>
       <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>Your transactions, accounts, categories and tags stay on your phone. We never see or store them.</span></li>
       <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>If you sign in, we store your basic account details. If you also share a group or a recurring expense, what you share is stored on our servers to sync it with the other people.</span></li>
-      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>We don't sell data or show ads. We measure app usage and errors with a random identifier, without tying them to your account. In Europe we only do so if you accept, and anywhere you can turn this off in Settings > Privacy.</span></li>
+      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>We don't sell data or show ads. We measure app usage and errors with a random identifier, without tying them to your account. In most countries we only do so if you accept, and anywhere you can turn this off in Settings > Privacy.</span></li>
       <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>You can ask for a copy of your data, or delete your account from the app, at any time.</span></li>
     </ul>
   </section>
@@ -124,7 +124,7 @@ const domain = SITE.origin.replace('https://', '');
   <ul>
     <li><strong>To provide the service you ask for:</strong> creating your account, syncing what you choose to share and unlocking your purchases.</li>
     <li><strong>Your consent:</strong> given when you sign in and share, and for reminders, when you allow notifications. You can withdraw it at any time by signing out, stopping sharing, turning off notifications or deleting your account.</li>
-    <li><strong>Usage statistics and crash reports:</strong> in the European Union, the European Economic Area and the United Kingdom they rely on your consent, and without it they are not sent. Elsewhere they rely on our legitimate interest in improving the app and fixing failures, and they are on by default. Either way you can turn them off at any time in Settings > Privacy.</li>
+    <li><strong>Usage statistics and crash reports:</strong> in most countries, including Argentina, they rely on your consent, and without it they are not sent. In the United States, Mexico, Brazil, Australia, Japan and South Africa they are on by default and rely, depending on the law, on our legitimate interest in improving the app and fixing failures or on the notice in this policy. Everywhere you can turn them off at any time in Settings > Privacy.</li>
     <li><strong>Security and abuse prevention:</strong> technical logs and attempt limits that protect the service and the people who use it.</li>
     <li><strong>Legal obligations:</strong> when a law or a competent authority requires it.</li>
   </ul>
@@ -224,7 +224,7 @@ const domain = SITE.origin.replace('https://', '');
     contract you accept by using the app, for your account, syncing and purchases (Art. 6(1)(b)); your consent, for
     notifications (Art. 6(1)(a)); our legitimate interest in keeping the service secure (Art. 6(1)(f)); and compliance with
     legal obligations (Art. 6(1)(c)). For usage statistics and crash reports we rely on your consent (Art. 6(1)(a)): the app
-    asks you and, if you don't accept, it sends nothing and doesn't store the identifier they use. Besides the rights above,
+    asks you about each one separately and, if you don't accept, it sends nothing and doesn't store the identifier they use. Besides the rights above,
     you can withdraw your consent at any time, including in Settings > Privacy, and lodge a
     complaint with the data protection authority of your country.
   </p>
@@ -233,7 +233,8 @@ const domain = SITE.origin.replace('https://', '');
   <p>
     You have the rights set out in Article 18 of the General Data Protection Law (LGPD), including confirmation of
     processing, access, correction, anonymization or deletion, portability and information about who we share your data
-    with. You can also complain to the National Data Protection Authority (ANPD).
+    with. You can also complain to the National Data Protection Authority (ANPD). Usage statistics and crash reports rely on
+    our legitimate interest (LGPD Art. 7, IX). You can object by turning them off in Settings > Privacy.
   </p>
 
   <h3>If you live in the United States</h3>
@@ -265,9 +266,9 @@ const domain = SITE.origin.replace('https://', '');
   <h2 id="usage-and-crashes">12. Usage statistics and crash reports</h2>
   <p>
     To know what to improve and to fix failures, the app sends two kinds of technical data. We don't tie them to your
-    account or your name, whether or not you are signed in. If your phone's region or time zone belongs to the European
-    Union, the European Economic Area or the United Kingdom, or if the phone gives no region, they are only sent if you
-    accept. Elsewhere they are on by default.
+    account or your name, whether or not you are signed in. In most countries they are only sent if you accept, and you can
+    choose each one separately. They are on by default only if your phone's region is the United States, Mexico, Brazil,
+    Australia, Japan or South Africa and its time zone is not European. If the phone gives no region, we ask you.
   </p>
   <ul>
     <li><strong>Usage statistics (PostHog):</strong> which screens are opened, when the app opens and closes and which features are used, for example whether a Pro offer is shown, how you move through the initial setup, whether you sign in or continue without an account, and when you save an entry, with no detail about that entry. Also how you heard about us, if you answer that question. They include the app version, device model, operating system, language and time zone. They never include amounts, names or notes.</li>
@@ -276,7 +277,7 @@ const domain = SITE.origin.replace('https://', '');
   <p>
     Both use a random identifier for this installation, which changes if you reinstall the app. It contains neither your
     name nor your email, but it does link the data from this installation together, so we don't treat this data as
-    anonymous. You can turn both off in Settings > Privacy and they stop being sent. We keep usage statistics for up to
+    anonymous. You can turn each one off in Settings > Privacy and they stop being sent. We keep usage statistics for up to
     {LEGAL.analyticsRetentionMonths} months and error reports for up to {LEGAL.crashRetentionDays} days.
   </p>
 
