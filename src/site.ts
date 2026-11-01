@@ -28,7 +28,7 @@ export const LEGAL = {
   contactEmail: 'hola@loneto.app' as string | null,
   /** Where Supabase stores the data. Update both languages if the project region moves. */
   dataRegion: { es: 'Brasil (São Paulo)', en: 'Brazil (São Paulo)' },
-  minimumAge: '13',
+  minimumAge: '16',
   /** Days until soft-deleted shared data is purged for good (pg_cron job). */
   purgeDays: '30',
   /** Business days to answer a deletion request by email; Ley 25.326 art. 16 caps it at 5. */
