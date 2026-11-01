@@ -18,7 +18,7 @@ const domain = SITE.origin.replace('https://', '');
     <ul>
       <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>Tus movimientos, cuentas, categorías y etiquetas quedan solo en tu teléfono. No los vemos ni los guardamos.</span></li>
       <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>Si iniciás sesión, guardamos los datos básicos de tu cuenta. Si además compartís un grupo o un gasto recurrente, eso que compartís se guarda en nuestros servidores para sincronizarlo con las demás personas.</span></li>
-      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>No vendemos datos ni mostramos publicidad. Medimos el uso de la app y los errores de forma anónima, sin vincularlos a tu identidad, y podés desactivarlo en Ajustes > Privacidad.</span></li>
+      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>No vendemos datos ni mostramos publicidad. Medimos el uso de la app y los errores con un identificador aleatorio, sin vincularlos a tu cuenta. En Europa solo lo hacemos si aceptás, y en cualquier lugar podés desactivarlo en Ajustes > Privacidad.</span></li>
       <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>Podés pedir una copia de tus datos o eliminar tu cuenta desde la app cuando quieras.</span></li>
     </ul>
   </section>
@@ -125,7 +125,7 @@ const domain = SITE.origin.replace('https://', '');
   <ul>
     <li><strong>Para darte el servicio que pedís:</strong> crear tu cuenta, sincronizar lo que elegís compartir y activar tus compras.</li>
     <li><strong>Tu consentimiento:</strong> lo das al iniciar sesión y al compartir, y para los recordatorios, al aceptar el permiso de notificaciones. Podés retirarlo cuando quieras cerrando sesión, dejando de compartir, desactivando las notificaciones o eliminando tu cuenta.</li>
-    <li><strong>Nuestro interés legítimo en mejorar la app y corregir fallas:</strong> las estadísticas de uso anónimas y los reportes de errores. Vienen activados y podés desactivarlos cuando quieras en Ajustes > Privacidad.</li>
+    <li><strong>Estadísticas de uso y reportes de errores:</strong> en la Unión Europea, el Espacio Económico Europeo y el Reino Unido se basan en tu consentimiento, y sin él no se envían. En el resto del mundo se basan en nuestro interés legítimo en mejorar la app y corregir fallas, y vienen activados. En ambos casos podés desactivarlos cuando quieras en Ajustes > Privacidad.</li>
     <li><strong>Seguridad y prevención de abusos:</strong> registros técnicos y límites de intentos para proteger el servicio y a quienes lo usan.</li>
     <li><strong>Obligaciones legales:</strong> cuando una ley o una autoridad competente nos lo exija.</li>
   </ul>
@@ -135,7 +135,7 @@ const domain = SITE.origin.replace('https://', '');
   <ul>
     <li><strong>Las personas con las que compartís.</strong> Los integrantes de un grupo o gasto recurrente ven tu nombre, tu foto y lo que se carga en él.</li>
     <li><strong>Supabase</strong>, que nos da la base de datos, el inicio de sesión y los servidores. Trata los datos solo siguiendo nuestras instrucciones.</li>
-    <li><strong>PostHog</strong>, para las estadísticas de uso anónimas. Trata los datos solo siguiendo nuestras instrucciones y los aloja en su región de la Unión Europea.</li>
+    <li><strong>PostHog</strong>, para las estadísticas de uso. Trata los datos solo siguiendo nuestras instrucciones y los aloja en su región de la Unión Europea.</li>
     <li><strong>Sentry</strong>, para los reportes de errores. Trata los datos solo siguiendo nuestras instrucciones y los aloja en su región de la Unión Europea (Alemania).</li>
     <li><strong>Expo</strong>, cuyo servicio de notificaciones push recibe el texto de cada notificación y tu token para poder entregarla. Según sus propios términos y política de privacidad.</li>
     <li><strong>Google y Apple</strong>, que verifican tu identidad cuando iniciás sesión con ellos, según sus propias políticas de privacidad.</li>
@@ -229,10 +229,10 @@ const domain = SITE.origin.replace('https://', '');
     Tratamos tus datos según el Reglamento General de Protección de Datos (RGPD). Las bases legales son: la ejecución del
     contrato que aceptás al usar la app, para tu cuenta, la sincronización y las compras (art. 6.1.b); tu consentimiento,
     para las notificaciones (art. 6.1.a); nuestro interés legítimo en mantener el servicio seguro (art. 6.1.f); y el
-    cumplimiento de obligaciones legales (art. 6.1.c). Para las estadísticas de uso anónimas y los reportes de errores nos
-    basamos en nuestro interés legítimo en mejorar la app y corregir fallas (art. 6.1.f), y podés oponerte desactivándolos
-    en Ajustes > Privacidad. Además de los derechos de arriba, podés retirar tu consentimiento en
-    cualquier momento y presentar un reclamo ante la autoridad de protección de datos de tu país.
+    cumplimiento de obligaciones legales (art. 6.1.c). Para las estadísticas de uso y los reportes de errores nos basamos
+    en tu consentimiento (art. 6.1.a): la app te lo pregunta y, si no aceptás, no envía nada ni guarda el identificador
+    que usan. Además de los derechos de arriba, podés retirar tu consentimiento en cualquier momento, también desde
+    Ajustes > Privacidad, y presentar un reclamo ante la autoridad de protección de datos de tu país.
   </p>
 
   <h3>Si vivís en Brasil</h3>
@@ -270,16 +270,18 @@ const domain = SITE.origin.replace('https://', '');
 
   <h2 id="uso-y-errores">12. Estadísticas de uso y reportes de errores</h2>
   <p>
-    Para saber qué mejorar y corregir fallas, la app envía dos tipos de datos técnicos. Vienen activados y no se vinculan a
-    tu cuenta ni a tu nombre: no usamos tu identidad para estos datos, con o sin sesión iniciada.
+    Para saber qué mejorar y corregir fallas, la app envía dos tipos de datos técnicos. No los vinculamos a tu cuenta ni a
+    tu nombre, con o sin sesión iniciada. Si la región o la zona horaria de tu teléfono corresponden a la Unión Europea,
+    el Espacio Económico Europeo o el Reino Unido, o si el teléfono no indica una región, solo se envían si aceptás. En el
+    resto del mundo vienen activados.
   </p>
   <ul>
-    <li><strong>Estadísticas de uso (PostHog):</strong> qué pantallas se abren y qué funciones se usan, por ejemplo si se muestra una oferta Pro. No incluyen montos, nombres ni notas.</li>
+    <li><strong>Estadísticas de uso (PostHog):</strong> qué pantallas se abren, cuándo se abre y se cierra la app y qué funciones se usan, por ejemplo si se muestra una oferta Pro, cómo avanzás en la configuración inicial, si elegís iniciar sesión o seguir sin cuenta, y cuándo guardás un movimiento, sin ningún detalle de ese movimiento. También cómo nos conociste, si respondés esa pregunta. Incluyen la versión de la app, el modelo del dispositivo, el sistema operativo, el idioma y la zona horaria. No incluyen montos, nombres ni notas.</li>
     <li><strong>Reportes de errores (Sentry):</strong> cuando la app falla, el detalle técnico del error (traza y mensaje), la versión de la app, el sistema operativo y su versión, el modelo del dispositivo y el idioma. No usamos grabación de pantalla ni capturas.</li>
   </ul>
   <p>
-    Ambos usan un identificador aleatorio de esta instalación, que no sirve para saber quién sos y cambia si reinstalás la
-    app. Podés desactivar los dos desde Ajustes > Privacidad, y dejan de enviarse. Conservamos las estadísticas de uso
+    Ambos usan un identificador aleatorio de esta instalación, que cambia si reinstalás la app. No contiene tu nombre ni tu
+    email, pero sí permite relacionar entre sí los datos de esta instalación, así que no los tratamos como anónimos. Podés desactivar los dos desde Ajustes > Privacidad, y dejan de enviarse. Conservamos las estadísticas de uso
     hasta {LEGAL.analyticsRetentionMonths} meses y los reportes de errores hasta {LEGAL.crashRetentionDays} días.
   </p>
 

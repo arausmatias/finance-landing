@@ -18,7 +18,7 @@ const domain = SITE.origin.replace('https://', '');
     <ul>
       <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>Your transactions, accounts, categories and tags stay on your phone. We never see or store them.</span></li>
       <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>If you sign in, we store your basic account details. If you also share a group or a recurring expense, what you share is stored on our servers to sync it with the other people.</span></li>
-      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>We don't sell data or show ads. We measure app usage and errors anonymously, without tying them to your identity, and you can turn this off in Settings > Privacy.</span></li>
+      <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>We don't sell data or show ads. We measure app usage and errors with a random identifier, without tying them to your account. In Europe we only do so if you accept, and anywhere you can turn this off in Settings > Privacy.</span></li>
       <li><svg class="i" aria-hidden="true"><use href="#i-check-bold" /></svg><span>You can ask for a copy of your data, or delete your account from the app, at any time.</span></li>
     </ul>
   </section>
@@ -124,7 +124,7 @@ const domain = SITE.origin.replace('https://', '');
   <ul>
     <li><strong>To provide the service you ask for:</strong> creating your account, syncing what you choose to share and unlocking your purchases.</li>
     <li><strong>Your consent:</strong> given when you sign in and share, and for reminders, when you allow notifications. You can withdraw it at any time by signing out, stopping sharing, turning off notifications or deleting your account.</li>
-    <li><strong>Our legitimate interest in improving the app and fixing failures:</strong> anonymous usage statistics and crash reports. They are on by default and you can turn them off at any time in Settings > Privacy.</li>
+    <li><strong>Usage statistics and crash reports:</strong> in the European Union, the European Economic Area and the United Kingdom they rely on your consent, and without it they are not sent. Elsewhere they rely on our legitimate interest in improving the app and fixing failures, and they are on by default. Either way you can turn them off at any time in Settings > Privacy.</li>
     <li><strong>Security and abuse prevention:</strong> technical logs and attempt limits that protect the service and the people who use it.</li>
     <li><strong>Legal obligations:</strong> when a law or a competent authority requires it.</li>
   </ul>
@@ -134,7 +134,7 @@ const domain = SITE.origin.replace('https://', '');
   <ul>
     <li><strong>The people you share with.</strong> Members of a group or recurring expense see your name, your photo and what is entered in it.</li>
     <li><strong>Supabase</strong>, which provides our database, sign-in and servers. It processes data only on our instructions.</li>
-    <li><strong>PostHog</strong>, for anonymous usage statistics. It processes data only on our instructions and hosts it in its European Union region.</li>
+    <li><strong>PostHog</strong>, for usage statistics. It processes data only on our instructions and hosts it in its European Union region.</li>
     <li><strong>Sentry</strong>, for crash reports. It processes data only on our instructions and hosts it in its European Union region (Germany).</li>
     <li><strong>Expo</strong>, whose push notification service receives each notification's text and your push token so it can deliver it. Under its own terms and privacy policy.</li>
     <li><strong>Google and Apple</strong>, which verify your identity when you sign in with them, under their own privacy policies.</li>
@@ -223,9 +223,9 @@ const domain = SITE.origin.replace('https://', '');
     We process your data under the General Data Protection Regulation (GDPR). Our legal bases are: performance of the
     contract you accept by using the app, for your account, syncing and purchases (Art. 6(1)(b)); your consent, for
     notifications (Art. 6(1)(a)); our legitimate interest in keeping the service secure (Art. 6(1)(f)); and compliance with
-    legal obligations (Art. 6(1)(c)). For anonymous usage statistics and crash reports we rely on our legitimate interest
-    in improving the app and fixing failures (Art. 6(1)(f)), and you can object by turning them off in Settings >
-    Privacy. Besides the rights above, you can withdraw your consent at any time and lodge a
+    legal obligations (Art. 6(1)(c)). For usage statistics and crash reports we rely on your consent (Art. 6(1)(a)): the app
+    asks you and, if you don't accept, it sends nothing and doesn't store the identifier they use. Besides the rights above,
+    you can withdraw your consent at any time, including in Settings > Privacy, and lodge a
     complaint with the data protection authority of your country.
   </p>
 
@@ -264,16 +264,19 @@ const domain = SITE.origin.replace('https://', '');
 
   <h2 id="usage-and-crashes">12. Usage statistics and crash reports</h2>
   <p>
-    To know what to improve and to fix failures, the app sends two kinds of technical data. They are on by default and are
-    not tied to your account or your name: we don't use your identity for this data, whether or not you are signed in.
+    To know what to improve and to fix failures, the app sends two kinds of technical data. We don't tie them to your
+    account or your name, whether or not you are signed in. If your phone's region or time zone belongs to the European
+    Union, the European Economic Area or the United Kingdom, or if the phone gives no region, they are only sent if you
+    accept. Elsewhere they are on by default.
   </p>
   <ul>
-    <li><strong>Usage statistics (PostHog):</strong> which screens are opened and which features are used, for example whether a Pro offer is shown. They never include amounts, names or notes.</li>
+    <li><strong>Usage statistics (PostHog):</strong> which screens are opened, when the app opens and closes and which features are used, for example whether a Pro offer is shown, how you move through the initial setup, whether you sign in or continue without an account, and when you save an entry, with no detail about that entry. Also how you heard about us, if you answer that question. They include the app version, device model, operating system, language and time zone. They never include amounts, names or notes.</li>
     <li><strong>Crash reports (Sentry):</strong> when the app fails, the technical detail of the error (trace and message), the app version, the operating system and its version, the device model and the language. We don't use screen recording or screenshots.</li>
   </ul>
   <p>
-    Both use a random identifier for this installation, which can't tell us who you are and changes if you reinstall the
-    app. You can turn both off in Settings > Privacy and they stop being sent. We keep usage statistics for up to
+    Both use a random identifier for this installation, which changes if you reinstall the app. It contains neither your
+    name nor your email, but it does link the data from this installation together, so we don't treat this data as
+    anonymous. You can turn both off in Settings > Privacy and they stop being sent. We keep usage statistics for up to
     {LEGAL.analyticsRetentionMonths} months and error reports for up to {LEGAL.crashRetentionDays} days.
   </p>
 

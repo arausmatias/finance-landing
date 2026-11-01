@@ -40,7 +40,7 @@ export const LEGAL = {
   /** Months PostHog keeps usage statistics (1 year on the free plan). */
   analyticsRetentionMonths: '12',
   /** ISO date the current version of the documents takes effect: set it on the day they are deployed. */
-  effectiveDate: '2026-10-17' as string | null,
+  effectiveDate: '2026-10-31' as string | null,
   /** Whether "Eliminar cuenta" exists inside the app. */
   inAppDeletion: true,
 };
