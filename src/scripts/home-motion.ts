@@ -127,7 +127,7 @@ export function visMotion(kind: string, root: HTMLElement, tl: gsap.core.Timelin
     const ind = $('.r-ind', root);
     const opts = $$('.r-seg > span', root);
     const num = $('.r-num', root);
-    const vals = [1385, 1432, 1445, 1400];
+    const vals = [1385, 1400];
     const place = (i: number) => ({ x: () => opts[i].offsetLeft, y: () => opts[i].offsetTop, width: () => opts[i].offsetWidth });
     const mark = (i: number) => opts.forEach((s, j) => s.classList.toggle('on', j === i));
     tl.add(() => { mark(0); num.textContent = money(vals[0]); }, 0.01).set(ind, place(0), 0.01);

@@ -44,7 +44,7 @@ export const CHANGELOG: Entry[] = [
   { date: '2026-10-11', icon: 'i-magnify', title: 'Buscar y filtrar movimientos' },
   { date: '2026-10-11', icon: 'i-archive-outline', title: 'Los grupos ya saldados se archivan' },
   { date: '2026-10-09', kind: 'reports', wide: true, soft: '#E1ECFF', ink: '#0E4FC2', title: 'Reportes del mes', body: 'Gastos, ingresos y neto en un gráfico que se corre con el mes que elegís, más el detalle por categoría. La proyección de lo que viene es parte de Pro.' },
-  { date: '2026-10-09', kind: 'rates', soft: '#D3F2F6', ink: '#00747E', title: 'Cotización de cierre', body: 'Cada mes guarda su cotización: oficial, MEP o blue para el peso. Si la cargás a mano, manda la tuya. Se queda en tu teléfono.' },
+  { date: '2026-10-09', kind: 'rates', soft: '#D3F2F6', ink: '#00747E', title: 'Cotización de cierre', body: 'Cada mes guarda su cotización, con el dólar oficial para el peso. Si la cargás a mano, manda la tuya. Se queda en tu teléfono.' },
   { date: '2026-10-09', icon: 'i-delete-outline', title: 'Borrar tu cuenta sin perder lo que compartiste con otros' },
   { date: '2026-10-07', kind: 'groups', soft: '#EBE8FF', ink: '#6F3AD3', title: 'Grupos compartidos', body: 'Compartí un grupo con un código que vale 7 días. Cada uno carga lo suyo y todo cambio queda en la actividad.' },
   { date: '2026-10-07', icon: 'i-pencil', title: 'El que administra un grupo le puede cambiar el nombre' },
