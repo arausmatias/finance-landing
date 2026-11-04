@@ -68,14 +68,32 @@ import { SITE, LEGAL, LEGAL_PATHS, withBase } from '../../site';
     </li>
   </ul>
 
-  <h2 id="partial">If you only want to delete some data</h2>
-  <ul>
-    <li><strong>Leave a group or recurring expense you didn't create:</strong> open it in the app and choose to leave.</li>
-    <li><strong>Delete an expense you entered:</strong> open it in the group and delete it.</li>
-    <li><strong>Stop syncing without deleting anything:</strong> sign out from Profile.</li>
-  </ul>
+  <h2 id="partial">Delete notification data without deleting your account</h2>
   <p>
-    You can also email us to delete specific data without deleting your account. More in the{' '}
-    <a href={withBase(LEGAL_PATHS.privacy.en)}>Privacy policy</a>.
+    You can ask us to delete, together, the notification history received by your account, your alert preferences and
+    your devices' push registrations on our servers. Your account, transactions, groups and debts are kept.
   </p>
+  <ol>
+    <li>Email <Email lang="en" subject={`Delete ${SITE.name} notification data`} /> with the subject <strong>“Delete {SITE.name} notification data”</strong>.</li>
+    <li>Include the email you use to sign in. We verify that the account is yours before executing the request; we do not ask for your password.</li>
+    <li>We handle the request within {LEGAL.deletionDays} business days after verification and confirm the server deletion.</li>
+  </ol>
+  <p>
+    Notifications stay suspended so opening the app does not recreate those records. You can explicitly reactivate them
+    in notification settings to receive new activity; deleted data will not return. Each phone's copy is cleared when a
+    compatible app version reconnects. We may ask you to update the app; a phone that stays offline keeps its copy until then.
+  </p>
+  <p>
+    We keep a minimal technical marker and request receipt while the account exists to prevent an old sync from restoring
+    the data. They contain no messages or push tokens. Notifications already delivered to the phone's operating system
+    or in transit cannot be recalled remotely. Backups roll over within {LEGAL.serverBackupDays} days.
+    This request does not erase reports already sent to analytics or crash-report providers.
+  </p>
+  <h3>Other changes in the app</h3>
+  <ul>
+    <li><strong>Delete an expense you entered:</strong> open it in the group and delete it. This is a separate process and may change shared balances.</li>
+    <li><strong>Leave a group or recurring expense:</strong> history and debts remain; leaving does not erase them.</li>
+    <li><strong>Sign out:</strong> stops syncing on that phone without deleting the account or shared server data.</li>
+  </ul>
+  <p>More in the <a href={withBase(LEGAL_PATHS.privacy.en)}>Privacy policy</a>.</p>
 </Legal>

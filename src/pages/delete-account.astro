@@ -69,14 +69,34 @@ import { SITE, LEGAL, LEGAL_PATHS, withBase } from '../site';
     </li>
   </ul>
 
-  <h2 id="parcial">Si solo querés borrar algunos datos</h2>
-  <ul>
-    <li><strong>Dejar un grupo o gasto recurrente que no creaste vos:</strong> desde la app, entrá y elegí salir.</li>
-    <li><strong>Borrar un gasto que cargaste:</strong> abrilo en el grupo y eliminalo.</li>
-    <li><strong>Dejar de sincronizar sin borrar nada:</strong> cerrá sesión desde Perfil.</li>
-  </ul>
+  <h2 id="parcial">Borrar datos de notificaciones sin eliminar la cuenta</h2>
   <p>
-    También podés pedirnos por email que borremos datos puntuales sin eliminar la cuenta. Más información en la{' '}
-    <a href={withBase(LEGAL_PATHS.privacy.es)}>Política de privacidad</a>.
+    Podés pedirnos que borremos, en conjunto, el historial de notificaciones recibido en tu cuenta, tus preferencias de
+    avisos y los registros push de tus dispositivos en nuestros servidores. Tu cuenta, tus movimientos, tus grupos y
+    tus deudas se conservan.
   </p>
+  <ol>
+    <li>Escribinos a <Email subject={`Borrar datos de notificaciones de ${SITE.name}`} /> con el asunto <strong>“Borrar datos de notificaciones de {SITE.name}”</strong>.</li>
+    <li>Indicá el email con el que iniciás sesión. Confirmaremos que la cuenta es tuya antes de ejecutar el pedido; no te pedimos tu contraseña.</li>
+    <li>Atendemos el pedido dentro de los {LEGAL.deletionDays} días hábiles siguientes a la verificación y te enviamos una confirmación del borrado en el servidor.</li>
+  </ol>
+  <p>
+    Los avisos quedan suspendidos para que esos datos no se creen de nuevo al abrir la app. Podés volver a activarlos
+    explícitamente desde los ajustes de notificaciones; eso habilita actividad nueva, sin recuperar lo borrado.
+    La copia de cada teléfono se limpia cuando una versión compatible de la app vuelve a conectarse. Podemos pedirte
+    que actualices la app; un teléfono que siga sin conexión conserva su copia hasta entonces.
+  </p>
+  <p>
+    Conservamos una marca técnica mínima y el comprobante del pedido mientras exista la cuenta para impedir que una
+    sincronización vieja restaure los datos. No contienen mensajes ni tokens push. Los avisos ya entregados al sistema
+    del teléfono o en tránsito no se pueden retirar a distancia. Las copias de seguridad se renuevan en hasta
+    {' '}{LEGAL.serverBackupDays} días. Este pedido no borra los reportes ya enviados a proveedores de estadísticas o errores.
+  </p>
+  <h3>Otros cambios desde la app</h3>
+  <ul>
+    <li><strong>Borrar un gasto que cargaste:</strong> abrilo en el grupo y eliminalo. Es un proceso distinto y puede modificar los saldos compartidos.</li>
+    <li><strong>Salir de un grupo o gasto recurrente:</strong> conserva el historial y las deudas; salir no equivale a borrar esos datos.</li>
+    <li><strong>Cerrar sesión:</strong> deja de sincronizar en ese teléfono, sin eliminar la cuenta ni los datos compartidos del servidor.</li>
+  </ul>
+  <p>Más información en la <a href={withBase(LEGAL_PATHS.privacy.es)}>Política de privacidad</a>.</p>
 </Legal>

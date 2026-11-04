@@ -93,6 +93,11 @@ const domain = SITE.origin.replace('https://', '');
           <td>Send you notifications about your groups and shared recurring expenses, in your language</td>
         </tr>
         <tr>
+          <td>Alert preferences and muted groups or shared expenses; notification history</td>
+          <td>Your choices in the app and activity in what you share</td>
+          <td>Apply your preferences across your devices and show activity in your inbox</td>
+        </tr>
+        <tr>
           <td>Technical data about each connection, such as IP address, date and device type</td>
           <td>Created when syncing</td>
           <td>Run the service, keep it secure and fix errors</td>
@@ -151,6 +156,13 @@ const domain = SITE.origin.replace('https://', '');
     Usage statistics and crash reports are stored on PostHog and Sentry servers located in the European Union.
   </p>
 
+  <p>
+    To deliver push notifications, Expo also processes the device token and notification text in the United States,
+    involving Apple's or Google's push services. <a href="https://expo.dev/terms">Expo's terms</a> describe its data
+    processing and the standard contractual clauses applicable to transfers from the European Economic Area; its{' '}
+    <a href="https://expo.dev/privacy">privacy policy</a> explains transfers to the United States.
+  </p>
+
   <h2 id="notifications">7. Notifications and permissions</h2>
   <p>
     Reminders are scheduled on your phone and don't involve any server. The only permission the app asks for is
@@ -170,9 +182,19 @@ const domain = SITE.origin.replace('https://', '');
   </p>
   <ul>
     <li>You can turn notifications off at any time in your phone's settings.</li>
-    <li>In the app you can also turn them off by type, or for a specific group.</li>
-    <li>We delete your token when you sign out and when you delete your account.</li>
+    <li>In the app you can also turn them off by type, or for a specific group or shared expense. Your preferences sync with your account; activity stays in your inbox even when its alerts are muted.</li>
+    <li>Signing out requests deletion of the token from the server; deleting your account deletes it with the account. If you sign out offline, the registration may remain until the device registers its token again or the push service invalidates it.</li>
   </ul>
+
+  <p>
+    You can also <a href={withBase(LEGAL_PATHS.deleteAccount.en) + '#partial'}>request deletion of notification data</a>
+    without deleting your account or transactions: received history, preferences and push registrations on our servers.
+    Notifications stay suspended until you explicitly reactivate them. Devices running a compatible app version apply
+    the cleanup when they reconnect; an app update may be needed. We retain a technical marker and minimal request
+    receipt while the account exists to prevent an old sync from restoring data, without messages or tokens.
+    This process does not erase shared financial data or reports already sent to analytics/crash providers,
+    and cannot recall notifications already delivered to the phone's operating system or in transit.
+  </p>
 
   <h2 id="retention">8. How long we keep data</h2>
   <ul>
@@ -180,7 +202,9 @@ const domain = SITE.origin.replace('https://', '');
     <li><strong>Your account and what you share:</strong> while your account is active.</li>
     <li><strong>What you delete from a shared group:</strong> it is first marked as deleted so it disappears on every device, and is erased for good after {LEGAL.purgeDays} days.</li>
     <li><strong>Invite codes:</strong> until they expire. Failed attempts, one day.</li>
-    <li><strong>Push token:</strong> until you sign out or delete your account.</li>
+    <li><strong>Push token:</strong> while registered to your account, subject to sign-out and the offline exception explained above; deleted with your account.</li>
+    <li><strong>Alert preferences:</strong> until you change them or delete your account.</li>
+    <li><strong>Notification history:</strong> pruned daily; notifications older than {LEGAL.notificationRetentionDays} days are deleted from the server. The local copy remains until you sign out, switch accounts or erase the app’s data.</li>
     <li><strong>Usage statistics and error reports:</strong> up to {LEGAL.analyticsRetentionMonths} months and up to {LEGAL.crashRetentionDays} days, respectively.</li>
     <li><strong>Technical data:</strong> as long as our provider keeps it to run and protect the service.</li>
     <li><strong>Server backups:</strong> up to {LEGAL.serverBackupDays} days, used only to restore the service after a failure.</li>

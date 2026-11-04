@@ -94,6 +94,11 @@ const domain = SITE.origin.replace('https://', '');
           <td>Enviarte avisos sobre tus grupos y gastos recurrentes compartidos, en tu idioma</td>
         </tr>
         <tr>
+          <td>Preferencias de avisos y grupos o gastos compartidos silenciados; historial de notificaciones</td>
+          <td>Tus elecciones en la app y la actividad de lo que compartís</td>
+          <td>Aplicar tus preferencias en todos tus dispositivos y mostrar los avisos en tu bandeja</td>
+        </tr>
+        <tr>
           <td>Datos técnicos de cada conexión, como dirección IP, fecha y tipo de dispositivo</td>
           <td>Se generan al sincronizar</td>
           <td>Operar el servicio, mantenerlo seguro y resolver errores</td>
@@ -153,6 +158,14 @@ const domain = SITE.origin.replace('https://', '');
     Europea.
   </p>
 
+  <p>
+    Para entregar las notificaciones push, Expo también procesa el token del dispositivo y el texto del aviso en
+    Estados Unidos, con la intervención de los servicios push de Apple o Google. Los{' '}
+    <a href="https://expo.dev/terms">términos de Expo</a> describen su tratamiento de datos y las cláusulas contractuales
+    tipo aplicables a transferencias desde el Espacio Económico Europeo; su{' '}
+    <a href="https://expo.dev/privacy">política de privacidad</a> explica las transferencias a Estados Unidos.
+  </p>
+
   <h2 id="notificaciones">7. Notificaciones y permisos</h2>
   <p>
     Los recordatorios se programan dentro de tu teléfono y no pasan por ningún servidor. El único permiso que pide la app
@@ -172,9 +185,19 @@ const domain = SITE.origin.replace('https://', '');
   </p>
   <ul>
     <li>Podés desactivar las notificaciones cuando quieras en los ajustes de tu teléfono.</li>
-    <li>En la app también podés desactivarlas por tipo, o para un grupo en particular.</li>
-    <li>Borramos tu token cuando cerrás sesión y cuando eliminás tu cuenta.</li>
+    <li>En la app también podés desactivarlas por tipo, o para un grupo o gasto compartido en particular. Tus preferencias se sincronizan con tu cuenta; la actividad sigue apareciendo en la bandeja aunque silencies sus avisos.</li>
+    <li>Al cerrar sesión solicitamos borrar el token del servidor; al eliminar tu cuenta se borra junto con ella. Si cerrás sesión sin conexión, el registro puede permanecer hasta que el dispositivo vuelva a registrar su token o el servicio push lo invalide.</li>
   </ul>
+
+  <p>
+    También podés <a href={withBase(LEGAL_PATHS.deleteAccount.es) + '#parcial'}>pedir el borrado de los datos de notificaciones</a>
+    sin eliminar tu cuenta ni tus movimientos: historial recibido, preferencias y registros push en nuestros servidores.
+    Los avisos quedan suspendidos hasta que los reactives explícitamente. Los dispositivos con una versión compatible
+    aplican la limpieza al volver a conectarse; puede ser necesario actualizar la app. Conservamos una marca técnica
+    y un comprobante mínimo del pedido mientras exista la cuenta para impedir que una sincronización vieja restaure
+    los datos, sin mensajes ni tokens. Este procedimiento no borra datos financieros compartidos ni reportes ya enviados
+    a proveedores de estadísticas o errores, y no puede retirar avisos ya entregados al sistema del teléfono o en tránsito.
+  </p>
 
   <h2 id="conservacion">8. Cuánto tiempo guardamos los datos</h2>
   <ul>
@@ -182,7 +205,9 @@ const domain = SITE.origin.replace('https://', '');
     <li><strong>Tu cuenta y lo que compartís:</strong> mientras tengas la cuenta activa.</li>
     <li><strong>Lo que eliminás de un grupo compartido:</strong> primero se marca como eliminado para que desaparezca en todos los dispositivos, y se borra de forma definitiva a los {LEGAL.purgeDays} días.</li>
     <li><strong>Códigos de invitación:</strong> hasta que vencen. Los intentos fallidos, un día.</li>
-    <li><strong>Token de notificaciones push:</strong> hasta que cerrás sesión o eliminás tu cuenta.</li>
+    <li><strong>Token de notificaciones push:</strong> mientras esté registrado para tu cuenta, con el cierre de sesión y la excepción sin conexión explicados arriba; se borra al eliminar la cuenta.</li>
+    <li><strong>Preferencias de avisos:</strong> hasta que las cambies o elimines tu cuenta.</li>
+    <li><strong>Historial de notificaciones:</strong> se depura diariamente; los avisos con más de {LEGAL.notificationRetentionDays} días se borran del servidor. La copia local permanece hasta que cierres sesión, cambies de cuenta o borres los datos de la app.</li>
     <li><strong>Estadísticas de uso y reportes de errores:</strong> hasta {LEGAL.analyticsRetentionMonths} meses y hasta {LEGAL.crashRetentionDays} días, respectivamente.</li>
     <li><strong>Datos técnicos:</strong> el tiempo que los conserva nuestro proveedor para operar y proteger el servicio.</li>
     <li><strong>Copias de seguridad de nuestros servidores:</strong> hasta {LEGAL.serverBackupDays} días, y solo se usan para recuperar el servicio ante una falla.</li>

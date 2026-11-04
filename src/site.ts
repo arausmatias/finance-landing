@@ -31,6 +31,8 @@ export const LEGAL = {
   minimumAge: '16',
   /** Days until soft-deleted shared data is purged for good (pg_cron job). */
   purgeDays: '30',
+  /** Server inbox rows are purged daily after 90 days (purge_old_notifications). */
+  notificationRetentionDays: '90',
   /** Business days to answer a deletion request by email; Ley 25.326 art. 16 caps it at 5. */
   deletionDays: '5',
   /** Days Supabase keeps daily backups (7 on Free and Pro, 14 on Team). */
@@ -40,7 +42,7 @@ export const LEGAL = {
   /** Months PostHog keeps usage statistics (1 year on the free plan). */
   analyticsRetentionMonths: '12',
   /** ISO date the current version of the documents takes effect: set it on the day they are deployed. */
-  effectiveDate: '2026-11-01' as string | null,
+  effectiveDate: '2026-11-03' as string | null,
   /** Whether "Eliminar cuenta" exists inside the app. */
   inAppDeletion: true,
 };
