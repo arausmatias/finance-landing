@@ -9,7 +9,7 @@ export async function GET() {
     '',
     `> ${SITE.description}`,
     '',
-    `${SITE.name} es una app para iPhone y Android que todavía no está publicada en las tiendas. Funciones: carga de gastos, ingresos y transferencias con un teclado numérico propio; cuentas en 154 monedas (efectivo, banco, billetera virtual); tarjetas de crédito con resumen, cuotas y aviso antes del vencimiento; búsqueda y filtros de movimientos; categorías y etiquetas; reportes del mes; grupos para dividir gastos en partes iguales, por partes, por porcentaje o por importe, sin que los demás necesiten la app; gastos fijos compartidos con código de invitación; rachas, meta diaria y niveles. Disponible en español, inglés, portugués, francés, alemán e italiano. El total en una moneda y la proyección son parte de Pro. Los datos personales quedan en el teléfono; solo se sincroniza lo que compartís con otros.`,
+    `${SITE.name} es una app para iPhone y Android que todavía no está publicada en las tiendas. Funciones: carga de gastos, ingresos y transferencias con un teclado numérico propio; cuentas en 154 monedas (efectivo, banco, billetera virtual); tarjetas de crédito con resumen, cuotas y aviso antes del vencimiento; búsqueda y filtros de movimientos; categorías y etiquetas; reportes del mes; grupos para dividir gastos en partes iguales, por partes, por porcentaje o por importe, sin que los demás necesiten la app; gastos fijos compartidos con código de invitación; rachas, meta diaria y niveles. Disponible en español, inglés, portugués, francés, alemán e italiano. El total en una moneda y la proyección están incluidos, sin costo. Los datos personales quedan en el teléfono; solo se sincroniza lo que compartís con otros.`,
     '',
     '## Páginas',
     '',
