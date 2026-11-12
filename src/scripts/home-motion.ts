@@ -160,6 +160,17 @@ export function visMotion(kind: string, root: HTMLElement, tl: gsap.core.Timelin
       .fromTo($('.rec-track i', root), { scaleX: 0.5 }, { scaleX: 0.75, duration: 0.8 }, at + 1.2)
       .add(() => { nico.dataset.s = 'reported'; nico.textContent = 'Informó que pagó'; }, at + 2.0)
       .fromTo(nico, { scale: 0.85 }, { scale: 1, duration: 0.5, ease: 'back.out(3)' }, at + 2.0);
+  } else if (kind === 'upcoming') {
+    // the salary lands: its due line flips to received
+    const pay = $('.up-pay', root);
+    const due = $('.up-due', pay);
+    tl.add(() => { pay.classList.remove('got'); due.textContent = 'Llega en 3 días'; }, 0.01)
+      .from($$('.up-row', root), { autoAlpha: 0, y: 14, stagger: 0.12, duration: 0.6 }, at)
+      .add(() => { pay.classList.add('got'); due.textContent = 'Cobrado hoy'; }, at + 1.5)
+      .fromTo(pay, { scale: 0.97 }, { scale: 1, duration: 0.5, ease: 'back.out(3)' }, at + 1.5);
+  } else if (kind === 'alerts') {
+    // the inbox fills from the bottom up, so the newest alert ends on top
+    tl.from($$('.al-row', root).reverse(), { autoAlpha: 0, y: -16, stagger: 0.35, duration: 0.7 }, at);
   }
   return null;
 }

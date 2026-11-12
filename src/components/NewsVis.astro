@@ -82,7 +82,7 @@ const BARS = [['May', 0.7], ['Jun', 0.76], ['Jul', 0.94], ['Ago', 1], ['Sep', 0.
   <div class="rep-head"><span class="rep-tabs"><span class="on">Gastos</span><span>Ingresos</span><span>Neto</span></span><span class="rep-cmp num">Septiembre <b>$ 574.100</b><em><svg class="i"><use href="#i-arrow-down"/></svg><span class="rep-pct">12</span>% vs. agosto</em></span></div>
   <div class="rep-chart"><div class="rep-track">
     {BARS.map(([m, h], i) => (
-      <span class:list={['rb', { sel: m === 'Sep', proj: i === BARS.length - 1 }]}><i style={`--h:${h}`}></i><small>{m}{i === BARS.length - 1 && <em>Pro</em>}</small></span>
+      <span class:list={['rb', { sel: m === 'Sep', proj: i === BARS.length - 1 }]}><i style={`--h:${h}`}></i><small>{m}</small></span>
     ))}
   </div></div>
 )}
@@ -119,5 +119,22 @@ const BARS = [['May', 0.7], ['Jun', 0.76], ['Jul', 0.94], ['Ago', 1], ['Sep', 0.
     <li><span class="avatar" style="background:#FFE2EC;color:#BD1F70">M</span><b>Mamá</b><span class="tag" data-s="paid">Pagado</span></li>
     <li><span class="avatar" style="background:#EBE8FF;color:#6F3AD3">J</span><b>Juli</b><span class="tag rec-juli" data-s="paid">Pagado</span></li>
     <li><span class="avatar" style="background:#E9E9E9;color:#45545A">N</span><b>Nico</b><span class="tag rec-nico" data-s="reported">Informó que pagó</span></li>
+  </ul>
+)}
+
+{kind === 'upcoming' && (
+  <div class="up-head"><b>Pendientes</b><span class="tag" data-s="pending">3 esta semana</span></div>
+  <ul class="up-list">
+    <li class="up-row up-pay"><span class="badge" style="background:#D6F4DE;color:#1A9C58"><svg class="i"><use href="#i-briefcase"/></svg></span><span class="row-main"><b>Sueldo</b><span class="up-due">Llega en 3 días</span></span><b class="num up-in">+$ 1.250.000</b></li>
+    <li class="up-row"><span class="badge" style="background:#EBE8FF;color:#6F3AD3"><svg class="i"><use href="#i-home"/></svg></span><span class="row-main"><b>Alquiler</b><span>Vence el 10</span></span><b class="num">−$ 320.000</b></li>
+    <li class="up-row"><span class="badge" style="background:#E1ECFF;color:#2F6FE4"><svg class="i"><use href="#i-play-box-multiple"/></svg></span><span class="row-main"><b>Streaming</b><span>Compartido · Tu parte</span></span><b class="num">−$ 2.400</b></li>
+  </ul>
+)}
+
+{kind === 'alerts' && (
+  <ul class="al-list">
+    <li class="al-row"><span class="avatar" style="background:#FFE5D7;color:#A75000">S</span><span class="row-main"><b>Viaje</b><span>Sofi cargó $ 23.180</span></span><small>ahora</small></li>
+    <li class="al-row"><span class="avatar" style="background:#E1ECFF;color:#0E4FC2">T</span><span class="row-main"><b>Tomi</b><span>Se unió a Viaje</span></span><small>2 min</small></li>
+    <li class="al-row"><span class="badge" style="background:#E1ECFF;color:#2F6FE4"><svg class="i"><use href="#i-play-box-multiple"/></svg></span><span class="row-main"><b>Streaming en familia</b><span>$ 2.400 · vence el 10</span></span><small>hoy</small></li>
   </ul>
 )}
